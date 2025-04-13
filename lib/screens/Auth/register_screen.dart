@@ -296,7 +296,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //   // validator: _validateCity,
                 //   showAsterisk: true,
                 // ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 CitySearchField(
                   controller: _cityCodeController,
                   labelText: "City",
@@ -310,7 +312,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   hintText: 'register_page.birth_date_hint'.tr,
                   dateFrom: DateTime(1990, 1, 1), // Example: Minimum date
                   dateTo: DateTime.now(), // Example: Maximum date (today)
-                  validator: _validateDate,
+                  // validator: _validateDate,
                 ),
                 // Custtxtfield(
                 //   controller: _carModelController,

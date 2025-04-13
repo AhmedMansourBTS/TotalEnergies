@@ -72,7 +72,7 @@ class _CitySearchFieldState extends State<CitySearchField> {
                     setState(() {
                       results = _cities.where((c) {
                         return c.cityName.toLowerCase().startsWith(query) ||
-                               c.cityArabicName.startsWith(query);
+                            c.cityArabicName.startsWith(query);
                       }).toList();
                     });
                   },
@@ -95,7 +95,8 @@ class _CitySearchFieldState extends State<CitySearchField> {
                               ),
                               onTap: () {
                                 widget.controller.text =
-                                    Directionality.of(context) != TextDirection.rtl
+                                    Directionality.of(context) !=
+                                            TextDirection.rtl
                                         ? city.cityName
                                         : city.cityArabicName;
                                 Navigator.pop(context);
@@ -139,9 +140,8 @@ class _CitySearchFieldState extends State<CitySearchField> {
           readOnly: true,
           onTap: _openSearchDialog,
           decoration: InputDecoration(
-            label: widget.showAsterisk
-                ? formattedLabel
-                : Text(widget.labelText),
+            label:
+                widget.showAsterisk ? formattedLabel : Text(widget.labelText),
             hintText: widget.hintText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
@@ -156,7 +156,7 @@ class _CitySearchFieldState extends State<CitySearchField> {
             padding: const EdgeInsets.only(top: 5),
             child: Text(
               "Loading cities...",
-              style: TextStyle(fontSize: 12, color: Colors.white),
+              style: TextStyle(fontSize: 12, color: Colors.black),
             ),
           ),
       ],

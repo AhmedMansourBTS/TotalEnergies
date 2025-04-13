@@ -19,6 +19,7 @@ class RedeemPromoDetailsScreen extends StatefulWidget {
 
 class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
   int custserial = 0;
+  int? selectedStation;
 
   void loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -119,9 +120,18 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            StationDropdown(
-              onChanged: (selectedStation) {
-                print("Selected Station: ${selectedStation?.stationName}");
+            // StationDropdown(
+            //   onChanged: (selectedStation) {
+            //     print("Selected Station: ${selectedStation?.stationName}");
+            //   },
+            // ),
+            StationsDropdown(
+              selectedStation: selectedStation,
+              onChanged: (value) {
+                setState(() {
+                  selectedStation = value;
+                });
+                print("Selected station: $value");
               },
             ),
             const SizedBox(height: 20),
@@ -130,11 +140,10 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Get.to(() => QRPage(
-                    //     customerId: custserial,
-                    //     eventId: widget.promotion.promotionDetails[0]
-                    //         .promotionEventSerial));
-                    Get.to(() => QRPage());
+                    // Get.to(() => QRPage());
+                    Get.to(() => QRPage(
+                        customerId: custserial,
+                        eventId: widget.promotion.serial));
                   },
                   style: ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(primaryColor),

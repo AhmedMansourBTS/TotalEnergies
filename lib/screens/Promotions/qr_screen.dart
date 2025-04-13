@@ -50,110 +50,17 @@
 //   }
 // }
 
-import 'package:flutter/material.dart';
-import 'package:total_energies/core/constant/colors.dart';
-import 'package:total_energies/models/get_qr_model.dart';
-import 'package:total_energies/services/get_qr_service.dart';
-
-class QRPage extends StatefulWidget {
-  const QRPage({super.key});
-
-  @override
-  _QRPageState createState() => _QRPageState();
-}
-
-class _QRPageState extends State<QRPage> {
-  String? base64Image;
-  String? fileName;
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchQRCode();
-  }
-
-  void fetchQRCode() async {
-    try {
-      final service = QRService();
-      final response = await service.generateQR(
-        GenerateQRRequest(customerId: 113, eventId: 1074),
-      );
-
-      setState(() {
-        base64Image = response.image;
-        fileName = response.fileName;
-        isLoading = false;
-      });
-    } catch (e) {
-      print('Error: $e');
-      setState(() => isLoading = false);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      appBar: AppBar(
-        backgroundColor: backgroundColor,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 15),
-          child: Row(
-            children: [
-              SizedBox(
-                height: kToolbarHeight,
-                child: Image.asset(
-                  "assets/images/logo.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(
-                height: kToolbarHeight,
-                child: Image.asset(
-                  "assets/images/ADNOC logo1.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: Center(
-        child: isLoading
-            ? CircularProgressIndicator()
-            : base64Image != null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.memory(
-                        Uri.parse(base64Image!).data!.contentAsBytes(),
-                        width: 300,
-                        height: 300,
-                      ),
-                      SizedBox(height: 10),
-                      // Text(fileName ?? '', style: TextStyle(fontSize: 16)),
-                    ],
-                  )
-                : Text('Failed to load QR'),
-      ),
-    );
-  }
-}
-
+// QR code works well but with constant serials
 // import 'package:flutter/material.dart';
+// import 'package:total_energies/core/constant/colors.dart';
 // import 'package:total_energies/models/get_qr_model.dart';
 // import 'package:total_energies/services/get_qr_service.dart';
 
 // class QRPage extends StatefulWidget {
-//   final int customerId;
-//   final int eventId;
-
-//   const QRPage({Key? key, required this.customerId, required this.eventId})
-//       : super(key: key);
+//   const QRPage({super.key});
 
 //   @override
-//   State<QRPage> createState() => _QRPageState();
+//   _QRPageState createState() => _QRPageState();
 // }
 
 // class _QRPageState extends State<QRPage> {
@@ -171,8 +78,7 @@ class _QRPageState extends State<QRPage> {
 //     try {
 //       final service = QRService();
 //       final response = await service.generateQR(
-//         GenerateQRRequest(
-//             customerId: widget.customerId, eventId: widget.eventId),
+//         GenerateQRRequest(customerId: 121, eventId: 1073),
 //       );
 
 //       setState(() {
@@ -189,7 +95,31 @@ class _QRPageState extends State<QRPage> {
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: AppBar(title: Text("QR Generator")),
+//       backgroundColor: backgroundColor,
+//       appBar: AppBar(
+//         backgroundColor: backgroundColor,
+//         title: Padding(
+//           padding: const EdgeInsets.only(top: 15),
+//           child: Row(
+//             children: [
+//               SizedBox(
+//                 height: kToolbarHeight,
+//                 child: Image.asset(
+//                   "assets/images/logo.png",
+//                   fit: BoxFit.contain,
+//                 ),
+//               ),
+//               SizedBox(
+//                 height: kToolbarHeight,
+//                 child: Image.asset(
+//                   "assets/images/ADNOC logo1.png",
+//                   fit: BoxFit.contain,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
 //       body: Center(
 //         child: isLoading
 //             ? CircularProgressIndicator()
@@ -199,11 +129,11 @@ class _QRPageState extends State<QRPage> {
 //                     children: [
 //                       Image.memory(
 //                         Uri.parse(base64Image!).data!.contentAsBytes(),
-//                         width: 200,
-//                         height: 200,
+//                         width: 300,
+//                         height: 300,
 //                       ),
 //                       SizedBox(height: 10),
-//                       Text(fileName ?? '', style: TextStyle(fontSize: 16)),
+//                       // Text(fileName ?? '', style: TextStyle(fontSize: 16)),
 //                     ],
 //                   )
 //                 : Text('Failed to load QR'),
@@ -211,3 +141,74 @@ class _QRPageState extends State<QRPage> {
 //     );
 //   }
 // }
+
+import 'package:flutter/material.dart';
+import 'package:total_energies/models/get_qr_model.dart';
+import 'package:total_energies/services/get_qr_service.dart';
+
+class QRPage extends StatefulWidget {
+  final int customerId;
+  final int eventId;
+
+  const QRPage({Key? key, required this.customerId, required this.eventId})
+      : super(key: key);
+
+  @override
+  State<QRPage> createState() => _QRPageState();
+}
+
+class _QRPageState extends State<QRPage> {
+  String? base64Image;
+  String? fileName;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchQRCode();
+  }
+
+  void fetchQRCode() async {
+    try {
+      final service = QRService();
+      final response = await service.generateQR(
+        GenerateQRRequest(
+            customerId: widget.customerId, eventId: widget.eventId),
+      );
+
+      setState(() {
+        base64Image = response.image;
+        fileName = response.fileName;
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error: $e');
+      setState(() => isLoading = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("QR Generator")),
+      body: Center(
+        child: isLoading
+            ? CircularProgressIndicator()
+            : base64Image != null
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.memory(
+                        Uri.parse(base64Image!).data!.contentAsBytes(),
+                        width: 300,
+                        height: 300,
+                      ),
+                      // SizedBox(height: 10),
+                      // Text(fileName ?? '', style: TextStyle(fontSize: 16)),
+                    ],
+                  )
+                : Text('Failed to load QR'),
+      ),
+    );
+  }
+}
