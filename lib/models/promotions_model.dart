@@ -10,6 +10,7 @@ class PromotionsModel {
   final String eventArDescription;
   final bool? happyHoursYN;
   final int? qrMaxUsage;
+  final int? remainingUsage;
   final List<int>? stations;
   final List<PromotionDetail> promotionDetails;
 
@@ -25,6 +26,7 @@ class PromotionsModel {
     required this.eventArDescription,
     required this.happyHoursYN,
     required this.qrMaxUsage,
+    required this.remainingUsage,
     required this.stations,
     required this.promotionDetails,
   });
@@ -49,6 +51,7 @@ class PromotionsModel {
       eventArDescription: json['eventArDescription'] ?? '',
       happyHoursYN: json['happyHoursYN'] ?? false,
       qrMaxUsage: json['qrMaxUsage'] ?? 0,
+      remainingUsage: json['remainingUsage'] ?? 0,
       stations: List<int>.from(json["stations"].map((x) => x)),
       promotionDetails: (json["promotionDetails"] as List)
           .map((e) => PromotionDetail.fromJson(e))

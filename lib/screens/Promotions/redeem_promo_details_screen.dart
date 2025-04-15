@@ -110,7 +110,8 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                       style:
                           const TextStyle(fontSize: 18, color: Colors.black)),
                   ActivityIndicator(
-                      completed: 0, total: widget.promotion.qrMaxUsage ?? 0),
+                      completed: widget.promotion.remainingUsage ?? 0,
+                      total: widget.promotion.qrMaxUsage ?? 0),
                 ],
               ),
             ),

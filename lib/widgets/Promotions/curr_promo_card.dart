@@ -78,7 +78,7 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
             child: Stack(
               children: [
                 // imageWidget('http://92.204.139.204:4335' + widget.imagepath),
-                imageWidget(widget.imagepath??''),
+                imageWidget(widget.imagepath ?? ''),
                 // text
                 Positioned(
                   bottom: 0,
@@ -103,12 +103,14 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.description,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
+                            Expanded(
+                              child: Text(
+                                widget.description,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
@@ -132,11 +134,18 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(
-                                  "${widget.used} / ${widget.total}",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "${widget.used} / ${widget.total}",
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],

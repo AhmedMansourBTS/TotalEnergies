@@ -48,10 +48,14 @@ class RoundImageRow extends StatelessWidget {
           ),
           SizedBox(width: 10), // Space between image and text
           // Text beside the image
-          Text(
-            text,
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          Expanded(
+            child: Text(
+              text,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
           ),
         ],
       ),

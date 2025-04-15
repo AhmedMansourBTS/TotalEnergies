@@ -67,7 +67,7 @@ class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
                       startDate: promo.startDate,
                       endDate: promo.endDate,
                       total: promo.qrMaxUsage,
-                      used: 0,
+                      used: promo.remainingUsage,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -85,7 +85,7 @@ class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
                       startDate: promo.startDate,
                       endDate: promo.endDate,
                       total: promo.qrMaxUsage,
-                      used: 0,
+                      used: promo.remainingUsage,
                       onTap: () {
                         Navigator.push(
                           context,

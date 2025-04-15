@@ -168,7 +168,7 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
                       style:
                           const TextStyle(fontSize: 18, color: Colors.black)),
                   const SizedBox(height: 10),
-                  Text('Max Usage Times : ${widget.promotion.qrMaxUsage}',
+                  Text('Max Users : ${widget.promotion.maxParticipants}',
                       style:
                           const TextStyle(fontSize: 18, color: Colors.black)),
                 ],

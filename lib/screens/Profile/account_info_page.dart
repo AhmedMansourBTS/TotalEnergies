@@ -118,7 +118,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(email, style: TextStyle(fontSize: 18)),
+                      Expanded(
+                          child: Text(email, style: TextStyle(fontSize: 18))),
                       Icon(Icons.email_outlined)
                     ],
                   ),
@@ -161,12 +162,14 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Change language",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Text(
+                      "Change language",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Container(
-                    alignment: Alignment.centerRight,
                     child: TranslateButton(),
                   ),
                 ],
