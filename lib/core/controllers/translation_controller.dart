@@ -89,6 +89,7 @@ class TranslationController extends Translations {
           'edit_profile.email': 'Email',
           'profile_page.acc_info': 'Account Information',
           'profile_page.acc_history': 'Previous Promotions',
+          'profile_page.change_lang': 'Change language',
           // App Bar
           'app_bar.hi_txt': 'Hi',
           // Promotions page
@@ -106,7 +107,17 @@ class TranslationController extends Translations {
           'stations_page.no_stations': 'No stations available',
           // promotions Details
           'promotion_det_page.select_station': 'Selected Station:',
-          'promotion_det_page.activity': 'Activity: ',
+          'promotion_det_page.activity': 'Remaining: ',
+          'promotion_det_page.max_user': 'Maximum users : ',
+          // current card
+          'curr_card.activity': 'The remaining times : ',
+          'curr_card.start_date': 'Start date : ',
+          'curr_card.end_date': 'End date : ',
+          // all card
+          'all_card.apply': 'Apply >> ',
+          'all_card.start_date': 'Start date : ',
+          'all_card.end_date': 'End date : ',
+          'all_card.apply_btn': 'Apply',
         },
         'ar_AE': {
           // Login Page
@@ -194,6 +205,7 @@ class TranslationController extends Translations {
           'edit_profile.email': 'بريد إلكتروني',
           'profile_page.acc_info': 'بيانات الحساب',
           'profile_page.acc_history': 'العروض المنهية',
+          'profile_page.change_lang': 'غير اللغة',
           // App Bar
           'app_bar.hi_txt': 'أهلاً',
           // Promotions page
@@ -211,7 +223,17 @@ class TranslationController extends Translations {
           'stations_page.no_stations': 'لا توجد محطات',
           // promotions Details
           'promotion_det_page.select_station': 'اختر محطة: ',
-          'promotion_det_page.activity': 'نشاط: ',
+          'promotion_det_page.activity': 'باقي : ',
+          'promotion_det_page.max_user': 'اقصي عدد للمستخدمين : ',
+          // current card
+          'curr_card.activity': 'المرات المتبقية : ',
+          'curr_card.start_date': 'تاريخ البداية :',
+          'curr_card.end_date': 'تاريخ الانتهاء : ',
+          // all card
+          'all_card.apply': 'سجل الان >>',
+          'all_card.start_date':  'تاريخ البداية :',
+          'all_card.end_date': 'تاريخ الانتهاء : ',
+          'all_card.apply_btn': 'سجل',
         },
       };
 }

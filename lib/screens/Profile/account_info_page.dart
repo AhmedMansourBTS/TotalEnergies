@@ -164,7 +164,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 children: [
                   Expanded(
                     child: Text(
-                      "Change language",
+                      "profile_page.change_lang".tr,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),

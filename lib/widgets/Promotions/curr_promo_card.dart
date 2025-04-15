@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:total_energies/core/constant/colors.dart';
 
 class CurrPromoCard extends StatefulWidget {
@@ -10,7 +11,7 @@ class CurrPromoCard extends StatefulWidget {
   final DateTime? endDate;
   final IconData? icon;
   final int? total;
-  final int? used;
+  final int? remained;
   final VoidCallback onTap; // New parameter
   final String? promodet;
 
@@ -24,7 +25,7 @@ class CurrPromoCard extends StatefulWidget {
     this.endDate,
     this.icon,
     this.total,
-    this.used,
+    this.remained,
     required this.onTap, // New parameter
     this.promodet,
   });
@@ -115,43 +116,57 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
                           ],
                         ),
                         const SizedBox(height: 4),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
                           children: [
                             Text(
-                              "Start Date: ${widget.startDate.toString().split(' ')[0]}",
-                              // "Start Date: ${widget.startDate}",
+                              "all_card.start_date".tr,
                               style: const TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.bold),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "End Date: ${widget.endDate.toString().split(' ')[0]}",
-                                  // "End Date: ${widget.endDate}",
-                                  style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "${widget.used} / ${widget.total}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              widget.startDate.toString().split(' ')[0],
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
+                        Row(
+                          children: [
+                            Text(
+                              "all_card.end_date".tr,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              widget.endDate.toString().split(' ')[0],
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'curr_card.activity'.tr,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "${widget.remained} / ${widget.total}",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),

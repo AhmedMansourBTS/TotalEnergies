@@ -158,19 +158,46 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
                       style:
                           const TextStyle(fontSize: 18, color: Colors.black)),
                   const SizedBox(height: 10),
-                  Text(
-                      "Start Date: ${widget.promotion.startDate.toString().split(' ')[0]}",
-                      style:
-                          const TextStyle(fontSize: 18, color: Colors.black)),
+                  Row(
+                    children: [
+                      Text(
+                        "all_card.start_date".tr,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        widget.promotion.startDate.toString().split(' ')[0],
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                   const SizedBox(height: 10),
-                  Text(
-                      'End date: ${widget.promotion.endDate.toString().split(' ')[0]}',
-                      style:
-                          const TextStyle(fontSize: 18, color: Colors.black)),
+                  Row(
+                    children: [
+                      Text(
+                        "all_card.end_date".tr,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        widget.promotion.endDate.toString().split(' ')[0],
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                   const SizedBox(height: 10),
-                  Text('Max Users : ${widget.promotion.maxParticipants}',
-                      style:
-                          const TextStyle(fontSize: 18, color: Colors.black)),
+                  Row(
+                    children: [
+                      Text("promotion_det_page.max_user".tr,
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.black)),
+                      Text("${widget.promotion.maxParticipants}",
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.black))
+                    ],
+                  )
                 ],
               ),
             ),
@@ -186,7 +213,7 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
                   ),
                   child: _isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : Text("Apply",
+                      : Text("all_card.apply_btn".tr,
                           style: const TextStyle(
                               color: btntxtColors, fontSize: 20)),
                 ),

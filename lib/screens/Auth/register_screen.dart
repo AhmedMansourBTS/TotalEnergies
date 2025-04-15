@@ -303,7 +303,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _birthDateController,
                   labelText: 'register_page.birth_date_label'.tr,
                   hintText: 'register_page.birth_date_hint'.tr,
-                  dateFrom: DateTime(1990, 1, 1), // Example: Minimum date
+                  dateFrom: DateTime(1930, 1, 1), // Example: Minimum date
                   dateTo: DateTime.now(), // Example: Maximum date (today)
                   // validator: _validateDate,
                 ),
