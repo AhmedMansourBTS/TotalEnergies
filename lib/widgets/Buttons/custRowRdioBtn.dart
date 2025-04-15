@@ -12,7 +12,7 @@ class Custrowrdiobtn extends FormField<String> {
   }) : super(
           builder: (FormFieldState<String> state) {
             return Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
+              margin: EdgeInsets.symmetric(vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

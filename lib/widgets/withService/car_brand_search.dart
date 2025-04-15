@@ -135,34 +135,37 @@ class _CarBrandSearchFieldState extends State<CarBrandSearchField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextFormField(
-          controller: widget.controller,
-          readOnly: true,
-          onTap: _openSearchDialog,
-          decoration: InputDecoration(
-            label:
-                widget.showAsterisk ? formattedLabel : Text(widget.labelText),
-            hintText: widget.hintText,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: txtfieldborderColor),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextFormField(
+            controller: widget.controller,
+            readOnly: true,
+            onTap: _openSearchDialog,
+            decoration: InputDecoration(
+              label:
+                  widget.showAsterisk ? formattedLabel : Text(widget.labelText),
+              hintText: widget.hintText,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color: txtfieldborderColor),
+              ),
+              suffixIcon: Icon(Icons.arrow_drop_down, color: primaryColor),
             ),
-            suffixIcon: Icon(Icons.arrow_drop_down, color: primaryColor),
+            validator: widget.validator,
           ),
-          validator: widget.validator,
-        ),
-        if (_isLoading)
-          Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: Text(
-              "Loading car brands...",
-              style: TextStyle(fontSize: 12, color: Colors.white),
+          if (_isLoading)
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Text(
+                "Loading car brands...",
+                style: TextStyle(fontSize: 12, color: Colors.white),
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

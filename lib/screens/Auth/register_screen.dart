@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:total_energies/core/constant/colors.dart';
-import 'package:total_energies/models/car_brands_model.dart';
 import 'package:total_energies/services/user_service.dart';
 import 'package:total_energies/widgets/Buttons/trnslt_btn.dart';
-import 'package:total_energies/widgets/withService/car_brand_dropdown.dart';
 import 'package:total_energies/widgets/withService/car_brand_search.dart';
 import 'package:total_energies/widgets/auth/custCnfrmPassField.dart';
 import 'package:total_energies/widgets/auth/custDateField.dart';
 import 'package:total_energies/widgets/auth/phone.dart';
 import 'package:total_energies/widgets/auth/textWithCheckbox.dart';
-import 'package:total_energies/widgets/withService/custCityDrpDwn.dart';
 import 'package:total_energies/widgets/auth/custPassField.dart';
 import 'package:total_energies/widgets/Buttons/custRowRdioBtn.dart';
 import 'package:total_energies/widgets/auth/custTxtField.dart';
@@ -296,16 +293,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //   // validator: _validateCity,
                 //   showAsterisk: true,
                 // ),
-                SizedBox(
-                  height: 10,
-                ),
                 CitySearchField(
                   controller: _cityCodeController,
                   labelText: "City",
                   hintText: "Select your city",
                   showAsterisk: true, // Show * if required
                 ),
-                SizedBox(height: 20),
                 CustDatePickerField(
                   controller: _birthDateController,
                   labelText: 'register_page.birth_date_label'.tr,
@@ -352,9 +345,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   validator: _validateConfirmPassword,
                   showAsterisk: true,
                 ),
-                Text(
-                  "Password: 1 upper letter + 1 small letter + minimum length 8",
-                  style: TextStyle(color: Colors.red, fontSize: 12),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.symmetric(vertical: 12),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Password: ",
+                        style: TextStyle(color: Colors.red, fontSize: 12),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "1 upper letter + 1 small letter + minimum length 8",
+                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          softWrap: true,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 TextWithCheckbox(
                   text: 'register_page.term&cond'.tr,

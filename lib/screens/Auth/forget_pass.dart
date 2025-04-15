@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/services/user_service.dart';
+import 'package:total_energies/widgets/auth/custOtpField.dart';
 import 'package:total_energies/widgets/auth/header.dart';
-import 'package:total_energies/widgets/auth/custTxtField.dart';
 import 'package:total_energies/widgets/auth/phone.dart';
 
 class ForgetPass extends StatefulWidget {
@@ -55,44 +55,45 @@ class _ForgetPassState extends State<ForgetPass> {
         backgroundColor: backgroundColor,
         iconTheme: IconThemeData(color: appbariconColors),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Header(Title: 'forget_page.title'.tr),
-              CustPhoneField(
-                controller: _phoneController,
-                labelText: 'forget_page.phone_no'.tr,
-                hintText: 'forget_page.phone_no_hint'.tr,
-                initialCountryCode: "EG",
-                validator: _validatePhone,
-              ),
-              if (_showOtpField) ...[
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Header(Title: 'forget_page.title'.tr),
+                CustPhoneField(
+                  controller: _phoneController,
+                  labelText: 'forget_page.phone_no'.tr,
+                  hintText: 'forget_page.phone_no_hint'.tr,
+                  initialCountryCode: "EG",
+                  validator: _validatePhone,
+                ),
+                if (_showOtpField) ...[
+                  SizedBox(height: 10),
+                  Custotpfield(
+                    controller: _otpController,
+                    labelText: 'forget_page.otp_label'.tr,
+                    hintText: 'forget_page.otp_hint'.tr,
+                    // validator: _validateEmail,
+                    // prefixIcon: Icons.mail,
+                  ),
+                ],
                 SizedBox(height: 10),
-                Custtxtfield(
-                  controller: _otpController,
-                  labelText: 'forget_page.otp_label'.tr,
-                  hintText: 'forget_page.otp_hint'.tr,
-                  keyboardType: TextInputType.emailAddress,
-                  // validator: _validateEmail,
-                  // prefixIcon: Icons.mail,
+                ElevatedButton(
+                  onPressed: sendOtp,
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(primaryColor),
+                  ),
+                  child: Text(
+                    'btn.forget_page_forget_btn'.tr,
+                    style: TextStyle(color: btntxtColors, fontSize: 20),
+                  ),
                 ),
               ],
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: sendOtp,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(primaryColor),
-                ),
-                child: Text(
-                  'btn.forget_page_forget_btn'.tr,
-                  style: TextStyle(color: btntxtColors, fontSize: 20),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

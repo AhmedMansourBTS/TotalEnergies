@@ -143,6 +143,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/get_qr_model.dart';
 import 'package:total_energies/services/get_qr_service.dart';
 
@@ -150,8 +151,7 @@ class QRPage extends StatefulWidget {
   final int customerId;
   final int eventId;
 
-  const QRPage({Key? key, required this.customerId, required this.eventId})
-      : super(key: key);
+  const QRPage({super.key, required this.customerId, required this.eventId});
 
   @override
   State<QRPage> createState() => _QRPageState();
@@ -190,7 +190,9 @@ class _QRPageState extends State<QRPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("QR Generator")),
+      backgroundColor: backgroundColor,
+      appBar:
+          AppBar(backgroundColor: backgroundColor, title: Text("QR Generator")),
       body: Center(
         child: isLoading
             ? CircularProgressIndicator()

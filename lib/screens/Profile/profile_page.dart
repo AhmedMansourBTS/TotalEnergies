@@ -76,8 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: EdgeInsets.symmetric(
                       horizontal: 20, vertical: 12), // Button padding
                   shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(10), // Rounded corners
+                    borderRadius: BorderRadius.circular(10), // Rounded corners
                   ),
                 ),
                 child: Text("btn.logout".tr),
