@@ -78,11 +78,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     print(Res.body);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-          backgroundColor: Colors.lightGreen,
-          content: Text(
-            success == 200 ? 'register_page.success_verification'.tr : mess,
-            style: TextStyle(fontSize: 18),
-          )),
+        backgroundColor: success == 200 ? Colors.green : Colors.red,
+        content: Text(
+          success == 200 ? 'register_page.success_verification'.tr : mess,
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
     );
 
     if (success == 200) Navigator.pop(context);
