@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/screens/Profile/profile_page.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -53,27 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         // iconTheme: IconThemeData(color: Colors.white),
-        title: Row(
-          children: [
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/ADNOC logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-          ],
-        ),
+        title: LogoRow(),
       ),
       body: Padding(
         padding: EdgeInsets.all(20.0),

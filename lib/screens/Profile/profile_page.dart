@@ -5,6 +5,7 @@ import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/screens/Auth/loginPage.dart';
 import 'package:total_energies/screens/Promotions/old_promotions_page.dart';
 import 'package:total_energies/screens/Profile/account_info_page.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -49,23 +50,24 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: backgroundColor,
           title: Row(
             children: [
-              SizedBox(
-                height: kToolbarHeight - 25,
-                child: Image.asset(
-                  "assets/images/logo1.1.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              SizedBox(
-                height: kToolbarHeight - 25,
-                child: Image.asset(
-                  "assets/images/ADNOC logo1.1.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
+              // SizedBox(
+              //   height: kToolbarHeight - 25,
+              //   child: Image.asset(
+              //     "assets/images/logo1.1.png",
+              //     fit: BoxFit.contain,
+              //   ),
+              // ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              // SizedBox(
+              //   height: kToolbarHeight - 25,
+              //   child: Image.asset(
+              //     "assets/images/ADNOC logo1.1.png",
+              //     fit: BoxFit.contain,
+              //   ),
+              // ),
+              LogoRow(),
               const Spacer(),
               ElevatedButton(
                 onPressed: logout,

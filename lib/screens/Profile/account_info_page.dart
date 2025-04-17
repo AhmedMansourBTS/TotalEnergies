@@ -6,6 +6,7 @@ import 'package:total_energies/screens/Profile/edit_profile_screen.dart';
 import 'package:total_energies/screens/Auth/loginPage.dart';
 import 'package:total_energies/widgets/Buttons/editImg.dart';
 import 'package:total_energies/widgets/Buttons/trnslt_btn.dart';
+import 'package:total_energies/widgets/profile/acc_info.dart';
 
 class AccountInfoPage extends StatefulWidget {
   const AccountInfoPage({super.key});
@@ -63,102 +64,27 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 text: 'profile_page.acc_inf'.tr,
                 icon: Icons.edit,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('profile_page.name'.tr, style: TextStyle(fontSize: 18)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(name, style: TextStyle(fontSize: 18)),
-                      Icon(Icons.person_2_outlined)
-                    ],
-                  ),
-                ],
+              ProfileInfoTile(
+                labelText: 'profile_page.name'.tr,
+                valueText: name,
+                icon: Icons.person_2_outlined,
               ),
-              Container(
-                color: Colors.white,
-                height: 3,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 15),
+              ProfileInfoTile(
+                labelText: 'profile_page.phone_number'.tr,
+                valueText: phoneno,
+                icon: Icons.phone_outlined,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('profile_page.phone_number'.tr,
-                      style: TextStyle(fontSize: 18)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(phoneno, style: TextStyle(fontSize: 18)),
-                      Icon(Icons.phone_outlined)
-                    ],
-                  ),
-                ],
+              ProfileInfoTile(
+                labelText: 'profile_page.email'.tr,
+                valueText: email,
+                icon: Icons.email_outlined,
               ),
-              Container(
-                color: Colors.white,
-                height: 3,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 15),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('profile_page.email'.tr, style: TextStyle(fontSize: 18)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                          child: Text(email, style: TextStyle(fontSize: 18))),
-                      Icon(Icons.email_outlined)
-                    ],
-                  ),
-                ],
-              ),
-              Container(
-                color: Colors.white,
-                height: 3,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 15),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("User Serial", style: TextStyle(fontSize: 18)),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("$serial", style: TextStyle(fontSize: 18)),
-                      Icon(Icons.security)
-                    ],
-                  ),
-                ],
-              ),
-              Container(
-                color: Colors.white,
-                height: 3,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 15),
+              ProfileInfoTile(
+                labelText: "User Serial",
+                valueText: "$serial",
+                icon: Icons.security,
               ),
               SizedBox(height: 20),
-              // Container(
-              //   alignment: Alignment.centerRight,
-              //   child: TranslateButton(),
-              // ),
-              // SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

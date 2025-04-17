@@ -113,39 +113,5 @@ class _HeaderState extends State<Header> {
         ),
       ],
     );
-    // Column(
-    //   children: [
-    //     Row(
-    //       children: [
-    //         Expanded(
-    //           child: Center(
-    //             child: Image.asset(
-    //               "assets/images/logo.png",
-    //               // width: 250,
-    //             ),
-    //           ),
-    //         ),
-    //         Expanded(
-    //           child: Center(
-    //             child: Image.asset(
-    //               "assets/images/logo1.png",
-    //               // width: 250,
-    //             ),
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //     SizedBox(
-    //       height: 20,
-    //     ),
-    //     Container(
-    //       margin: const EdgeInsets.only(bottom: 40),
-    //       child: Text(
-    //         widget.Title, // Access widget.title instead of Title
-    //         style: TextStyle(fontSize: 25, color: inputTextColor),
-    //       ),
-    //     ),
-    //   ],
-    // );
   }
 }

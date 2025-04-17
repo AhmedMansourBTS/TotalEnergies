@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/services/user_service.dart';
 import 'package:total_energies/widgets/Buttons/trnslt_btn.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 import 'package:total_energies/widgets/withService/car_brand_search.dart';
 import 'package:total_energies/widgets/auth/custCnfrmPassField.dart';
 import 'package:total_energies/widgets/auth/custDateField.dart';
@@ -215,23 +216,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
         iconTheme: IconThemeData(color: appbariconColors),
         title: Row(
           children: [
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/ADNOC logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
+            // SizedBox(
+            //   height: kToolbarHeight - 25,
+            //   child: Image.asset(
+            //     "assets/images/logo1.1.png",
+            //     fit: BoxFit.contain,
+            //   ),
+            // ),
+            // SizedBox(
+            //   width: 10,
+            // ),
+            // SizedBox(
+            //   height: kToolbarHeight - 25,
+            //   child: Image.asset(
+            //     "assets/images/ADNOC logo1.1.png",
+            //     fit: BoxFit.contain,
+            //   ),
+            // ),
+            LogoRow(),
             const Spacer(),
             TranslateButton()
           ],

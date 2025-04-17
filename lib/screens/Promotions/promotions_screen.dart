@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/screens/Promotions/all_promotions_page.dart';
 import 'package:total_energies/screens/Promotions/current_promotions_page.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class PromotionsScreen extends StatefulWidget {
   const PromotionsScreen({super.key});
@@ -38,23 +39,24 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
           backgroundColor: backgroundColor,
           title: Row(
             children: [
-              SizedBox(
-                height: kToolbarHeight - 25,
-                child: Image.asset(
-                  "assets/images/logo1.1.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              SizedBox(
-                height: kToolbarHeight - 25,
-                child: Image.asset(
-                  "assets/images/ADNOC logo1.1.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
+              // SizedBox(
+              //   height: kToolbarHeight - 25,
+              //   child: Image.asset(
+              //     "assets/images/logo1.1.png",
+              //     fit: BoxFit.contain,
+              //   ),
+              // ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              // SizedBox(
+              //   height: kToolbarHeight - 25,
+              //   child: Image.asset(
+              //     "assets/images/ADNOC logo1.1.png",
+              //     fit: BoxFit.contain,
+              //   ),
+              // ),
+              LogoRow(),
               const Spacer(),
               Column(
                 children: [
