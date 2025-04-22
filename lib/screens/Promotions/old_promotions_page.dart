@@ -98,7 +98,6 @@
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/exp_promo_model.dart';
-import 'package:total_energies/models/promotions_model.dart';
 import 'package:total_energies/screens/Promotions/exp_promo_det.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_exp_promo_service.dart';
@@ -137,7 +136,7 @@ class _OldPromotionsPageState extends State<OldPromotionsPage> {
             return const Center(
                 child: Text(
               'You dont have expired promotions',
-              style: TextStyle(color: Colors.red, fontSize: 20),
+              style: TextStyle(color: Colors.red, fontSize: 18),
             ));
           }
 

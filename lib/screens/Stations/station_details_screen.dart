@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/stations_model.dart';
+import 'package:total_energies/widgets/stations/maps.dart';
 
 class StationDetailsScreen extends StatelessWidget {
   final StationModel station;
@@ -10,7 +11,9 @@ class StationDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(station.stationName)),
+      backgroundColor: backgroundColor,
+      appBar: AppBar(
+          backgroundColor: backgroundColor, title: Text(station.stationName)),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -30,6 +33,11 @@ class StationDetailsScreen extends StatelessWidget {
             SizedBox(height: 8),
             Text("Active: ${station.activeYN == true ? 'Yes' : 'No'}",
                 style: TextStyle(fontSize: 18)),
+            SizedBox(height: 8),
+            OpenMapLinkButton(
+              label: 'Open Location in Google Maps',
+              mapUrl: station.stationAdress ?? '',
+            ),
           ],
         ),
       ),

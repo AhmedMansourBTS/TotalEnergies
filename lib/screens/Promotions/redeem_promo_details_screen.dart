@@ -167,9 +167,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
-import 'package:total_energies/models/promotions_model.dart';
 import 'package:total_energies/screens/Promotions/qr_screen.dart';
 import 'package:total_energies/widgets/Promotions/activity_indicator.dart';
+import 'package:total_energies/widgets/stations/maps.dart';
 import 'package:total_energies/widgets/withService/custStationDrpDwn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -323,13 +323,18 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                 print("Selected station: $value");
               },
             ),
+            // const SizedBox(height: 20),
+            // OpenMapLinkButton(
+            //   label: 'Get station directions',
+            //   mapUrl: selectedStation?.stationAdress ?? '',
+            // ),
             const SizedBox(height: 20),
             Center(
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if ((widget.promotion.remainingUsage ?? 0) == 0) {
+                    if ((widget.promotion.remainingUsage) == 0) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(

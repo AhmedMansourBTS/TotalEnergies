@@ -14,6 +14,7 @@ class AllPromoCard extends StatefulWidget {
   final int? used;
   final VoidCallback onTap; // New parameter
   final String? promodet;
+  final bool isDisabled;
 
   const AllPromoCard({
     super.key,
@@ -28,6 +29,7 @@ class AllPromoCard extends StatefulWidget {
     this.used,
     required this.onTap, // New parameter
     this.promodet,
+    this.isDisabled = false,
   });
 
   @override
@@ -70,6 +72,7 @@ class _AllPromoCardState extends State<AllPromoCard> {
         margin: const EdgeInsets.symmetric(vertical: 10),
         child: Card(
           color: Colors.grey,
+          // color: widget.isDisabled ? Colors.grey.shade400 : Colors.white,
           elevation: 5,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -80,6 +83,13 @@ class _AllPromoCardState extends State<AllPromoCard> {
               children: [
                 // imageWidget('http://92.204.139.204:4335' + widget.imagepath),
                 imageWidget(widget.imagepath),
+                // Grey overlay if isDisabled == false
+                if (!widget.isDisabled)
+                  Positioned.fill(
+                    child: Container(
+                      color: const Color.fromARGB(150, 0, 0, 0),
+                    ),
+                  ),
                 // text
                 Positioned(
                   bottom: 0,
@@ -154,21 +164,43 @@ class _AllPromoCardState extends State<AllPromoCard> {
                                     )
                                   ],
                                 ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "all_card.apply".tr,
-                                        style: TextStyle(
-                                          color: primaryColor,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
+                                if (!widget.isDisabled)
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        const Icon(
+                                          Icons.check_circle,
+                                          color: Colors.green,
+                                          size: 28,
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
+                                if (widget.isDisabled)
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          widget.isDisabled
+                                              ? "all_card.apply".tr
+                                              : "Applied",
+                                          style: widget.isDisabled
+                                              ? TextStyle(
+                                                  color: primaryColor,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                )
+                                              : TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                               ],
                             )
                           ],

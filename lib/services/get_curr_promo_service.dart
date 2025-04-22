@@ -36,7 +36,6 @@
 // import 'package:http/http.dart' as http;
 // import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:total_energies/models/curr_promo_model.dart';
-// import 'package:total_energies/models/promotions_model.dart';
 
 // class GetCurrPromoService {
 //   final String baseUrl =

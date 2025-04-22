@@ -119,6 +119,7 @@ import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/exp_promo_model.dart';
 import 'package:total_energies/widgets/Promotions/activity_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class ExpPromoDet extends StatefulWidget {
   final ExpiredPromoModel promotion;
@@ -151,27 +152,7 @@ class _ExpPromoDetState extends State<ExpPromoDet> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        title: Row(
-          children: [
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/ADNOC logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-          ],
-        ),
+        title: LogoRow(),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -217,8 +198,9 @@ class _ExpPromoDetState extends State<ExpPromoDet> {
                       style:
                           const TextStyle(fontSize: 18, color: Colors.black)),
                   ActivityIndicator(
-                    left: widget.promotion.qrMaxUsage ?? 0,
-                    total: widget.promotion.qrMaxUsage ?? 0, title: 'Usage times',
+                    left: widget.promotion.qrMaxUsage,
+                    total: widget.promotion.qrMaxUsage,
+                    title: 'Usage times',
                   ),
                 ],
               ),
