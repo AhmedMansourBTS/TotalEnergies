@@ -98,10 +98,12 @@
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
+import 'package:total_energies/models/exp_promo_model.dart';
 import 'package:total_energies/models/promotions_model.dart';
 import 'package:total_energies/screens/Promotions/apply_to_promo_det.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/curr_promo_service.dart';
+import 'package:total_energies/services/exp_promo_service.dart';
 import 'package:total_energies/services/promotions_service.dart';
 import 'package:total_energies/widgets/Promotions/all_promo_card.dart';
 
@@ -115,6 +117,7 @@ class AllPromotionsPage extends StatefulWidget {
 class _AllPromotionsPageState extends State<AllPromotionsPage> {
   late Future<List<PromotionsModel>> _futureAllPromos;
   late Future<List<CurrPromoModel>> _futureCurrPromos;
+  late Future<List<ExpiredPromoModel>> _futureExpPromos;
   final PromotionsService _promotionsService = PromotionsService();
 
   @override
@@ -122,6 +125,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
     super.initState();
     _futureAllPromos = PromotionsService().getPromotions();
     _futureCurrPromos = GetCurrPromoService().getCurrPromotion();
+    _futureExpPromos = ExpiredPromoService().getExpiredPromotions();
   }
 
   @override
@@ -129,7 +133,8 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: FutureBuilder<List<dynamic>>(
-        future: Future.wait([_futureAllPromos, _futureCurrPromos]),
+        future: Future.wait(
+            [_futureAllPromos, _futureCurrPromos, _futureExpPromos]),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: LoadingScreen());
@@ -139,18 +144,23 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
 
           List<PromotionsModel> allPromos = snapshot.data![0];
           List<CurrPromoModel> currPromos = snapshot.data![1];
+          List<ExpiredPromoModel> expPromos = snapshot.data![2];
 
           // Ensure both are int (or both are string)
           Set<int> currPromoSerials =
               currPromos.map((e) => int.parse(e.serial.toString())).toSet();
+          Set<int> expPromoSerials =
+              expPromos.map((e) => int.parse(e.serial.toString())).toSet();
 
           return ListView.builder(
             padding: const EdgeInsets.all(10),
             itemCount: allPromos.length,
             itemBuilder: (context, index) {
               final promo = allPromos[index];
-              final isDisabled = !currPromoSerials.contains(promo.serial);
-              print("Promo serial: ${promo.serial} | isDisabled: $isDisabled");
+              final isAvailable = !currPromoSerials.contains(promo.serial);
+              final isexp = !expPromoSerials.contains(promo.serial);
+              print(
+                  "Promo serial: ${promo.serial} | isAvailable: $isAvailable | isexp: $isexp");
               return AllPromoCard(
                 serial: promo.serial,
                 imagepath: promo.imagePath ?? '',
@@ -165,7 +175,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                 promodet: promo.promotionDetails.isNotEmpty
                     ? promo.promotionDetails[0].promotionCode
                     : "N/A",
-                onTap: isDisabled
+                onTap: isAvailable || isexp
                     ? () {
                         Navigator.push(
                           context,
@@ -176,7 +186,8 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                         );
                       }
                     : () {},
-                isDisabled: isDisabled, // ← add this parameter
+                isAvailable: isAvailable,
+                isexp: isexp, // ← add this parameter
               );
             },
           );
