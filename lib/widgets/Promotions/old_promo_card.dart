@@ -1,3 +1,167 @@
+// import 'package:flutter/material.dart';
+// import 'package:total_energies/core/constant/colors.dart';
+
+// class OldPromoCard extends StatefulWidget {
+//   final int? serial;
+//   final String imagepath;
+//   final String title;
+//   final String description;
+//   final DateTime? startDate;
+//   final DateTime? endDate;
+//   final IconData? icon;
+//   final int? total;
+//   final int? used;
+//   final VoidCallback onTap; // New parameter
+//   final String? promodet;
+
+//   const OldPromoCard({
+//     super.key,
+//     this.serial,
+//     required this.imagepath,
+//     required this.title,
+//     required this.description,
+//     this.startDate,
+//     this.endDate,
+//     this.icon,
+//     this.total,
+//     this.used,
+//     required this.onTap, // New parameter
+//     this.promodet,
+//   });
+
+//   @override
+//   _OldPromoCardState createState() => _OldPromoCardState();
+// }
+
+// final String baseUrl = "http://92.204.139.204:4335";
+
+// class _OldPromoCardState extends State<OldPromoCard> {
+//   Widget imageWidget(String imageUrl) {
+//     imageUrl = imageUrl.replaceAll("\\", "/");
+//     print('$baseUrl$imageUrl');
+//     return Image.network(
+//       '$baseUrl/$imageUrl',
+//       // 'http://92.204.139.204:4335//Event//1073//Profile.Jpg',
+//       width: double.infinity,
+//       height: 350,
+//       fit: BoxFit.cover,
+//       loadingBuilder: (context, child, loadingProgress) {
+//         if (loadingProgress == null) return child;
+//         return Center(
+//             child: CircularProgressIndicator()); // Show loader while loading
+//       },
+//       errorBuilder: (context, error, stackTrace) {
+//         return Image.asset(
+//           'assets/images/logo.png', // Fallback image
+//           width: double.infinity,
+//           height: 320,
+//           fit: BoxFit.cover,
+//         );
+//       },
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: widget.onTap, // Handle navigation when tapped
+//       child: Container(
+//         margin: const EdgeInsets.symmetric(vertical: 10),
+//         child: Card(
+//           color: Colors.grey,
+//           elevation: 5,
+//           shape: RoundedRectangleBorder(
+//             borderRadius: BorderRadius.circular(10),
+//           ),
+//           child: ClipRRect(
+//             borderRadius: BorderRadius.circular(10),
+//             child: Stack(
+//               children: [
+//                 // imageWidget('http://92.204.139.204:4335' + widget.imagepath),
+//                 imageWidget(widget.imagepath),
+//                 // text
+//                 Positioned(
+//                   bottom: 0,
+//                   left: 0,
+//                   right: 0,
+//                   child: Container(
+//                     padding:
+//                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+//                     color: Colors.white,
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           widget.title,
+//                           style: const TextStyle(
+//                             color: primaryColor,
+//                             fontSize: 20,
+//                             fontWeight: FontWeight.bold,
+//                           ),
+//                         ),
+//                         const SizedBox(height: 4),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               widget.description,
+//                               style: const TextStyle(
+//                                   color: Colors.black,
+//                                   fontSize: 14,
+//                                   fontWeight: FontWeight.bold),
+//                             ),
+//                           ],
+//                         ),
+//                         const SizedBox(height: 4),
+//                         Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             Text(
+//                               "Start Date: ${widget.startDate.toString().split(' ')[0]}",
+//                               // "Start Date: ${widget.startDate}",
+//                               style: const TextStyle(
+//                                   fontSize: 14, fontWeight: FontWeight.bold),
+//                             ),
+//                             Text(
+//                               "End Date: ${widget.endDate.toString().split(' ')[0]}",
+//                               // "End Date: ${widget.endDate}",
+//                               style: const TextStyle(
+//                                   fontSize: 14, fontWeight: FontWeight.bold),
+//                             )
+//                           ],
+//                         ),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               "Used times",
+//                               style: const TextStyle(
+//                                 fontSize: 16,
+//                                 fontWeight: FontWeight.bold,
+//                               ),
+//                             ),
+//                             Text(
+//                               "${widget.used} / ${widget.total}",
+//                               style: const TextStyle(
+//                                 fontSize: 16,
+//                                 fontWeight: FontWeight.bold,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 
@@ -11,8 +175,13 @@ class OldPromoCard extends StatefulWidget {
   final IconData? icon;
   final int? total;
   final int? used;
-  final VoidCallback onTap; // New parameter
+  final VoidCallback onTap;
   final String? promodet;
+
+  // You can control heights here easily
+  final double cardHeight;
+  final double imageFlex;
+  final double descriptionFlex;
 
   const OldPromoCard({
     super.key,
@@ -25,8 +194,11 @@ class OldPromoCard extends StatefulWidget {
     this.icon,
     this.total,
     this.used,
-    required this.onTap, // New parameter
+    required this.onTap,
     this.promodet,
+    this.cardHeight = 400, // default card height
+    this.imageFlex = 1, // default ratio for image
+    this.descriptionFlex = 1, // default ratio for description
   });
 
   @override
@@ -41,20 +213,16 @@ class _OldPromoCardState extends State<OldPromoCard> {
     print('$baseUrl$imageUrl');
     return Image.network(
       '$baseUrl/$imageUrl',
-      // 'http://92.204.139.204:4335//Event//1073//Profile.Jpg',
       width: double.infinity,
-      height: 350,
       fit: BoxFit.cover,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
-        return Center(
-            child: CircularProgressIndicator()); // Show loader while loading
+        return const Center(child: CircularProgressIndicator());
       },
       errorBuilder: (context, error, stackTrace) {
         return Image.asset(
-          'assets/images/logo.png', // Fallback image
+          'assets/images/logo.png',
           width: double.infinity,
-          height: 320,
           fit: BoxFit.cover,
         );
       },
@@ -64,9 +232,10 @@ class _OldPromoCardState extends State<OldPromoCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap, // Handle navigation when tapped
+      onTap: widget.onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
+        height: widget.cardHeight, // fixed card height
         child: Card(
           color: Colors.grey,
           elevation: 5,
@@ -75,21 +244,22 @@ class _OldPromoCardState extends State<OldPromoCard> {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Stack(
+            child: Column(
               children: [
-                // imageWidget('http://92.204.139.204:4335' + widget.imagepath),
-                imageWidget(widget.imagepath),
-                // text
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
+                Expanded(
+                  flex: widget.imageFlex.toInt(),
+                  child: imageWidget(widget.imagepath),
+                ),
+                Expanded(
+                  flex: widget.descriptionFlex.toInt(),
                   child: Container(
+                    width: double.infinity,
+                    color: Colors.white,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           widget.title,
@@ -100,48 +270,41 @@ class _OldPromoCardState extends State<OldPromoCard> {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.description,
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        Text(
+                          widget.description,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 4),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Start Date: ${widget.startDate.toString().split(' ')[0]}",
-                              // "Start Date: ${widget.startDate}",
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              "End Date: ${widget.endDate.toString().split(' ')[0]}",
-                              // "End Date: ${widget.endDate}",
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
+                        if (widget.startDate != null &&
+                            widget.endDate != null) ...[
+                          Text(
+                            "Start Date: ${widget.startDate.toString().split(' ')[0]}",
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "End Date: ${widget.endDate.toString().split(' ')[0]}",
+                            style: const TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                        const SizedBox(height: 4),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Used times",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              "${widget.used} / ${widget.total}",
+                              "${widget.used ?? 0} / ${widget.total ?? 0}",
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
