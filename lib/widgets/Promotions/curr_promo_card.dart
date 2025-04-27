@@ -241,12 +241,128 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
     );
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return GestureDetector(
+  //     onTap: widget.onTap,
+  //     child: Container(
+  //       height: cardHeight,
+  //       margin: const EdgeInsets.symmetric(vertical: 10),
+  //       child: Card(
+  //         color: Colors.grey,
+  //         elevation: 5,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(10),
+  //         ),
+  //         child: ClipRRect(
+  //           borderRadius: BorderRadius.circular(10),
+  //           child: Column(
+  //             children: [
+  //               Expanded(
+  //                 flex: 6, // 60% for image
+  //                 child: widget.imagepath != null
+  //                     ? imageWidget(widget.imagepath!)
+  //                     : Image.asset('assets/images/logo.png',
+  //                         fit: BoxFit.cover),
+  //               ),
+  //               Expanded(
+  //                 flex: 4, // 40% for description
+  //                 child: Container(
+  //                   width: double.infinity,
+  //                   color: Colors.white,
+  //                   padding:
+  //                       const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       Text(
+  //                         widget.title,
+  //                         style: const TextStyle(
+  //                           color: primaryColor,
+  //                           fontSize: 20,
+  //                           fontWeight: FontWeight.bold,
+  //                         ),
+  //                         maxLines: 1,
+  //                         overflow: TextOverflow.ellipsis,
+  //                       ),
+  //                       const SizedBox(height: 4),
+  //                       Expanded(
+  //                         child: Text(
+  //                           widget.description,
+  //                           style: const TextStyle(
+  //                             color: Colors.black,
+  //                             fontSize: 14,
+  //                             fontWeight: FontWeight.bold,
+  //                           ),
+  //                           maxLines: 2,
+  //                           overflow: TextOverflow.ellipsis,
+  //                         ),
+  //                       ),
+  //                       const SizedBox(height: 4),
+  //                       Row(
+  //                         children: [
+  //                           Text(
+  //                             "all_card.start_date".tr,
+  //                             style: const TextStyle(
+  //                                 fontSize: 12, fontWeight: FontWeight.bold),
+  //                           ),
+  //                           const SizedBox(width: 5),
+  //                           Text(
+  //                             widget.startDate?.toString().split(' ')[0] ?? '',
+  //                             style: const TextStyle(
+  //                                 fontSize: 12, fontWeight: FontWeight.bold),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                       Row(
+  //                         children: [
+  //                           Text(
+  //                             "all_card.end_date".tr,
+  //                             style: const TextStyle(
+  //                                 fontSize: 12, fontWeight: FontWeight.bold),
+  //                           ),
+  //                           const SizedBox(width: 5),
+  //                           Text(
+  //                             widget.endDate?.toString().split(' ')[0] ?? '',
+  //                             style: const TextStyle(
+  //                                 fontSize: 12, fontWeight: FontWeight.bold),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                       const SizedBox(height: 4),
+  //                       Row(
+  //                         children: [
+  //                           Text(
+  //                             'curr_card.activity'.tr,
+  //                             style: const TextStyle(
+  //                                 fontSize: 12, fontWeight: FontWeight.bold),
+  //                           ),
+  //                           const Spacer(),
+  //                           Text(
+  //                             "${widget.remained ?? 0} / ${widget.total ?? 0}",
+  //                             style: const TextStyle(
+  //                                 fontSize: 14, fontWeight: FontWeight.bold),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        height: cardHeight,
+        height: cardHeight, // Example: 400
         margin: const EdgeInsets.symmetric(vertical: 10),
         child: Card(
           color: Colors.grey,
@@ -258,21 +374,27 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
             borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                Expanded(
-                  flex: 6, // 60% for image
+                // 🔵 Fixed height for image
+                SizedBox(
+                  height: 250, // Set a fixed height
+                  width: double.infinity,
                   child: widget.imagepath != null
                       ? imageWidget(widget.imagepath!)
-                      : Image.asset('assets/images/logo.png',
-                          fit: BoxFit.cover),
+                      : Image.asset(
+                          'assets/images/logo.png',
+                          fit: BoxFit.cover,
+                        ),
                 ),
+                // 🟠 Remaining space for description
                 Expanded(
-                  flex: 4, // 40% for description
                   child: Container(
                     width: double.infinity,
                     color: Colors.white,
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment
+                          .spaceEvenly, // ✨ Distribute contents equally
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -285,63 +407,87 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 4),
-                        Expanded(
-                          child: Text(
-                            widget.description,
+                        Text(
+                          widget.description,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        if (widget.startDate != null &&
+                            widget.endDate != null) ...[
+                          Text(
+                            "Start Date: ${widget.startDate.toString().split(' ')[0]}",
                             style: const TextStyle(
-                              color: Colors.black,
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Text(
-                              "all_card.start_date".tr,
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
+                          Text(
+                            "End Date: ${widget.endDate.toString().split(' ')[0]}",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
                             ),
-                            const SizedBox(width: 5),
-                            Text(
-                              widget.startDate?.toString().split(' ')[0] ?? '',
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "all_card.end_date".tr,
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              widget.endDate?.toString().split(' ')[0] ?? '',
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
+                          ),
+                        ],
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       "all_card.start_date".tr,
+                        //       style: const TextStyle(
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //     const SizedBox(width: 5),
+                        //     Text(
+                        //       widget.startDate?.toString().split(' ')[0] ?? '',
+                        //       style: const TextStyle(
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       "all_card.end_date".tr,
+                        //       style: const TextStyle(
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //     const SizedBox(width: 5),
+                        //     Text(
+                        //       widget.endDate?.toString().split(' ')[0] ?? '',
+                        //       style: const TextStyle(
+                        //         fontSize: 14,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         Row(
                           children: [
                             Text(
                               'curr_card.activity'.tr,
                               style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             const Spacer(),
                             Text(
                               "${widget.remained ?? 0} / ${widget.total ?? 0}",
                               style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),

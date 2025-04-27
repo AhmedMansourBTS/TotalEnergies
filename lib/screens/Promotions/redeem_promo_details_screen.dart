@@ -169,6 +169,8 @@ import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
 import 'package:total_energies/screens/Promotions/qr_screen.dart';
 import 'package:total_energies/widgets/Promotions/activity_indicator.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
+import 'package:total_energies/widgets/stations/maps.dart';
 import 'package:total_energies/widgets/withService/custStationDrpDwn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -205,27 +207,7 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        title: Row(
-          children: [
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/ADNOC logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-          ],
-        ),
+        title: LogoRow(),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -322,7 +304,13 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                 print("Selected station: $value");
               },
             ),
-            // const SizedBox(height: 20),
+            const SizedBox(height: 20),
+            Center(
+              child: OpenMapLinkButton(
+                label: 'Get station directions',
+                mapUrl: '',
+              ),
+            ),
             // OpenMapLinkButton(
             //   label: 'Get station directions',
             //   mapUrl: selectedStation?.stationAdress ?? '',

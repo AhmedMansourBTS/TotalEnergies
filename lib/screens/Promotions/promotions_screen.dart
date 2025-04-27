@@ -39,23 +39,6 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
           backgroundColor: backgroundColor,
           title: Row(
             children: [
-              // SizedBox(
-              //   height: kToolbarHeight - 25,
-              //   child: Image.asset(
-              //     "assets/images/logo1.1.png",
-              //     fit: BoxFit.contain,
-              //   ),
-              // ),
-              // SizedBox(
-              //   width: 10,
-              // ),
-              // SizedBox(
-              //   height: kToolbarHeight - 25,
-              //   child: Image.asset(
-              //     "assets/images/ADNOC logo1.1.png",
-              //     fit: BoxFit.contain,
-              //   ),
-              // ),
               LogoRow(),
               const Spacer(),
               Column(

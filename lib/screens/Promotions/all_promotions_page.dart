@@ -95,6 +95,7 @@
 //   }
 // }
 
+// Disable cards based on applied or expired
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
@@ -118,7 +119,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
   late Future<List<PromotionsModel>> _futureAllPromos;
   late Future<List<CurrPromoModel>> _futureCurrPromos;
   late Future<List<ExpiredPromoModel>> _futureExpPromos;
-  final PromotionsService _promotionsService = PromotionsService();
+  // final PromotionsService _promotionsService = PromotionsService();
 
   @override
   void initState() {
@@ -176,7 +177,8 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                     ? promo.promotionDetails[0].promotionCode
                     : "N/A",
                 onTap: isAvailable || isexp
-                    ? () {
+                    ? () {}
+                    : () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -184,8 +186,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                                 ApplyToPromoDet(promotion: promo),
                           ),
                         );
-                      }
-                    : () {},
+                      },
                 isAvailable: isAvailable,
                 isexp: isexp, // ← add this parameter
               );

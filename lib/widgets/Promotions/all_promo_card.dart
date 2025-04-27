@@ -209,7 +209,6 @@
 //   }
 // }
 
-
 // card into two parts
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
@@ -254,6 +253,8 @@ class AllPromoCard extends StatefulWidget {
 final String baseUrl = "http://92.204.139.204:4335";
 
 class _AllPromoCardState extends State<AllPromoCard> {
+  double cardHeight = 400; // You can make this dynamic if you want
+
   Widget imageWidget(String imageUrl) {
     imageUrl = imageUrl.replaceAll("\\", "/");
     print('$baseUrl$imageUrl');
@@ -261,7 +262,6 @@ class _AllPromoCardState extends State<AllPromoCard> {
       '$baseUrl/$imageUrl',
       // 'http://92.204.139.204:4335//Event//1073//Profile.Jpg',
       width: double.infinity,
-      height: 350,
       fit: BoxFit.cover,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
@@ -272,7 +272,6 @@ class _AllPromoCardState extends State<AllPromoCard> {
         return Image.asset(
           'assets/images/logo.png', // Fallback image
           width: double.infinity,
-          height: 320,
           fit: BoxFit.cover,
         );
       },
@@ -284,6 +283,7 @@ class _AllPromoCardState extends State<AllPromoCard> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
+        height: cardHeight, // Example: 400
         margin: const EdgeInsets.symmetric(vertical: 10),
         child: Card(
           color: Colors.grey,
@@ -291,17 +291,16 @@ class _AllPromoCardState extends State<AllPromoCard> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          child: SizedBox(
-            height:
-                350, // 🔥 Fixed total height of the card (you can change easily)
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                // 🔵 Image Part
-                Expanded(
-                  flex: 2, // ✨ Control height ratio: image gets 2 parts
+                // 🔵 Fixed height for image
+                SizedBox(
+                  height: 250,
                   child: ClipRRect(
                     borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(10)),
+                        const BorderRadius.vertical(top: Radius.circular(10)),
                     child: Stack(
                       children: [
                         imageWidget(widget.imagepath),
@@ -315,14 +314,15 @@ class _AllPromoCardState extends State<AllPromoCard> {
                     ),
                   ),
                 ),
-                // 🟠 Description Part
+                // 🟠 Remaining space for description
                 Expanded(
-                  flex: 1, // ✨ Control height ratio: description gets 1 part
                   child: Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     color: Colors.white,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment
+                          .spaceEvenly, // ✨ Distribute content equally
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
@@ -332,21 +332,19 @@ class _AllPromoCardState extends State<AllPromoCard> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 4),
-                        Expanded(
-                          child: Text(
-                            widget.description,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                        Text(
+                          widget.description,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 4),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -362,7 +360,7 @@ class _AllPromoCardState extends State<AllPromoCard> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(width: 4),
+                                    const SizedBox(width: 4),
                                     Text(
                                       widget.startDate
                                               ?.toString()
@@ -384,7 +382,7 @@ class _AllPromoCardState extends State<AllPromoCard> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    SizedBox(width: 4),
+                                    const SizedBox(width: 4),
                                     Text(
                                       widget.endDate
                                               ?.toString()
@@ -400,12 +398,12 @@ class _AllPromoCardState extends State<AllPromoCard> {
                               ],
                             ),
                             if (!widget.isAvailable || !widget.isexp)
-                              Icon(Icons.check_circle,
+                              const Icon(Icons.check_circle,
                                   color: Colors.lightGreen, size: 30),
                             if (widget.isAvailable && widget.isexp)
                               Text(
                                 "all_card.apply".tr,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: primaryColor,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

@@ -229,13 +229,108 @@ class _OldPromoCardState extends State<OldPromoCard> {
     );
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return GestureDetector(
+  //     onTap: widget.onTap,
+  //     child: Container(
+  //       margin: const EdgeInsets.symmetric(vertical: 10),
+  //       height: widget.cardHeight, // fixed card height
+  //       child: Card(
+  //         color: Colors.grey,
+  //         elevation: 5,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(10),
+  //         ),
+  //         child: ClipRRect(
+  //           borderRadius: BorderRadius.circular(10),
+  //           child: Column(
+  //             children: [
+  //               Expanded(
+  //                 flex: widget.imageFlex.toInt(),
+  //                 child: imageWidget(widget.imagepath),
+  //               ),
+  //               Expanded(
+  //                 flex: widget.descriptionFlex.toInt(),
+  //                 child: Container(
+  //                   width: double.infinity,
+  //                   color: Colors.white,
+  //                   padding:
+  //                       const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                     children: [
+  //                       Text(
+  //                         widget.title,
+  //                         style: const TextStyle(
+  //                           color: primaryColor,
+  //                           fontSize: 20,
+  //                           fontWeight: FontWeight.bold,
+  //                         ),
+  //                         maxLines: 1,
+  //                       ),
+  //                       Text(
+  //                         widget.description,
+  //                         style: const TextStyle(
+  //                           color: Colors.black,
+  //                           fontSize: 16,
+  //                           fontWeight: FontWeight.bold,
+  //                         ),
+  //                         maxLines: 1,
+  //                       ),
+  //                       if (widget.startDate != null &&
+  //                           widget.endDate != null) ...[
+  //                         Text(
+  //                           "Start Date: ${widget.startDate.toString().split(' ')[0]}",
+  //                           style: const TextStyle(
+  //                               fontSize: 16, fontWeight: FontWeight.bold),
+  //                         ),
+  //                         Text(
+  //                           "End Date: ${widget.endDate.toString().split(' ')[0]}",
+  //                           style: const TextStyle(
+  //                               fontSize: 16, fontWeight: FontWeight.bold),
+  //                         ),
+  //                       ],
+  //                       const SizedBox(height: 4),
+  //                       Row(
+  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                         children: [
+  //                           const Text(
+  //                             "Used times",
+  //                             style: TextStyle(
+  //                               fontSize: 16,
+  //                               fontWeight: FontWeight.bold,
+  //                             ),
+  //                           ),
+  //                           Text(
+  //                             "${widget.used ?? 0} / ${widget.total ?? 0}",
+  //                             style: const TextStyle(
+  //                               fontSize: 16,
+  //                               fontWeight: FontWeight.bold,
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),
-        height: widget.cardHeight, // fixed card height
+        height: widget.cardHeight, // Fixed card height
         child: Card(
           color: Colors.grey,
           elevation: 5,
@@ -246,20 +341,23 @@ class _OldPromoCardState extends State<OldPromoCard> {
             borderRadius: BorderRadius.circular(10),
             child: Column(
               children: [
-                Expanded(
-                  flex: widget.imageFlex.toInt(),
+                // 🔵 Fixed height for the image
+                SizedBox(
+                  height: 250, // 🔥 Fixed image height
+                  width: double.infinity,
                   child: imageWidget(widget.imagepath),
                 ),
+                // 🟠 Remaining space for description
                 Expanded(
-                  flex: widget.descriptionFlex.toInt(),
                   child: Container(
                     width: double.infinity,
                     color: Colors.white,
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment
+                          .spaceEvenly, // ✨ Distribute contents equally
                       children: [
                         Text(
                           widget.title,
@@ -268,31 +366,36 @@ class _OldPromoCardState extends State<OldPromoCard> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 4),
                         Text(
                           widget.description,
                           style: const TextStyle(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        const SizedBox(height: 4),
                         if (widget.startDate != null &&
                             widget.endDate != null) ...[
                           Text(
                             "Start Date: ${widget.startDate.toString().split(' ')[0]}",
                             style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           Text(
                             "End Date: ${widget.endDate.toString().split(' ')[0]}",
                             style: const TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ],
-                        const SizedBox(height: 4),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

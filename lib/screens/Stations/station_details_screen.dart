@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/stations_model.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 import 'package:total_energies/widgets/stations/maps.dart';
 
 class StationDetailsScreen extends StatelessWidget {
@@ -13,7 +14,9 @@ class StationDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-          backgroundColor: backgroundColor, title: Text(station.stationName)),
+        backgroundColor: backgroundColor,
+        title: LogoRow(),
+      ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(

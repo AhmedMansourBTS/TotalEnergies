@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:total_energies/core/constant/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OpenMapLinkButton extends StatelessWidget {
@@ -30,6 +31,15 @@ class OpenMapLinkButton extends StatelessWidget {
   }
 
   Future<void> _confirmAndLaunchMap(BuildContext context) async {
+    if (mapUrl.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('No station selected. Please select a station first.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
     bool? shouldLaunch = await showModalBottomSheet<bool>(
       context: context,
       shape: RoundedRectangleBorder(
@@ -148,8 +158,31 @@ class OpenMapLinkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      icon: Icon(Icons.map_outlined),
-      label: Text(label),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white, // 🎯 Background color
+        foregroundColor: primaryColor, // 🎯 Icon and text color
+        side: BorderSide(
+          color: primaryColor, // 🎯 Border color
+          width: 2, // 🎯 Border width
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5), // 🎯 Border radius
+        ),
+        elevation: 3, // optional: slight shadow
+        padding: const EdgeInsets.symmetric(
+            horizontal: 20, vertical: 12), // optional: size
+      ),
+      icon: Icon(
+        Icons.map_outlined,
+        color: primaryColor,
+      ),
+      label: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 16,
+          color: primaryColor,
+        ),
+      ),
       onPressed: () => _confirmAndLaunchMap(context),
     );
   }

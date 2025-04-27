@@ -7,10 +7,10 @@ class DashboardPage extends StatelessWidget {
   final double newsHeight;
 
   const DashboardPage({
-    Key? key,
+    super.key,
     this.adsHeight = 150,
     this.newsHeight = 120,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,7 @@ class DashboardPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 20),
             // Part 1 - Ads
             _buildAdsSection(),
 
@@ -46,8 +47,6 @@ class DashboardPage extends StatelessWidget {
 
             // Part 3 - Available Services
             _buildAvailableServices(),
-
-            const SizedBox(height: 20),
 
             // Part 4 - Latest Promotions
             _buildLatestPromos(),
@@ -128,13 +127,13 @@ class DashboardPage extends StatelessWidget {
                   width: 250,
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.blue[100],
+                    color: Colors.lightBlue,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                     child: Text(
                       newsList[index],
-                      style: const TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -179,7 +178,7 @@ class DashboardPage extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      backgroundColor: Colors.blueAccent,
+                      backgroundColor: primaryColor,
                       child: Icon(
                         service['icon'],
                         color: Colors.white,
@@ -228,13 +227,20 @@ class DashboardPage extends StatelessWidget {
             itemCount: promos.length,
             itemBuilder: (context, index) {
               return Card(
+                color: Colors.lightBlue,
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: ListTile(
-                  leading: const Icon(Icons.local_offer),
-                  title: Text(promos[index]),
+                  leading: const Icon(
+                    Icons.local_offer,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    promos[index],
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               );
             },

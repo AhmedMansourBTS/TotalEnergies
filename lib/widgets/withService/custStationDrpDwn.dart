@@ -114,7 +114,6 @@
 //     _fetchStations();
 //   }
 
-
 //   Future<void> _fetchStations() async {
 //     try {
 //       List<PromotionsModel> stations = await _stationService.getPromotions();
@@ -229,9 +228,13 @@ class _StationsDropdownState extends State<StationsDropdown> {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<int>(
       value: widget.selectedStation,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         labelText: "Select Station",
-        border: OutlineInputBorder(),
+        hintText: "Choose Station",
+        labelStyle: TextStyle(fontWeight: FontWeight.bold),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
       ),
       items: stationIds.map((stationId) {
         return DropdownMenuItem<int>(
@@ -250,4 +253,3 @@ class _StationsDropdownState extends State<StationsDropdown> {
     );
   }
 }
-

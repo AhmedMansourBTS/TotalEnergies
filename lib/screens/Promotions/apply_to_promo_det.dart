@@ -6,6 +6,7 @@ import 'package:total_energies/models/promotions_model.dart';
 // import 'package:total_energies/widgets/withService/custStationDrpDwn.dart';
 import 'package:total_energies/services/register_to_promotion_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class ApplyToPromoDet extends StatefulWidget {
   final PromotionsModel promotion;
@@ -102,27 +103,7 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        title: Row(
-          children: [
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            SizedBox(
-              height: kToolbarHeight - 25,
-              child: Image.asset(
-                "assets/images/ADNOC logo1.1.png",
-                fit: BoxFit.contain,
-              ),
-            ),
-          ],
-        ),
+        title: LogoRow(),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
