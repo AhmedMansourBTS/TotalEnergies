@@ -103,58 +103,6 @@ class OpenMapLinkButton extends StatelessWidget {
       await _launchMap();
     }
   }
-
-  // Future<void> _confirmAndLaunchMap(BuildContext context) async {
-  //   bool? shouldLaunch = await showDialog<bool>(
-  //     context: context,
-  //     barrierDismissible: false, // force user to choose
-  //     builder: (context) => AlertDialog(
-  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-  //       title: Column(
-  //         children: [
-  //           Icon(Icons.map_outlined, size: 50, color: Colors.blueAccent),
-  //           SizedBox(height: 10),
-  //           Text(
-  //             'Open Google Maps?',
-  //             textAlign: TextAlign.center,
-  //             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //           ),
-  //         ],
-  //       ),
-  //       content: Text(
-  //         'You are about to leave this app and open Google Maps.\nDo you want to continue?',
-  //         textAlign: TextAlign.center,
-  //         style: TextStyle(fontSize: 16),
-  //       ),
-  //       actionsAlignment: MainAxisAlignment.spaceEvenly,
-  //       actions: [
-  //         OutlinedButton(
-  //           style: OutlinedButton.styleFrom(
-  //             side: BorderSide(color: Colors.redAccent),
-  //             shape: RoundedRectangleBorder(
-  //                 borderRadius: BorderRadius.circular(10)),
-  //           ),
-  //           onPressed: () => Navigator.pop(context, false),
-  //           child: Text('Cancel', style: TextStyle(color: Colors.redAccent)),
-  //         ),
-  //         ElevatedButton(
-  //           style: ElevatedButton.styleFrom(
-  //             backgroundColor: Colors.green,
-  //             shape: RoundedRectangleBorder(
-  //                 borderRadius: BorderRadius.circular(10)),
-  //           ),
-  //           onPressed: () => Navigator.pop(context, true),
-  //           child: Text('Continue', style: TextStyle(color: Colors.white)),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-
-  //   if (shouldLaunch == true) {
-  //     await _launchMap();
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(

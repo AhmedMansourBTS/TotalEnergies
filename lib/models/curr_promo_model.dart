@@ -11,8 +11,16 @@ class CurrPromoModel {
   final bool happyHoursYN;
   final int qrMaxUsage;
   final int remainingUsage;
+  final int usedTimes;
   final List<int> stations;
+  final List<String> stationAddresses;
   final List<PromotionDetail> promotionDetails;
+  final String? fromTime;
+  final String? toTime;
+  final int? categoryId;
+  final dynamic
+      promoGroupsRels; // If you don't know the structure, keep it dynamic
+  final dynamic file; // Same here
 
   CurrPromoModel({
     required this.serial,
@@ -27,8 +35,15 @@ class CurrPromoModel {
     required this.happyHoursYN,
     required this.qrMaxUsage,
     required this.remainingUsage,
+    required this.usedTimes,
     required this.stations,
+    required this.stationAddresses,
     required this.promotionDetails,
+    this.fromTime,
+    this.toTime,
+    this.categoryId,
+    this.promoGroupsRels,
+    this.file,
   });
 
   factory CurrPromoModel.fromJson(Map<String, dynamic> json) {
@@ -45,10 +60,17 @@ class CurrPromoModel {
       happyHoursYN: json['happyHoursYN'],
       qrMaxUsage: json['qrMaxUsage'],
       remainingUsage: json['remainingUsage'],
+      usedTimes: json['usedTimes'],
       stations: List<int>.from(json['stations']),
+      stationAddresses: List<String>.from(json['stationAddresses']),
       promotionDetails: (json['promotionDetails'] as List)
           .map((e) => PromotionDetail.fromJson(e))
           .toList(),
+      fromTime: json['fromTime'],
+      toTime: json['toTime'],
+      categoryId: json['categoryId'],
+      promoGroupsRels: json['promoGroupsRels'],
+      file: json['file'],
     );
   }
 }
