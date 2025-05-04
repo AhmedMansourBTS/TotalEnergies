@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:total_energies/core/constant/colors.dart';
@@ -50,15 +52,19 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
       );
 
       if (response.statusCode == 200) {
+        final decoded = jsonDecode(response.body);
+        final success = decoded['success'] == true; // Ensure it's a boolean
+        final message = decoded['message'] ?? 'No message provided';
+
         Get.snackbar(
-          "Success",
-          "Registered successfully!",
+          success ? "Success" : "Failed",
+          message.toString(),
           duration: Duration(seconds: 5),
-          backgroundColor: Colors.green,
+          backgroundColor: success ? Colors.green : Colors.red,
           colorText: Colors.white,
           mainButton: TextButton(
             onPressed: () {
-              Get.closeCurrentSnackbar(); // Closes the snackbar
+              Get.closeCurrentSnackbar();
             },
             child: Icon(Icons.close, color: Colors.white),
           ),
@@ -66,7 +72,8 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
       } else {
         Get.snackbar(
           "Error",
-          "Failed to register. Try again.",
+          // "Failed to register. Try again.",
+          response.body,
           backgroundColor: Colors.red,
           colorText: Colors.white,
           mainButton: TextButton(

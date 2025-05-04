@@ -141,7 +141,8 @@ class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No promotions available.'));
+            return const Center(
+                child: Text('You dont\'t have applied promotions'));
           }
 
           List<CurrPromoModel> promotions = snapshot.data!;

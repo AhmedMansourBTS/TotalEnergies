@@ -336,6 +336,8 @@ import 'package:total_energies/widgets/auth/header.dart';
 import 'package:total_energies/widgets/auth/custPassField.dart';
 import 'package:total_energies/widgets/auth/phone.dart';
 import 'package:total_energies/widgets/Buttons/trnslt_btn.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:geolocator/geolocator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -352,70 +354,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final LoginService apiService = LoginService();
 
-  // void login() async {
-  //   // Check if the form is valid before proceeding
-  //   if (!_formKey.currentState!.validate()) {
-  //     return; // Stop execution if validation fails
-  //   }
+  Future<void> requestLocationPermissionAndGetPosition() async {
+    // Request permission
+    PermissionStatus permission = await Permission.location.request();
 
-  //   // Show loading screen
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false, // Prevent dismissing by tapping outside
-  //     builder: (context) => LoadingScreen(),
-  //   );
-
-  //   LoginModel user = LoginModel(
-  //     userName: _usernameController.text,
-  //     password: _passwordController.text,
-  //   );
-
-  //   var Res = await apiService.loginuser(user);
-  //   int success = Res.statusCode;
-  //   String mess = Res.body;
-
-  //   // Navigator.pop(context); // Hide loading screen
-
-  //   // Decode the JSON response
-  //   var responseData = jsonDecode(mess); // Converts JSON string into a Map
-  //   String name = responseData['name'];
-  //   String gender = responseData['gender'];
-  //   String email = responseData['email'];
-  //   int serial = responseData['serial'];
-
-  //   // Navigate to Profile Page
-  //   if (success == 200) {
-  //     Navigator.pop(context);
-  //     print(Res.body);
-  //     SharedPreferences prefs = await SharedPreferences.getInstance();
-  //     prefs.setString('username', name);
-  //     prefs.setString('phoneno', user.userName);
-  //     prefs.setString('gender', gender);
-  //     prefs.setString('email', email);
-  //     prefs.setInt('serial', serial);
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => HomeScreen()),
-  //     );
-  //   } else {
-  //     Navigator.pop(context);
-  //     String errorMessage =
-  //         responseData['message'] ?? 'An error occurred. Please try again.';
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         backgroundColor: Colors.redAccent,
-  //         content: Text(
-  //           errorMessage,
-  //           style: TextStyle(fontSize: 18),
-  //         ),
-  //       ),
-  //     );
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => LoginScreen()),
-  //     );
-  //   }
-  // }
+    if (permission == PermissionStatus.granted) {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      print("User location: ${position.latitude}, ${position.longitude}");
+    } else {
+      print("Location permission denied");
+    }
+  }
 
   void login() async {
     if (!_formKey.currentState!.validate()) {
@@ -450,6 +401,8 @@ class _LoginScreenState extends State<LoginScreen> {
         prefs.setString('gender', responseData['gender']);
         prefs.setString('email', responseData['email']);
         prefs.setInt('serial', responseData['serial']);
+
+        await requestLocationPermissionAndGetPosition();
 
         Navigator.pushReplacement(
           context,

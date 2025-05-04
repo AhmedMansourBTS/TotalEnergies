@@ -60,6 +60,7 @@ class _HeaderState extends State<Header> {
   double opacity = 0.0;
   double leftLogoPosition = -200;
   double rightLogoPosition = -200;
+  double topLogoPosition = -200;
 
   @override
   void initState() {
@@ -70,6 +71,7 @@ class _HeaderState extends State<Header> {
         opacity = 1.0;
         leftLogoPosition = 0; // Move to center
         rightLogoPosition = 0; // Move to center
+        topLogoPosition = 0; // Move to center
       });
     });
   }
@@ -86,23 +88,23 @@ class _HeaderState extends State<Header> {
               AnimatedPositioned(
                 duration: Duration(seconds: 2),
                 curve: Curves.easeInOut,
-                left: leftLogoPosition,
+                top: topLogoPosition,
                 child: Image.asset(
                   "assets/images/logo.png",
-                  width: 200,
+                  width: 250,
                   // height: 100,
                 ),
               ),
-              AnimatedPositioned(
-                duration: Duration(seconds: 2),
-                curve: Curves.easeInOut,
-                right: rightLogoPosition,
-                child: Image.asset(
-                  "assets/images/ADNOC logo1.png",
-                  width: 200,
-                  height: 100,
-                ),
-              ),
+              // AnimatedPositioned(
+              //   duration: Duration(seconds: 2),
+              //   curve: Curves.easeInOut,
+              //   right: rightLogoPosition,
+              //   child: Image.asset(
+              //     "assets/images/ADNOC logo1.png",
+              //     width: 200,
+              //     height: 100,
+              //   ),
+              // ),
             ],
           ),
         ),

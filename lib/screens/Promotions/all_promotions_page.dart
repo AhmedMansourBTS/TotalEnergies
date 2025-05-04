@@ -177,8 +177,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                     ? promo.promotionDetails[0].promotionCode
                     : "N/A",
                 onTap: isAvailable || isexp
-                    ? () {}
-                    : () {
+                    ? () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -186,7 +185,8 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                                 ApplyToPromoDet(promotion: promo),
                           ),
                         );
-                      },
+                      }
+                    : () {},
                 isAvailable: isAvailable,
                 isexp: isexp, // ← add this parameter
               );

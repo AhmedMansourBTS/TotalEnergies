@@ -139,7 +139,7 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
                         Row(
                           children: [
                             Text(
-                              '${'curr_card.activity'.tr}',
+                              'curr_card.activity'.tr,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,

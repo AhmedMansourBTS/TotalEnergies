@@ -110,11 +110,11 @@ class _CustCityDropdownState extends State<CustCityDropdown> {
               ),
               items: _cities.map((CityModel city) {
                 return DropdownMenuItem<String>(
-                  value: city.serial.toString(),
+                  value: city.cityId.toString(),
                   child: Text(
                     Directionality.of(context) != TextDirection.rtl
                         ? city.cityName
-                        : city.cityArabicName,
+                        : city.cityName,
                     style: TextStyle(color: inputTextColor),
                   ),
                 );

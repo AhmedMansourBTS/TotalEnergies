@@ -6,7 +6,7 @@ class PromotionsService {
   // final String apiUrl =
   //     "http://92.204.139.204:4335/api/PromotionEvent/GetValidPromotion";
   final String apiUrl =
-      "https://www.besttopsystems.net:4336/api/PromotionEvent/GetValidPromotion";
+      "https://www.besttopsystems.net:4336/api/PromotionEvent/GetValidPromotions";
 
   Future<List<PromotionsModel>> getPromotions() async {
     final response = await http.get(Uri.parse(apiUrl));

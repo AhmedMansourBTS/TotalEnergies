@@ -95,7 +95,7 @@ class _AllPromoCardState extends State<AllPromoCard> {
                         if (!widget.isAvailable || !widget.isexp)
                           Positioned.fill(
                             child: Container(
-                              color: const Color.fromARGB(150, 0, 0, 0),
+                              color: const Color.fromARGB(110, 0, 0, 0),
                             ),
                           ),
                       ],

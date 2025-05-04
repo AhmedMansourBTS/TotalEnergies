@@ -1,66 +1,16 @@
 // import 'package:flutter/material.dart';
 // import 'package:total_energies/core/constant/colors.dart';
-// import 'package:total_energies/models/promotions_model.dart';
-
-// class QrScreen extends StatelessWidget {
-//   final PromotionsModel promotion;
-
-//   const QrScreen({super.key, required this.promotion});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: backgroundColor,
-//       appBar: AppBar(
-//         backgroundColor: backgroundColor,
-//         title: Padding(
-//           padding: const EdgeInsets.only(top: 15),
-//           child: Row(
-//             children: [
-//               SizedBox(
-//                 height: kToolbarHeight,
-//                 child: Image.asset(
-//                   "assets/images/logo.png",
-//                   fit: BoxFit.contain,
-//                 ),
-//               ),
-//               SizedBox(
-//                 height: kToolbarHeight,
-//                 child: Image.asset(
-//                   "assets/images/ADNOC logo1.png",
-//                   fit: BoxFit.contain,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(12.0),
-//         child: Center(
-//           // child: promotion.imagePath == null || promotion.imagePath == ''
-//           //     ? Image.network(promotion.imagePath ?? '')
-//           //     : Image.asset("assets/images/logo.png"),
-//           child: promotion.imagePath == null || promotion.imagePath == ''
-//               ? Image.asset("assets/images/logo.png")
-//               : Image.network(promotion.imagePath ?? ''),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// QR code works well but with constant serials
-// import 'package:flutter/material.dart';
-// import 'package:total_energies/core/constant/colors.dart';
 // import 'package:total_energies/models/get_qr_model.dart';
 // import 'package:total_energies/services/get_qr_service.dart';
 
 // class QRPage extends StatefulWidget {
-//   const QRPage({super.key});
+//   final int customerId;
+//   final int eventId;
+
+//   const QRPage({super.key, required this.customerId, required this.eventId});
 
 //   @override
-//   _QRPageState createState() => _QRPageState();
+//   State<QRPage> createState() => _QRPageState();
 // }
 
 // class _QRPageState extends State<QRPage> {
@@ -78,7 +28,8 @@
 //     try {
 //       final service = QRService();
 //       final response = await service.generateQR(
-//         GenerateQRRequest(customerId: 121, eventId: 1073),
+//         GenerateQRRequest(
+//             customerId: widget.customerId, eventId: widget.eventId),
 //       );
 
 //       setState(() {
@@ -96,30 +47,8 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       backgroundColor: backgroundColor,
-//       appBar: AppBar(
-//         backgroundColor: backgroundColor,
-//         title: Padding(
-//           padding: const EdgeInsets.only(top: 15),
-//           child: Row(
-//             children: [
-//               SizedBox(
-//                 height: kToolbarHeight,
-//                 child: Image.asset(
-//                   "assets/images/logo.png",
-//                   fit: BoxFit.contain,
-//                 ),
-//               ),
-//               SizedBox(
-//                 height: kToolbarHeight,
-//                 child: Image.asset(
-//                   "assets/images/ADNOC logo1.png",
-//                   fit: BoxFit.contain,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
+//       appBar:
+//           AppBar(backgroundColor: backgroundColor, title: Text("QR Generator")),
 //       body: Center(
 //         child: isLoading
 //             ? CircularProgressIndicator()
@@ -132,7 +61,7 @@
 //                         width: 300,
 //                         height: 300,
 //                       ),
-//                       SizedBox(height: 10),
+//                       // SizedBox(height: 10),
 //                       // Text(fileName ?? '', style: TextStyle(fontSize: 16)),
 //                     ],
 //                   )
@@ -146,6 +75,7 @@ import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/get_qr_model.dart';
 import 'package:total_energies/services/get_qr_service.dart';
+import 'dart:async'; // <-- Add this import for Timer
 
 class QRPage extends StatefulWidget {
   final int customerId;
@@ -161,11 +91,24 @@ class _QRPageState extends State<QRPage> {
   String? base64Image;
   String? fileName;
   bool isLoading = true;
+  int remainingTime = 59; // Set countdown time in seconds (e.g., 10 seconds)
+  late final Timer _timer; // Timer to update the countdown every second
 
   @override
   void initState() {
     super.initState();
     fetchQRCode();
+    // Start the countdown timer
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (remainingTime > 0) {
+        setState(() {
+          remainingTime--;
+        });
+      } else {
+        _timer.cancel(); // Stop the timer once countdown reaches 0
+        Navigator.pop(context); // Navigate back to the Redeem page
+      }
+    });
   }
 
   void fetchQRCode() async {
@@ -188,28 +131,53 @@ class _QRPageState extends State<QRPage> {
   }
 
   @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer when the page is disposed
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar:
           AppBar(backgroundColor: backgroundColor, title: Text("QR Generator")),
-      body: Center(
-        child: isLoading
-            ? CircularProgressIndicator()
-            : base64Image != null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.memory(
-                        Uri.parse(base64Image!).data!.contentAsBytes(),
-                        width: 300,
-                        height: 300,
-                      ),
-                      // SizedBox(height: 10),
-                      // Text(fileName ?? '', style: TextStyle(fontSize: 16)),
-                    ],
-                  )
-                : Text('Failed to load QR'),
+      body: Column(
+        children: [
+          // Timer display at the top
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'QR Code expires in $remainingTime seconds',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.red, // You can customize the color here
+              ),
+            ),
+          ),
+          // Main content
+          Expanded(
+            child: Center(
+              child: isLoading
+                  ? CircularProgressIndicator()
+                  : base64Image != null
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.memory(
+                              Uri.parse(base64Image!).data!.contentAsBytes(),
+                              width: 300,
+                              height: 300,
+                            ),
+                            // SizedBox(height: 10),
+                            // Text(fileName ?? '', style: TextStyle(fontSize: 16)),
+                          ],
+                        )
+                      : Text('Failed to load QR'),
+            ),
+          ),
+        ],
       ),
     );
   }

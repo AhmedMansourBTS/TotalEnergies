@@ -1,19 +1,19 @@
 class CityModel {
-  final int? serial;
-  final String cityArabicName;
+  final int? cityId;
+  final String cityLatName;
   final String cityName;
 
   CityModel({
-    this.serial,
-    required this.cityArabicName,
+    this.cityId,
+    required this.cityLatName,
     required this.cityName,
   });
 
   // Convert JSON to CityModel
   factory CityModel.fromJson(Map<String, dynamic> json) {
     return CityModel(
-      serial: json['serial'],
-      cityArabicName: json['cityArabicName'],
+      cityId: json['cityId'],
+      cityLatName: json['cityLatName'],
       cityName: json['cityName'],
     );
   }
@@ -21,7 +21,7 @@ class CityModel {
   // Convert CityModel to JSON
   Map<String, dynamic> toJson() {
     return {
-      'cityArabicName': cityArabicName,
+      'cityLatName': cityLatName,
       'cityName': cityName,
     };
   }

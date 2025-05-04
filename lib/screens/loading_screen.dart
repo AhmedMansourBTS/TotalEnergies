@@ -38,14 +38,63 @@ class _LoadingScreenState extends State<LoadingScreen> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              "Total Energies",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            AnimatedDots(dotCount: dotCount),
+            FadingLogo(),
+            // const Text(
+            //   "Total Energies",
+            //   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            // ),
+            // AnimatedDots(dotCount: dotCount),
           ],
         ),
       ),
+    );
+  }
+}
+
+class FadingLogo extends StatefulWidget {
+  const FadingLogo({super.key});
+
+  @override
+  _FadingLogoState createState() => _FadingLogoState();
+}
+
+class _FadingLogoState extends State<FadingLogo>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _opacityAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat(reverse: true); // loops fade in/out
+
+    _opacityAnimation =
+        Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _opacityAnimation,
+      builder: (context, child) {
+        return Opacity(
+          opacity: _opacityAnimation.value,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Image.asset("assets/images/logo.png"),
+          ),
+        );
+      },
     );
   }
 }

@@ -71,8 +71,8 @@ class _CitySearchFieldState extends State<CitySearchField> {
                     query = value.toLowerCase();
                     setState(() {
                       results = _cities.where((c) {
-                        return c.cityName.toLowerCase().startsWith(query) ||
-                            c.cityArabicName.startsWith(query);
+                        return c.cityLatName.toLowerCase().startsWith(query) ||
+                            c.cityName.startsWith(query);
                       }).toList();
                     });
                   },
@@ -90,15 +90,15 @@ class _CitySearchFieldState extends State<CitySearchField> {
                             return ListTile(
                               title: Text(
                                 Directionality.of(context) != TextDirection.rtl
-                                    ? city.cityName
-                                    : city.cityArabicName,
+                                    ? city.cityLatName
+                                    : city.cityName,
                               ),
                               onTap: () {
                                 widget.controller.text =
                                     Directionality.of(context) !=
                                             TextDirection.rtl
-                                        ? city.cityName
-                                        : city.cityArabicName;
+                                        ? city.cityLatName
+                                        : city.cityName;
                                 Navigator.pop(context);
                               },
                             );
