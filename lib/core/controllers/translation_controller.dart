@@ -91,7 +91,7 @@ class TranslationController extends Translations {
           'profile_page.acc_history': 'Previous Promotions',
           'profile_page.change_lang': 'Change language',
           // App Bar
-          'app_bar.hi_txt': 'Hi',
+          'app_bar.hi_txt': 'Hello',
           // Promotions page
           'promotion_page.flt_all': 'All',
           'promotion_page.flt_curr': 'Current',
@@ -231,7 +231,7 @@ class TranslationController extends Translations {
           'curr_card.end_date': 'تاريخ الانتهاء : ',
           // all card
           'all_card.apply': 'سجل الان >>',
-          'all_card.start_date':  'تاريخ البداية :',
+          'all_card.start_date': 'تاريخ البداية :',
           'all_card.end_date': 'تاريخ الانتهاء : ',
           'all_card.apply_btn': 'سجل',
         },

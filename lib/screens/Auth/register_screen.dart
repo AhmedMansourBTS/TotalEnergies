@@ -348,26 +348,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   validator: _validateConfirmPassword,
                   showAsterisk: true,
                 ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.symmetric(vertical: 12),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Password: ",
-                        style: TextStyle(color: Colors.red, fontSize: 12),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "1 upper letter + 1 small letter + minimum length 8",
-                          style: TextStyle(color: Colors.red, fontSize: 12),
-                          softWrap: true,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+
                 TextWithCheckbox(
                   text: 'register_page.term&cond'.tr,
                   value: _agreeTerms,
