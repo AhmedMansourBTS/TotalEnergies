@@ -1,6 +1,6 @@
 // import 'package:flutter/material.dart';
 // import 'package:total_energies/core/constant/colors.dart';
-// import 'package:total_energies/models/promotions_model.dart';
+// import 'package:total_energies/models/curr_promo_model.dart';
 // import 'package:total_energies/screens/Promotions/redeem_promo_details_screen.dart';
 // import 'package:total_energies/screens/loading_screen.dart';
 // import 'package:total_energies/services/get_curr_promo_service.dart';
@@ -14,25 +14,12 @@
 // }
 
 // class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
-//   late Future<List<PromotionsModel>> _futurePromotions;
-//   // final PromotionsService _promotionsService = PromotionsService();
+//   late Future<List<CurrPromoModel>> _futurePromotions;
 //   final GetCurrPromoService _promotionsService = GetCurrPromoService();
-
-//   // int serial = 0;
-
-//   // void loadUserData() async {
-//   //   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   //   setState(() {
-//   //     serial = prefs.getInt('serial') ?? 0;
-//   //     print(serial);
-//   //   });
-//   // }
 
 //   @override
 //   void initState() {
 //     super.initState();
-
-//     // loadUserData();
 //     _futurePromotions = _promotionsService.getCurrPromotions();
 //   }
 
@@ -40,7 +27,7 @@
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       backgroundColor: backgroundColor,
-//       body: FutureBuilder<List<PromotionsModel>>(
+//       body: FutureBuilder<List<CurrPromoModel>>(
 //         future: _futurePromotions,
 //         builder: (context, snapshot) {
 //           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,10 +35,11 @@
 //           } else if (snapshot.hasError) {
 //             return Center(child: Text('Error: ${snapshot.error}'));
 //           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-//             return const Center(child: Text('No promotions available.'));
+//             return const Center(
+//                 child: Text('You dont\'t have applied promotions'));
 //           }
 
-//           List<PromotionsModel> promotions = snapshot.data!;
+//           List<CurrPromoModel> promotions = snapshot.data!;
 
 //           return ListView.builder(
 //             padding: const EdgeInsets.all(10),
@@ -67,7 +55,7 @@
 //                       startDate: promo.startDate,
 //                       endDate: promo.endDate,
 //                       total: promo.qrMaxUsage,
-//                       used: promo.remainingUsage,
+//                       remained: promo.remainingUsage,
 //                       onTap: () {
 //                         Navigator.push(
 //                           context,
@@ -85,7 +73,7 @@
 //                       startDate: promo.startDate,
 //                       endDate: promo.endDate,
 //                       total: promo.qrMaxUsage,
-//                       used: promo.remainingUsage,
+//                       remained: promo.remainingUsage,
 //                       onTap: () {
 //                         Navigator.push(
 //                           context,
@@ -105,91 +93,82 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
 import 'package:total_energies/screens/Promotions/redeem_promo_details_screen.dart';
-import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_curr_promo_service.dart';
 import 'package:total_energies/widgets/Promotions/curr_promo_card.dart';
 
 class CurrentPromotionsPage extends StatefulWidget {
-  const CurrentPromotionsPage({super.key});
+  const CurrentPromotionsPage({Key? key}) : super(key: key);
 
   @override
-  _CurrentPromotionsPageState createState() => _CurrentPromotionsPageState();
+  State<CurrentPromotionsPage> createState() => _CurrentPromotionsPageState();
 }
 
 class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
-  late Future<List<CurrPromoModel>> _futurePromotions;
-  final GetCurrPromoService _promotionsService = GetCurrPromoService();
+  late Future<List<CurrPromoModel>> _futurePromos;
 
   @override
   void initState() {
     super.initState();
-    _futurePromotions = _promotionsService.getCurrPromotions();
+    _futurePromos = GetCurrPromoService().getCurrPromotions();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       body: FutureBuilder<List<CurrPromoModel>>(
-        future: _futurePromotions,
+        future: _futurePromos,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: LoadingScreen());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-                child: Text('You dont\'t have applied promotions'));
+            return const Center(child: CircularProgressIndicator());
           }
 
-          List<CurrPromoModel> promotions = snapshot.data!;
+          if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          }
+
+          final promos = snapshot.data;
+
+          if (promos == null || promos.isEmpty) {
+            return const Center(child: Text("No promotions found."));
+          }
 
           return ListView.builder(
-            padding: const EdgeInsets.all(10),
-            itemCount: promotions.length,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            itemCount: promos.length,
             itemBuilder: (context, index) {
-              final promo = promotions[index];
+              final promo = promos[index];
+              final imageUrl = promo.imagePath != null
+                  ? promo.imagePath!.replaceAll('\\', '/')
+                  : '';
 
-              return Directionality.of(context) != TextDirection.rtl
-                  ? CurrPromoCard(
-                      imagepath: promo.imagePath,
-                      title: promo.eventTopic,
-                      description: promo.eventEnDescription,
-                      startDate: promo.startDate,
-                      endDate: promo.endDate,
-                      total: promo.qrMaxUsage,
-                      remained: promo.remainingUsage,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                RedeemPromoDetailsScreen(promotion: promo),
-                          ),
-                        );
-                      },
-                    )
-                  : CurrPromoCard(
-                      imagepath: promo.imagePath,
-                      title: promo.eventTopic,
-                      description: promo.eventDescription,
-                      startDate: promo.startDate,
-                      endDate: promo.endDate,
-                      total: promo.qrMaxUsage,
-                      remained: promo.remainingUsage,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                RedeemPromoDetailsScreen(promotion: promo),
-                          ),
-                        );
-                      },
-                    );
+              return CurrPromoCard(
+                serial: promo.serial,
+                imagepath: imageUrl,
+                title: Directionality.of(context) == TextDirection.rtl
+                    ? promo.eventDescription
+                    : promo.eventTopic,
+                description: Directionality.of(context) == TextDirection.rtl
+                    ? promo.eventArDescription
+                    : promo.eventEnDescription,
+                startDate: promo.startDate,
+                endDate: promo.endDate,
+                total: promo.qrMaxUsage,
+                remained: promo.remainingUsage,
+                promodet: promo.promotionDetails.isNotEmpty
+                    ? promo.promotionDetails[0].promotionCode
+                    : "N/A",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          RedeemPromoDetailsScreen(promotion: promo),
+                    ),
+                  );
+                },
+              );
             },
           );
         },
