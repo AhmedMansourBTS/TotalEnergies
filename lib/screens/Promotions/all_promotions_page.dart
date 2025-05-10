@@ -112,21 +112,29 @@ class AllPromotionsPage extends StatefulWidget {
   const AllPromotionsPage({super.key});
 
   @override
-  _AllPromotionsPageState createState() => _AllPromotionsPageState();
+  State<AllPromotionsPage> createState() => _AllPromotionsPageState();
 }
 
 class _AllPromotionsPageState extends State<AllPromotionsPage> {
-  late Future<List<PromotionsModel>> _futureAllPromos;
-  late Future<List<CurrPromoModel>> _futureCurrPromos;
-  late Future<List<ExpiredPromoModel>> _futureExpPromos;
-  // final PromotionsService _promotionsService = PromotionsService();
+  late Future<List<dynamic>> _futurePromotions;
 
   @override
   void initState() {
     super.initState();
-    _futureAllPromos = PromotionsService().getPromotions();
-    _futureCurrPromos = GetCurrPromoService().getCurrPromotion();
-    _futureExpPromos = ExpiredPromoService().getExpiredPromotions();
+    _futurePromotions = _loadAllData();
+  }
+
+  Future<List<dynamic>> _loadAllData() async {
+    try {
+      final allPromos = PromotionsService().getPromotions();
+      final currPromos = GetCurrPromoService().getCurrPromotion();
+      final expPromos = ExpiredPromoService().getExpiredPromotions();
+
+      return await Future.wait([allPromos, currPromos, expPromos]);
+    } catch (e) {
+      // Log or process the error as needed
+      rethrow;
+    }
   }
 
   @override
@@ -134,49 +142,69 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: FutureBuilder<List<dynamic>>(
-        future: Future.wait(
-            [_futureAllPromos, _futureCurrPromos, _futureExpPromos]),
+        future: _futurePromotions,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: LoadingScreen());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
           }
 
-          List<PromotionsModel> allPromos = snapshot.data![0];
-          List<CurrPromoModel> currPromos = snapshot.data![1];
-          List<ExpiredPromoModel> expPromos = snapshot.data![2];
+          if (snapshot.hasError) {
+            return Center(
+                child:
+                    Text('حدث خطأ أثناء تحميل البيانات:\n${snapshot.error}'));
+          }
 
-          // Ensure both are int (or both are string)
-          Set<int> currPromoSerials =
-              currPromos.map((e) => int.parse(e.serial.toString())).toSet();
-          Set<int> expPromoSerials =
-              expPromos.map((e) => int.parse(e.serial.toString())).toSet();
+          if (!snapshot.hasData || snapshot.data!.length != 3) {
+            return const Center(child: Text('لا توجد بيانات متاحة.'));
+          }
+
+          final List<PromotionsModel> allPromos =
+              List<PromotionsModel>.from(snapshot.data![0]);
+          final List<CurrPromoModel> currPromos =
+              List<CurrPromoModel>.from(snapshot.data![1]);
+          final List<ExpiredPromoModel> expPromos =
+              List<ExpiredPromoModel>.from(snapshot.data![2]);
+
+          final Set<int> currentPromoSerials = currPromos
+              .map((e) => int.tryParse(e.serial.toString()) ?? -1)
+              .toSet();
+          final Set<int> expiredPromoSerials = expPromos
+              .map((e) => int.tryParse(e.serial.toString()) ?? -1)
+              .toSet();
 
           return ListView.builder(
             padding: const EdgeInsets.all(10),
             itemCount: allPromos.length,
             itemBuilder: (context, index) {
               final promo = allPromos[index];
-              final isAvailable = !currPromoSerials.contains(promo.serial);
-              final isexp = !expPromoSerials.contains(promo.serial);
-              print(
-                  "Promo serial: ${promo.serial} | isAvailable: $isAvailable | isexp: $isexp");
+              final int serial = promo.serial ?? -1;
+
+              final bool isCurrentPromo = currentPromoSerials.contains(serial);
+              final bool isExpiredPromo = expiredPromoSerials.contains(serial);
+
+              final String imageUrl = promo.imagePath != null
+                  ? "https://www.besttopsystems.net:4336${promo.imagePath!.replaceAll('\\', '/')}"
+                  : '';
+
+              final bool isPromoAvailable = !isCurrentPromo && !isExpiredPromo;
+
+              print("Image Url: $imageUrl");
+
               return AllPromoCard(
                 serial: promo.serial,
-                imagepath: promo.imagePath ?? '',
-                title: Directionality.of(context) != TextDirection.rtl
-                    ? promo.eventTopic
-                    : promo.eventDescription,
-                description: Directionality.of(context) != TextDirection.rtl
-                    ? promo.eventEnDescription
-                    : promo.eventArDescription,
+                imagepath: imageUrl,
+                title: Directionality.of(context) == TextDirection.rtl
+                    ? promo.eventDescription ?? "بدون عنوان"
+                    : promo.eventTopic ?? "No Title",
+                description: Directionality.of(context) == TextDirection.rtl
+                    ? promo.eventArDescription ?? ""
+                    : promo.eventEnDescription ?? "",
                 startDate: promo.startDate,
                 endDate: promo.endDate,
-                promodet: promo.promotionDetails.isNotEmpty
-                    ? promo.promotionDetails[0].promotionCode
+                promodet: promo.promotionDetails?.isNotEmpty == true
+                    ? promo.promotionDetails!.first.promotionCode
                     : "N/A",
-                onTap: isAvailable || isexp
+                onTap: isPromoAvailable
                     ? () {
                         Navigator.push(
                           context,
@@ -187,8 +215,8 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                         );
                       }
                     : () {},
-                isAvailable: isAvailable,
-                isexp: isexp, // ← add this parameter
+                isAvailable: isPromoAvailable,
+                isexp: isExpiredPromo,
               );
             },
           );

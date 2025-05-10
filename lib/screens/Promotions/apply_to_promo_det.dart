@@ -47,8 +47,8 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
     try {
       final response = await _registerService.registerToPromo(
         custserial,
-        widget.promotion.promotionDetails[0].promotionCode,
-        widget.promotion.serial,
+        widget.promotion.promotionDetails![0].promotionCode!,
+        widget.promotion.serial!,
       );
 
       if (response.statusCode == 200) {
@@ -125,7 +125,7 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
             ),
             const SizedBox(height: 20),
             Text(
-              widget.promotion.eventTopic,
+              widget.promotion.eventTopic!,
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.promotion.eventEnDescription,
+                  Text(widget.promotion.eventEnDescription!,
                       style:
                           const TextStyle(fontSize: 18, color: Colors.black)),
                   const SizedBox(height: 10),

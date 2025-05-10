@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/screens/Promotions/all_promotions_page.dart';
+import 'package:total_energies/screens/Promotions/categories_page.dart';
 import 'package:total_energies/screens/Promotions/current_promotions_page.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
@@ -32,7 +33,7 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2, // Two tabs (All & Current)
+      length: 3,
       child: Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
@@ -64,15 +65,19 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
             labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             unselectedLabelStyle: TextStyle(fontSize: 16),
             tabs: [
+              Tab(
+                text: "Categories",
+              ),
               Tab(text: 'promotion_page.flt_all'.tr),
               Tab(text: 'promotion_page.flt_curr'.tr),
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            AllPromotionsPage(),
-            CurrentPromotionsPage(),
+            CategoriesPage(),
+            const AllPromotionsPage(),
+            const CurrentPromotionsPage(),
           ],
         ),
       ),

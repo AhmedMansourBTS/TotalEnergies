@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
     DashboardPage(),
     PromotionsScreen(),
-    StationListScreen(),
+    // StationListScreen(),
     ProfilePage(),
   ];
 
@@ -34,14 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: secondColors,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(Icons.local_offer), label: 'bottom_bar.promotions'.tr),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.local_gas_station),
-              label: 'bottom_bar.stations'.tr),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.local_gas_station),
+          //     label: 'bottom_bar.stations'.tr),
           BottomNavigationBarItem(
               icon: Icon(Icons.person), label: 'bottom_bar.profile'.tr),
         ],

@@ -79,7 +79,9 @@ class GetCurrPromoService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var customerSerial = prefs.getInt('serial');
 
-    final url = Uri.parse("$baseUrl?customerCode=$customerSerial");
+    // final url = Uri.parse("$baseUrl?customerCode=$customerSerial");
+    final url = Uri.parse("$baseUrl/$customerSerial");
+
     print("Request URL: $url");
 
     try {
@@ -87,7 +89,7 @@ class GetCurrPromoService {
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
-
+        print("Request URL: ${response.body}");
         // Parse JSON into model list
         List<CurrPromoModel> allPromos =
             jsonData.map((json) => CurrPromoModel.fromJson(json)).toList();
