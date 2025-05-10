@@ -30,8 +30,8 @@ class AllPromoCard extends StatefulWidget {
     this.used,
     required this.onTap, // New parameter
     this.promodet,
-    this.isAvailable = false,
-    this.isexp = false,
+    this.isAvailable = true,
+    this.isexp = true,
   });
 
   @override

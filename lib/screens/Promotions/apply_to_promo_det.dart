@@ -47,7 +47,7 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
     try {
       final response = await _registerService.registerToPromo(
         custserial,
-        widget.promotion.promotionDetails![0].promotionCode!,
+        widget.promotion.promotionDetails[0].promotionCode,
         widget.promotion.serial!,
       );
 
