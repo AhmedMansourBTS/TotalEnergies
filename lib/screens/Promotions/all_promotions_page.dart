@@ -228,11 +228,86 @@
 // }
 
 // Hady w sha8al tamam
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:get/get_core/src/get_main.dart';
+// import 'package:total_energies/core/constant/colors.dart';
+// import 'package:total_energies/models/promotions_model.dart';
+// import 'package:total_energies/screens/Promotions/apply_to_promo_det.dart';
+// import 'package:total_energies/services/promotions_service.dart';
+// import 'package:total_energies/widgets/Promotions/all_promo_card.dart';
+
+// class AllPromotionsPage extends StatefulWidget {
+//   const AllPromotionsPage({super.key});
+
+//   @override
+//   State<AllPromotionsPage> createState() => _AllPromotionsPageState();
+// }
+
+// class _AllPromotionsPageState extends State<AllPromotionsPage> {
+//   late Future<List<PromotionsModel>> _futurePromotions;
+//   final PromotionsService _promotionsService = PromotionsService();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _futurePromotions = _promotionsService.getPromotions();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: backgroundColor,
+//       body: FutureBuilder<List<PromotionsModel>>(
+//         future: _futurePromotions,
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.waiting) {
+//             return const Center(child: CircularProgressIndicator());
+//           } else if (snapshot.hasError) {
+//             return Center(child: Text('Error: ${snapshot.error}'));
+//           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+//             return const Center(child: Text('No promotions available.'));
+//           }
+
+//           final promotions = snapshot.data!;
+
+//           return ListView.builder(
+//             itemCount: promotions.length,
+//             itemBuilder: (context, index) {
+//               final promo = promotions[index];
+//               // final isAvailable = promo.remainingUsage! > 0;
+//               // final isExpired = promo.endDate!.isAfter(DateTime.now());
+
+//               return AllPromoCard(
+//                 serial: promo.serial,
+//                 imagepath: promo.imagePath ?? '',
+//                 title: promo.eventTopic ?? '',
+//                 description: promo.eventDescription ?? '',
+//                 startDate: promo.startDate,
+//                 endDate: promo.endDate,
+//                 total: promo.qrMaxUsage,
+//                 used: promo.usedTimes,
+//                 // isAvailable: isAvailable,
+//                 // isexp: isExpired,
+//                 onTap: () {
+//                   Get.to(() => ApplyToPromoDet(promotion: promo));
+//                 },
+//               );
+//             },
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/promotions_model.dart';
 import 'package:total_energies/screens/Promotions/apply_to_promo_det.dart';
+import 'package:total_energies/services/get_curr_promo_service.dart';
+import 'package:total_energies/services/get_exp_promo_service.dart';
 import 'package:total_energies/services/promotions_service.dart';
 import 'package:total_energies/widgets/Promotions/all_promo_card.dart';
 
@@ -244,37 +319,52 @@ class AllPromotionsPage extends StatefulWidget {
 }
 
 class _AllPromotionsPageState extends State<AllPromotionsPage> {
-  late Future<List<PromotionsModel>> _futurePromotions;
   final PromotionsService _promotionsService = PromotionsService();
+
+  late Future<void> _loadDataFuture;
+  List<PromotionsModel> _promotions = [];
+  Set<int> _currPromoSerials = {};
+  Set<int> _expPromoSerials = {};
 
   @override
   void initState() {
     super.initState();
-    _futurePromotions = _promotionsService.getPromotions();
+    _loadDataFuture = _loadData();
+  }
+
+  Future<void> _loadData() async {
+    _promotions = await _promotionsService.getPromotions();
+
+    final currPromos = await GetCurrPromoService().getCurrPromotions();
+    _currPromoSerials = currPromos.map((e) => e.serial).toSet();
+
+    final expPromos = await GetExpPromoService().getExpPromotions();
+    _expPromoSerials = expPromos.map((e) => e.serial).toSet();
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<PromotionsModel>>(
-        future: _futurePromotions,
+      backgroundColor: backgroundColor,
+      body: FutureBuilder<void>(
+        future: _loadDataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          } else if (_promotions.isEmpty) {
             return const Center(child: Text('No promotions available.'));
           }
 
-          final promotions = snapshot.data!;
-
           return ListView.builder(
-            itemCount: promotions.length,
+            itemCount: _promotions.length,
             itemBuilder: (context, index) {
-              final promo = promotions[index];
-              // final isAvailable = promo.remainingUsage! > 0;
-              // final isExpired = promo.endDate!.isAfter(DateTime.now());
+              final promo = _promotions[index];
+              final isBlocked = _currPromoSerials.contains(promo.serial) ||
+                  _expPromoSerials.contains(promo.serial);
 
               return AllPromoCard(
                 serial: promo.serial,
@@ -285,10 +375,11 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                 endDate: promo.endDate,
                 total: promo.qrMaxUsage,
                 used: promo.usedTimes,
-                // isAvailable: isAvailable,
-                // isexp: isExpired,
+                isBlocked: isBlocked,
                 onTap: () {
-                  Get.to(() => ApplyToPromoDet(promotion: promo));
+                  if (!isBlocked) {
+                    Get.to(() => ApplyToPromoDet(promotion: promo));
+                  }
                 },
               );
             },

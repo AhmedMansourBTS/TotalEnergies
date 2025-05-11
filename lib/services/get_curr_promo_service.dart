@@ -110,7 +110,6 @@
 //   }
 // }
 
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -121,7 +120,6 @@ class GetCurrPromoService {
       "https://www.besttopsystems.net:4336/api/PromotionEvent/GetAllValidPormotionByCustomerSerial";
 
   Future<List<CurrPromoModel>> getCurrPromotions() async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var customerSerial = prefs.getInt('serial');
     final url = Uri.parse("$baseUrl/$customerSerial");

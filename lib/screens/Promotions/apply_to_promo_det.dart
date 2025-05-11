@@ -1,11 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/promotions_model.dart';
-// import 'package:total_energies/widgets/Promotions/activity_indicator.dart';
-// import 'package:total_energies/widgets/withService/custStationDrpDwn.dart';
 import 'package:total_energies/services/register_to_promotion_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';

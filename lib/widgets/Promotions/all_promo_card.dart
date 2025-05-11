@@ -14,8 +14,7 @@ class AllPromoCard extends StatefulWidget {
   final int? used;
   final VoidCallback onTap; // New parameter
   final String? promodet;
-  final bool isAvailable;
-  final bool isexp;
+  final bool isBlocked;
 
   const AllPromoCard({
     super.key,
@@ -30,8 +29,7 @@ class AllPromoCard extends StatefulWidget {
     this.used,
     required this.onTap, // New parameter
     this.promodet,
-    this.isAvailable = true,
-    this.isexp = true,
+    this.isBlocked = false,
   });
 
   @override
@@ -92,12 +90,15 @@ class _AllPromoCardState extends State<AllPromoCard> {
                     child: Stack(
                       children: [
                         imageWidget(widget.imagepath),
-                        if (!widget.isAvailable || !widget.isexp)
-                          Positioned.fill(
-                            child: Container(
-                              color: const Color.fromARGB(110, 0, 0, 0),
-                            ),
-                          ),
+                        Positioned.fill(
+                          child: widget.isBlocked
+                              ? Container(
+                                  color: const Color.fromARGB(110, 0, 0, 0),
+                                )
+                              : Container(
+                                  color: Colors.transparent,
+                                ),
+                        ),
                       ],
                     ),
                   ),
@@ -185,23 +186,25 @@ class _AllPromoCardState extends State<AllPromoCard> {
                                 ),
                               ],
                             ),
-                            if (!widget.isAvailable || !widget.isexp)
-                              const Icon(Icons.check_circle,
-                                  color: Colors.lightGreen, size: 30),
-                            if (widget.isAvailable && widget.isexp)
-                              Expanded(
-                                child: Text(
-                                  "all_card.apply".tr,
-                                  textAlign: TextAlign.end,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    color: primaryColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: widget.isBlocked
+                                    ? const Icon(Icons.check_circle,
+                                        color: Colors.green, size: 30)
+                                    : Text(
+                                        "all_card.apply".tr,
+                                        textAlign: TextAlign.end,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          color: primaryColor,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                               ),
+                            ),
                           ],
                         ),
                       ],

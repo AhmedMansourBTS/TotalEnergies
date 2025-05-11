@@ -93,6 +93,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
 import 'package:total_energies/screens/Promotions/redeem_promo_details_screen.dart';
 import 'package:total_energies/services/get_curr_promo_service.dart';
@@ -117,6 +118,7 @@ class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: FutureBuilder<List<CurrPromoModel>>(
         future: _futurePromos,
         builder: (context, snapshot) {

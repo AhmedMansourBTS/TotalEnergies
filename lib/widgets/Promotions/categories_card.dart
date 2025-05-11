@@ -75,7 +75,7 @@ class CategoryCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => CategoryDetailsPage(
               categoryId: category.categoryId,
-              categoryTitle: category.categoryLatName,
+              categoryTitle: category.categoryName,
             ),
           ),
         );
@@ -108,7 +108,7 @@ class CategoryCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Text(
-                  category.categoryLatName,
+                  category.categoryName,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 16),
                 ),
