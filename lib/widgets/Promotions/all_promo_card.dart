@@ -15,22 +15,29 @@ class AllPromoCard extends StatefulWidget {
   final VoidCallback onTap; // New parameter
   final String? promodet;
   final bool isBlocked;
+  final bool isCurr;
+  final bool isExp;
+  final String? statusLabel;
+  final Color? statusColor;
 
-  const AllPromoCard({
-    super.key,
-    this.serial,
-    required this.imagepath,
-    required this.title,
-    required this.description,
-    this.startDate,
-    this.endDate,
-    this.icon,
-    this.total,
-    this.used,
-    required this.onTap, // New parameter
-    this.promodet,
-    this.isBlocked = false,
-  });
+  const AllPromoCard(
+      {super.key,
+      this.serial,
+      required this.imagepath,
+      required this.title,
+      required this.description,
+      this.startDate,
+      this.endDate,
+      this.icon,
+      this.total,
+      this.used,
+      required this.onTap, // New parameter
+      this.promodet,
+      this.isBlocked = false,
+      this.isCurr = false,
+      this.isExp = false,
+      this.statusLabel,
+      this.statusColor});
 
   @override
   _AllPromoCardState createState() => _AllPromoCardState();

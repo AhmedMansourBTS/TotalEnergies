@@ -4,7 +4,7 @@ import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/screens/Profile/profile_page.dart';
 import 'package:total_energies/screens/Promotions/promotions_screen.dart';
 import 'package:total_energies/screens/Stations/stations_screen.dart';
-import 'package:total_energies/screens/dashboard_screen.dart';
+import 'package:total_energies/screens/Dashboard/dashboard_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

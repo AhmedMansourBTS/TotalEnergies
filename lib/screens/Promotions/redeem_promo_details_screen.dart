@@ -900,7 +900,7 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                       stationLng,
                     );
 
-                    const allowedRange = 1000000000000; // in meters
+                    const allowedRange = 200000000; // in meters
 
                     // Print distance between user and station
                     print(
