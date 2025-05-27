@@ -168,6 +168,7 @@ class _StationsDropdownState extends State<StationsDropdown> {
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
+              backgroundColor: Colors.white,
               title: const Text('Search Station'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -199,7 +200,12 @@ class _StationsDropdownState extends State<StationsDropdown> {
                             itemBuilder: (context, index) {
                               final station = results[index];
                               return ListTile(
-                                title: Text(station.stationArabicName),
+                                title: Text(
+                                  station.stationArabicName,
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 onTap: () {
                                   setState(() {
                                     _selected = station;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/categories_model.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_categ_service.dart';
 import 'package:total_energies/widgets/Promotions/categories_card.dart';
 
@@ -26,7 +27,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
         future: _futureCategories,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: LoadingScreen());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {

@@ -45,7 +45,8 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   ),
                   color: Colors.white,
                   child: ListTile(
-                    leading: const Icon(Icons.notifications, color: primaryColor),
+                    leading:
+                        const Icon(Icons.notifications, color: primaryColor),
                     title: Text(
                       _notifications[index],
                       style: const TextStyle(fontSize: 16),

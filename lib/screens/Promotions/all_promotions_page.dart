@@ -338,6 +338,7 @@ import 'package:get/get.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/promotions_model.dart';
 import 'package:total_energies/screens/Promotions/apply_to_promo_det.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_curr_promo_service.dart';
 import 'package:total_energies/services/get_exp_promo_service.dart';
 import 'package:total_energies/services/promotions_service.dart';
@@ -412,7 +413,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
         future: _loadDataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: LoadingScreen());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (_filteredPromotions.isEmpty) {

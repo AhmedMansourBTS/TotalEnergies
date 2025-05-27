@@ -9,17 +9,19 @@ class StationModel {
   final String? btCode;
   final bool? activeYN;
 
-  StationModel({
-    this.serial,
-    this.stationCode,
-    required this.stationName,
-    required this.stationArabicName,
-    this.classifficationCode,
-    this.stationAdress,
-    this.stationGovernment,
-    this.btCode,
-    this.activeYN,
-  });
+  double? distance;
+
+  StationModel(
+      {this.serial,
+      this.stationCode,
+      required this.stationName,
+      required this.stationArabicName,
+      this.classifficationCode,
+      this.stationAdress,
+      this.stationGovernment,
+      this.btCode,
+      this.activeYN,
+      this.distance});
 
   // Convert JSON to StationModel
   factory StationModel.fromJson(Map<String, dynamic> json) {
@@ -33,6 +35,7 @@ class StationModel {
       stationGovernment: json['stationGovernment'],
       btCode: json['btCode'],
       activeYN: json['activeYN'],
+      distance: json['distance'],
     );
   }
 
@@ -47,6 +50,7 @@ class StationModel {
       'stationGovernment': stationGovernment,
       'btCode': btCode,
       'activeYN': activeYN,
+      'distance': distance,
     };
   }
 }

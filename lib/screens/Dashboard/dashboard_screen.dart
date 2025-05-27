@@ -253,7 +253,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
+import 'package:total_energies/models/service_model.dart';
 import 'package:total_energies/screens/Dashboard/NotificationsPage.dart';
+import 'package:total_energies/screens/loading_screen.dart';
+import 'package:total_energies/services/service_service.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -409,56 +412,125 @@ class DashboardPage extends StatelessWidget {
   }
 
   // PART 3: Available Services
-  Widget _buildAvailableServices() {
-    final List<Map<String, dynamic>> services = [
-      {'icon': Icons.local_gas_station, 'title': 'Fuel'},
-      {'icon': Icons.local_car_wash, 'title': 'Car Wash'},
-      {'icon': Icons.store, 'title': 'Mini Market'},
-      {'icon': Icons.build, 'title': 'Maintenance'},
-      {'icon': Icons.ev_station, 'title': 'EV Charge'},
-    ];
+  // Widget _buildAvailableServices() {
+  //   final List<Map<String, dynamic>> services = [
+  //     {'icon': Icons.local_gas_station, 'title': 'Fuel'},
+  //     {'icon': Icons.local_car_wash, 'title': 'Car Wash'},
+  //     {'icon': Icons.store, 'title': 'Mini Market'},
+  //     {'icon': Icons.build, 'title': 'Maintenance'},
+  //     {'icon': Icons.ev_station, 'title': 'EV Charge'},
+  //   ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Available Services',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 16),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         const Text(
+  //           'Available Services',
+  //           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  //         ),
+  //         const SizedBox(height: 10),
+  //         SizedBox(
+  //           height: 120,
+  //           child: ListView.separated(
+  //             scrollDirection: Axis.horizontal,
+  //             itemCount: services.length,
+  //             separatorBuilder: (context, index) => const SizedBox(width: 20),
+  //             itemBuilder: (context, index) {
+  //               final service = services[index];
+  //               return Column(
+  //                 children: [
+  //                   CircleAvatar(
+  //                     radius: 30,
+  //                     backgroundColor: primaryColor,
+  //                     child: Icon(
+  //                       service['icon'],
+  //                       color: Colors.white,
+  //                       size: 30,
+  //                     ),
+  //                   ),
+  //                   const SizedBox(height: 8),
+  //                   Text(
+  //                     service['title'],
+  //                     style: const TextStyle(fontSize: 14),
+  //                   ),
+  //                 ],
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+  Widget _buildAvailableServices() {
+    return FutureBuilder<List<ServiceModel>>(
+      future: GetAllServicesService.fetchAllServices(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: LoadingScreen());
+        } else if (snapshot.hasError) {
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text('Failed to load services: ${snapshot.error}'),
+          );
+        }
+
+        final services = snapshot.data!.where((s) => s.activeYN).toList();
+        // final services = snapshot.data!.toList();
+
+        if (services.isEmpty) {
+          return const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text('No active services available.'),
+          );
+        }
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Available Services',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 120,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: services.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 20),
+                  itemBuilder: (context, index) {
+                    final service = services[index];
+                    return Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundColor: primaryColor,
+                          child: const Icon(
+                            Icons.miscellaneous_services,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          service.serviceLatDescription,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 10),
-          SizedBox(
-            height: 120,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: services.length,
-              separatorBuilder: (context, index) => const SizedBox(width: 20),
-              itemBuilder: (context, index) {
-                final service = services[index];
-                return Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: primaryColor,
-                      child: Icon(
-                        service['icon'],
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      service['title'],
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

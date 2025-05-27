@@ -199,6 +199,7 @@ import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/categories_promotion_model.dart';
 import 'package:total_energies/screens/Promotions/category_promo_det_page.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_categ_promo_service.dart';
 import 'package:total_energies/services/get_curr_promo_service.dart';
 import 'package:total_energies/services/get_exp_promo_service.dart';
@@ -259,7 +260,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
         future: _loadDataFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: LoadingScreen());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (_promotions.isEmpty) {

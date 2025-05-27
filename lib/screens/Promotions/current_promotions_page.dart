@@ -96,6 +96,7 @@ import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
 import 'package:total_energies/screens/Promotions/redeem_promo_details_screen.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_curr_promo_service.dart';
 import 'package:total_energies/widgets/Promotions/curr_promo_card.dart';
 
@@ -123,7 +124,7 @@ class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
         future: _futurePromos,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: LoadingScreen());
           }
 
           if (snapshot.hasError) {
