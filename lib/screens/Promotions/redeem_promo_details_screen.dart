@@ -1214,7 +1214,7 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                             stationLng,
                           );
 
-                          const allowedRange = 1000; // meters
+                          const allowedRange = 20000; // meters
                           if (distanceInMeters <= allowedRange) {
                             Get.to(() => QRPage(
                                 customerId: custserial,
@@ -1223,7 +1223,7 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                    'You are out of range by ${(distanceInMeters / 1000 - 1).toStringAsFixed(2)} km.'),
+                                    'You are out of range by ${(distanceInMeters / 1000 - allowedRange / 1000).toStringAsFixed(2)} km.'),
                                 backgroundColor: Colors.red,
                               ),
                             );

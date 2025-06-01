@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
+import 'package:total_energies/models/service_model.dart';
 import 'package:total_energies/models/stations_model.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/screens/Stations/station_details_screen.dart';
@@ -10,7 +11,9 @@ import 'package:total_energies/services/station_service.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class StationListScreen extends StatefulWidget {
-  const StationListScreen({super.key});
+  final ServiceModel? service;
+
+  const StationListScreen({super.key, this.service});
 
   @override
   State<StationListScreen> createState() => _StationListScreenState();
@@ -25,7 +28,7 @@ class _StationListScreenState extends State<StationListScreen> {
   @override
   void initState() {
     super.initState();
-    _stationsFuture = _stationService.getOnlyStations();
+    _stationsFuture = _stationService.getStations();
     loadUserData();
   }
 

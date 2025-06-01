@@ -255,6 +255,7 @@ import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/service_model.dart';
 import 'package:total_energies/screens/Dashboard/NotificationsPage.dart';
+import 'package:total_energies/screens/Stations/stations_screen.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/service_service.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
@@ -504,27 +505,59 @@ class DashboardPage extends StatelessWidget {
                   itemCount: services.length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 20),
-                  itemBuilder: (context, index) {
-                    final service = services[index];
-                    return Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: primaryColor,
-                          child: const Icon(
-                            Icons.miscellaneous_services,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          service.serviceLatDescription,
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                      ],
-                    );
-                  },
+                      itemBuilder: (context, index) {
+  final service = services[index];
+  return InkWell(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => StationListScreen(service: service),
+        ),
+      );
+    },
+    child: Column(
+      children: [
+        CircleAvatar(
+          radius: 30,
+          backgroundColor: primaryColor,
+          child: const Icon(
+            Icons.miscellaneous_services,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          service.serviceLatDescription,
+          style: const TextStyle(fontSize: 14),
+        ),
+      ],
+    ),
+  );
+},
+
+                  // itemBuilder: (context, index) {
+                  //   final service = services[index];
+                  //   return Column(
+                  //     children: [
+                  //       CircleAvatar(
+                  //         radius: 30,
+                  //         backgroundColor: primaryColor,
+                  //         child: const Icon(
+                  //           Icons.miscellaneous_services,
+                  //           color: Colors.white,
+                  //           size: 30,
+                  //         ),
+                  //       ),
+                  //       const SizedBox(height: 8),
+                  //       Text(
+                  //         service.serviceLatDescription,
+                  //         style: const TextStyle(fontSize: 14),
+                  //       ),
+                  //     ],
+                  //   );
+                  // },
                 ),
               ),
             ],
