@@ -101,7 +101,7 @@ import 'package:total_energies/services/get_curr_promo_service.dart';
 import 'package:total_energies/widgets/Promotions/curr_promo_card.dart';
 
 class CurrentPromotionsPage extends StatefulWidget {
-  const CurrentPromotionsPage({Key? key}) : super(key: key);
+  const CurrentPromotionsPage({super.key});
 
   @override
   State<CurrentPromotionsPage> createState() => _CurrentPromotionsPageState();

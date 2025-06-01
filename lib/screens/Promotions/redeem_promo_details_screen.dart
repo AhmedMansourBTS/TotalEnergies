@@ -1065,8 +1065,8 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                   Center(
                     child: widget.promotion.imagePath == null ||
                             widget.promotion.imagePath!.isEmpty
-                        ? Image.asset("assets/images/logo.png")
-                        : Image.network(widget.promotion.imagePath!),
+                        ? Image.network(widget.promotion.imagePath!)
+                        : Image.asset("assets/images/logo.png"),
                   ),
                   const SizedBox(height: 20),
                   Text(widget.promotion.eventTopic,

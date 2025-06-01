@@ -61,10 +61,10 @@ class CategoryCard extends StatelessWidget {
   final CategoryModel category;
 
   const CategoryCard({
-    Key? key,
+    super.key,
     required this.imagePath,
     required this.category,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

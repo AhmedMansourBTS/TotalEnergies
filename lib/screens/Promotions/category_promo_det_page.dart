@@ -47,8 +47,7 @@ import 'package:total_energies/widgets/global/app_bar_logos.dart';
 class CategoryPromoDetailPage extends StatefulWidget {
   final CategoriesPromotionModel promotion;
 
-  const CategoryPromoDetailPage({Key? key, required this.promotion})
-      : super(key: key);
+  const CategoryPromoDetailPage({super.key, required this.promotion});
 
   @override
   _CategoryPromoDetailPageState createState() =>
@@ -153,9 +152,9 @@ class _CategoryPromoDetailPageState extends State<CategoryPromoDetailPage> {
           children: [
             Center(
               child: widget.promotion.imagePath != null ||
-                      widget.promotion.imagePath!.isEmpty
+                      widget.promotion.imagePath.isEmpty
                   ? Image.asset("assets/images/logo.png")
-                  : Image.network(widget.promotion.imagePath!),
+                  : Image.network(widget.promotion.imagePath),
             ),
             const SizedBox(height: 20),
             Text(

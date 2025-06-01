@@ -6,6 +6,8 @@ import 'package:total_energies/services/get_categ_service.dart';
 import 'package:total_energies/widgets/Promotions/categories_card.dart';
 
 class CategoriesPage extends StatefulWidget {
+  const CategoriesPage({super.key});
+
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
 }

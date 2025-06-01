@@ -211,10 +211,10 @@ class CategoryDetailsPage extends StatefulWidget {
   final String categoryTitle;
 
   const CategoryDetailsPage({
-    Key? key,
+    super.key,
     required this.categoryId,
     required this.categoryTitle,
-  }) : super(key: key);
+  });
 
   @override
   State<CategoryDetailsPage> createState() => _CategoryDetailsPageState();
