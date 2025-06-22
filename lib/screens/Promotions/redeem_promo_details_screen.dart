@@ -957,6 +957,7 @@ import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
 import 'package:total_energies/models/stations_model.dart';
 import 'package:total_energies/screens/Promotions/qr_screen.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/station_service.dart';
 import 'package:total_energies/widgets/Promotions/activity_indicator.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
@@ -1034,11 +1035,15 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
         } else {
           station.distance = double.infinity;
         }
+      } else {
+        station.distance = double.infinity; // ADD THIS CASE
       }
     }
 
     // Sort by distance
-    filtered.sort((a, b) => a.distance!.compareTo(b.distance!));
+    // filtered.sort((a, b) => a.distance!.compareTo(b.distance!));
+    filtered.sort((a, b) => (a.distance ?? double.infinity)
+        .compareTo(b.distance ?? double.infinity));
 
     setState(() {
       custserial = userSerial;
@@ -1056,17 +1061,20 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
         title: LogoRow(),
       ),
       body: isLoadingStations
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: LoadingScreen())
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Center(
+                  //   child: widget.promotion.imagePath == null ||
+                  //           widget.promotion.imagePath!.isEmpty
+                  //       ? Image.network(widget.promotion.imagePath!)
+                  //       : Image.asset("assets/images/logo.png"),
+                  // ),
                   Center(
-                    child: widget.promotion.imagePath == null ||
-                            widget.promotion.imagePath!.isEmpty
-                        ? Image.network(widget.promotion.imagePath!)
-                        : Image.asset("assets/images/logo.png"),
+                    child: Image.asset("assets/images/logo.png"),
                   ),
                   const SizedBox(height: 20),
                   Text(widget.promotion.eventTopic,
@@ -1119,8 +1127,8 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                           ],
                         ),
                         ActivityIndicator(
-                          left: widget.promotion.remainingUsage ?? 0,
-                          total: widget.promotion.qrMaxUsage ?? 0,
+                          left: widget.promotion.remainingUsage,
+                          total: widget.promotion.qrMaxUsage,
                           title: 'promotion_det_page.activity'.tr,
                         ),
                       ],
@@ -1165,7 +1173,7 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
-                          if ((widget.promotion.remainingUsage ?? 0) == 0) {
+                          if ((widget.promotion.remainingUsage) == 0) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text(

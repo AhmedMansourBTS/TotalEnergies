@@ -1,0 +1,2 @@
+D:/2025/Mob/Git/total_energies/android/app/.cxx/Debug/4p131365/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/2025/Mob/Git/total_energies/android/app/.cxx/Debug/4p131365/armeabi-v7a/CMakeFiles/rebuild_cache.dir

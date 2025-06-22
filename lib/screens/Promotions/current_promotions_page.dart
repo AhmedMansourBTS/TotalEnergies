@@ -142,9 +142,10 @@ class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
             itemCount: promos.length,
             itemBuilder: (context, index) {
               final promo = promos[index];
-              final imageUrl = promo.imagePath != null
-                  ? promo.imagePath!.replaceAll('\\', '/')
-                  : '';
+              // final imageUrl = promo.imagePath != null
+              //     ? promo.imagePath.replaceAll('\\', '/')
+              //     : '';
+              final imageUrl = promo.imagePath;
 
               return CurrPromoCard(
                 serial: promo.serial,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:total_energies/core/constant/colors.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 
 class CurrPromoCard extends StatefulWidget {
   final int? serial;
@@ -47,7 +48,7 @@ class _CurrPromoCardState extends State<CurrPromoCard> {
       fit: BoxFit.cover,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
-        return const Center(child: CircularProgressIndicator());
+        return const Center(child: LoadingScreen());
       },
       errorBuilder: (context, error, stackTrace) {
         return Image.asset(

@@ -135,10 +135,8 @@ class _CustDatePickerFieldState extends State<CustDatePickerField> {
       lastDate: widget.dateTo,
     );
 
-    if (pickedDate != null) {
-      _updateDateInField(pickedDate);
+    _updateDateInField(pickedDate!);
     }
-  }
 
   void _updateDateInField(DateTime date) {
     final formattedDate = DateFormat('dd/MM/yyyy').format(date);

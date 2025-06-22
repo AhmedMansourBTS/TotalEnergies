@@ -41,6 +41,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/categories_promotion_model.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/register_to_promotion_service.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
@@ -210,7 +211,7 @@ class _CategoryPromoDetailPageState extends State<CategoryPromoDetailPage> {
                       Text("promotion_det_page.max_user".tr,
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black)),
-                      Text("${widget.promotion.qrMaxUsage}",
+                      Text("${widget.promotion.maxParticipants}",
                           style: const TextStyle(
                               fontSize: 18, color: Colors.black))
                     ],
@@ -228,7 +229,7 @@ class _CategoryPromoDetailPageState extends State<CategoryPromoDetailPage> {
                     backgroundColor: WidgetStatePropertyAll(primaryColor),
                   ),
                   child: _isLoading
-                      ? const CircularProgressIndicator(color: Colors.white)
+                      ? const LoadingScreen()
                       : Text("all_card.apply_btn".tr,
                           style: const TextStyle(
                               color: btntxtColors, fontSize: 20)),

@@ -74,6 +74,7 @@
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/get_qr_model.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_qr_service.dart';
 import 'dart:async'; // <-- Add this import for Timer
 
@@ -160,7 +161,7 @@ class _QRPageState extends State<QRPage> {
           Expanded(
             child: Center(
               child: isLoading
-                  ? CircularProgressIndicator()
+                  ? LoadingScreen()
                   : base64Image != null
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,

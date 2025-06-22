@@ -118,6 +118,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:total_energies/models/stations_model.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/station_service.dart';
 
 class StationsDropdown extends StatefulWidget {
@@ -233,7 +234,7 @@ class _StationsDropdownState extends State<StationsDropdown> {
       future: _stationsFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return const LoadingScreen();
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
