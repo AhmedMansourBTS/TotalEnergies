@@ -37,7 +37,7 @@ class _CitySearchFieldState extends State<CitySearchField> {
 
   Future<void> _fetchCities() async {
     try {
-      List<CityModel> cities = await _cityService.getUsers();
+      List<CityModel> cities = await _cityService.getCities();
       setState(() {
         _cities = cities;
         _filteredCities = cities;

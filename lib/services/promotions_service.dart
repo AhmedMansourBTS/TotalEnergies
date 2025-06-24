@@ -41,7 +41,6 @@ import 'package:total_energies/models/promotions_model.dart';
 //   }
 // }
 
-
 class PromotionsService {
   final String apiUrl =
       "https://www.besttopsystems.net:4336/api/PromotionEvent/GetValidPromotions";
@@ -49,9 +48,9 @@ class PromotionsService {
   Future<List<PromotionsModel>> getPromotions() async {
     try {
       final response = await http.get(Uri.parse(apiUrl));
-      print("Request URL: $apiUrl");
-      print('Status Code: ${response.statusCode}');
-      print(response.body);
+      print("(All) Request URL: $apiUrl");
+      print('(All) Status Code: ${response.statusCode}');
+      print('(All) Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         // return PromotionsModel.fromJson(response.body)
@@ -59,10 +58,10 @@ class PromotionsService {
         final promotions = jsonResponse
             .map((promo) => PromotionsModel.fromJson(promo))
             .toList();
-        print(promotions);
+        print("(All) Promotions: ${promotions}");
         return promotions;
       } else {
-        print("Server error: ${response.statusCode}");
+        print("(All) Server error: ${response.statusCode}");
         throw Exception("Failed to load promotions.");
       }
     } catch (e) {

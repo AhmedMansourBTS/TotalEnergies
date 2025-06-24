@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/services/user_service.dart';
@@ -331,6 +332,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   keyboardType: TextInputType.number,
                   // validator: _validateYear,
                   prefixIcon: Icons.calendar_today,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(4),
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
                 ),
                 CustPasswordField(
                   controller: _passwordController,

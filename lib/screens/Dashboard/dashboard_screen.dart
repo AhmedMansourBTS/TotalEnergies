@@ -1,8 +1,16 @@
 // import 'package:flutter/material.dart';
 // import 'package:total_energies/core/constant/colors.dart';
+// import 'package:total_energies/models/promotions_model.dart';
+// import 'package:total_energies/models/service_model.dart';
+// import 'package:total_energies/screens/Dashboard/NotificationsPage.dart';
+// import 'package:total_energies/screens/Stations/stations_screen.dart';
+// import 'package:total_energies/screens/loading_screen.dart';
+// import 'package:total_energies/services/promotions_service.dart';
+// import 'package:total_energies/services/service_service.dart';
 // import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 // class DashboardPage extends StatelessWidget {
+
 //   final double adsHeight;
 //   final double newsHeight;
 
@@ -21,18 +29,27 @@
 //         title: Row(
 //           children: [
 //             LogoRow(),
-//             Spacer(),
-//             Icon(
-//               Icons.notifications,
-//               size: 28,
-//               color: primaryColor,
-//             )
+//             const Spacer(),
+//             InkWell(
+//               onTap: () {
+//                 Navigator.push(
+//                   context,
+//                   MaterialPageRoute(builder: (_) => const NotificationsPage()),
+//                 );
+//               },
+//               child: Icon(
+//                 Icons.notifications,
+//                 size: 28,
+//                 color: primaryColor,
+//               ),
+//             ),
 //           ],
 //         ),
 //       ),
 //       body: SingleChildScrollView(
 //         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
+//           crossAxisAlignment: CrossAxisAlignment.end,
+//           mainAxisAlignment: MainAxisAlignment.end,
 //           children: [
 //             const SizedBox(height: 20),
 //             // Part 1 - Ads
@@ -47,6 +64,8 @@
 
 //             // Part 3 - Available Services
 //             _buildAvailableServices(),
+
+//             const SizedBox(height: 20),
 
 //             // Part 4 - Latest Promotions
 //             _buildLatestPromos(),
@@ -65,7 +84,7 @@
 //       'assets/images/logo.png',
 //     ];
 
-//     return Padding(
+//     return Container(
 //       padding: const EdgeInsets.symmetric(horizontal: 16),
 //       child: SizedBox(
 //         height: adsHeight,
@@ -106,7 +125,7 @@
 //       'Important Update 3',
 //     ];
 
-//     return Padding(
+//     return Container(
 //       padding: const EdgeInsets.symmetric(horizontal: 16),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,104 +165,161 @@
 //     );
 //   }
 
-//   // PART 3: Available Services
+//   // Part 3
 //   Widget _buildAvailableServices() {
-//     final List<Map<String, dynamic>> services = [
-//       {'icon': Icons.local_gas_station, 'title': 'Fuel'},
-//       {'icon': Icons.local_car_wash, 'title': 'Car Wash'},
-//       {'icon': Icons.store, 'title': 'Mini Market'},
-//       {'icon': Icons.build, 'title': 'Maintenance'},
-//       {'icon': Icons.ev_station, 'title': 'EV Charge'},
-//     ];
+//     return FutureBuilder<List<ServiceModel>>(
+//       future: GetAllServicesService.fetchAllServices(),
+//       builder: (context, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return Container(
+//             height: 160,
+//             padding: const EdgeInsets.all(16),
+//             alignment: Alignment.center,
+//             child: const LoadingScreen(), // your loading widget
+//           );
+//         } else if (snapshot.hasError) {
+//           return Padding(
+//             padding: const EdgeInsets.all(16),
+//             child: Text('Failed to load services: ${snapshot.error}'),
+//           );
+//         }
 
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 16),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           const Text(
-//             'Available Services',
-//             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-//           ),
-//           const SizedBox(height: 10),
-//           SizedBox(
-//             height: 120,
-//             child: ListView.separated(
-//               scrollDirection: Axis.horizontal,
-//               itemCount: services.length,
-//               separatorBuilder: (context, index) => const SizedBox(width: 20),
-//               itemBuilder: (context, index) {
-//                 final service = services[index];
-//                 return Column(
-//                   children: [
-//                     CircleAvatar(
-//                       radius: 30,
-//                       backgroundColor: primaryColor,
-//                       child: Icon(
-//                         service['icon'],
-//                         color: Colors.white,
-//                         size: 30,
+//         final services = snapshot.data!.where((s) => s.activeYN).toList();
+
+//         if (services.isEmpty) {
+//           return const Padding(
+//             padding: EdgeInsets.all(16),
+//             child: Text('No active services available.'),
+//           );
+//         }
+
+//         return Container(
+//           padding: const EdgeInsets.symmetric(horizontal: 16),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               const Text(
+//                 'Available Services',
+//                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+//               ),
+//               const SizedBox(height: 10),
+//               SizedBox(
+//                 height: 120,
+//                 child: ListView.separated(
+//                   scrollDirection: Axis.horizontal,
+//                   itemCount: services.length,
+//                   separatorBuilder: (context, index) =>
+//                       const SizedBox(width: 20),
+//                   itemBuilder: (context, index) {
+//                     final service = services[index];
+//                     return InkWell(
+//                       onTap: () {
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (_) => StationListScreen(service: service),
+//                           ),
+//                         );
+//                       },
+//                       child: Column(
+//                         children: [
+//                           CircleAvatar(
+//                             radius: 30,
+//                             backgroundColor: primaryColor,
+//                             child: const Icon(
+//                               Icons.miscellaneous_services,
+//                               color: Colors.white,
+//                               size: 30,
+//                             ),
+//                           ),
+//                           const SizedBox(height: 8),
+//                           Text(
+//                             service.serviceLatDescription,
+//                             style: const TextStyle(fontSize: 14),
+//                           ),
+//                         ],
 //                       ),
-//                     ),
-//                     const SizedBox(height: 8),
-//                     Text(
-//                       service['title'],
-//                       style: const TextStyle(fontSize: 14),
-//                     ),
-//                   ],
-//                 );
-//               },
-//             ),
+//                     );
+//                   },
+//                 ),
+//               ),
+//             ],
 //           ),
-//         ],
-//       ),
+//         );
+//       },
 //     );
 //   }
 
-//   // PART 4: Latest Promotions
 //   Widget _buildLatestPromos() {
-//     final List<String> promos = [
-//       'Promo 1: 20% off fuel',
-//       'Promo 2: Free coffee with car wash',
-//       'Promo 3: Loyalty rewards',
-//       'Promo 4: 20% off fuel',
-//       'Promo 5: Free coffee with car wash',
-//       'Promo 6: Loyalty rewards',
+
+//     final List<Map<String, dynamic>> promoStats = [
+//       {'title': 'Total Promos', 'value': '36', 'icon': Icons.local_offer},
+//       {'title': 'Active', 'value': '14', 'icon': Icons.check_circle},
+//       {'title': 'Expired', 'value': '18', 'icon': Icons.cancel},
+//       {'title': 'Redeemed', 'value': '4', 'icon': Icons.redeem},
 //     ];
 
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(horizontal: 16),
+//     return Container(
+//       padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
 //           const Text(
-//             'Latest Promotions',
+//             'Promotions Analysis',
 //             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
 //           ),
 //           const SizedBox(height: 10),
-//           ListView.builder(
+//           GridView.count(
 //             shrinkWrap: true,
 //             physics: const NeverScrollableScrollPhysics(),
-//             itemCount: promos.length,
-//             itemBuilder: (context, index) {
-//               return Card(
-//                 color: Colors.lightBlue,
-//                 margin: const EdgeInsets.symmetric(vertical: 8),
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(10),
+//             crossAxisCount: 2,
+//             crossAxisSpacing: 12,
+//             mainAxisSpacing: 12,
+//             childAspectRatio: 1.4,
+//             children: promoStats.map((promo) {
+//               return Container(
+//                 decoration: BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.circular(12),
+//                   boxShadow: [
+//                     BoxShadow(
+//                       color: Colors.grey.withOpacity(0.2),
+//                       blurRadius: 6,
+//                       offset: Offset(0, 4),
+//                     ),
+//                   ],
 //                 ),
-//                 child: ListTile(
-//                   leading: const Icon(
-//                     Icons.local_offer,
-//                     color: Colors.white,
-//                   ),
-//                   title: Text(
-//                     promos[index],
-//                     style: TextStyle(color: Colors.white),
-//                   ),
+//                 padding: const EdgeInsets.all(16),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Icon(
+//                       promo['icon'],
+//                       color: primaryColor,
+//                       size: 28,
+//                     ),
+//                     const SizedBox(height: 10),
+//                     Text(
+//                       promo['value'],
+//                       style: const TextStyle(
+//                         fontSize: 22,
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.black,
+//                       ),
+//                     ),
+//                     const SizedBox(height: 6),
+//                     Text(
+//                       promo['title'],
+//                       style: const TextStyle(
+//                         fontSize: 14,
+//                         color: Colors.black54,
+//                       ),
+//                       textAlign: TextAlign.center,
+//                     ),
+//                   ],
 //                 ),
 //               );
-//             },
+//             }).toList(),
 //           ),
 //         ],
 //       ),
@@ -253,14 +329,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
+import 'package:total_energies/models/curr_promo_model.dart';
+import 'package:total_energies/models/exp_promo_model.dart';
+import 'package:total_energies/models/promotions_model.dart';
 import 'package:total_energies/models/service_model.dart';
 import 'package:total_energies/screens/Dashboard/NotificationsPage.dart';
 import 'package:total_energies/screens/Stations/stations_screen.dart';
 import 'package:total_energies/screens/loading_screen.dart';
+import 'package:total_energies/services/curr_promo_service.dart';
+import 'package:total_energies/services/get_exp_promo_service.dart';
+import 'package:total_energies/services/promotions_service.dart';
 import 'package:total_energies/services/service_service.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   final double adsHeight;
   final double newsHeight;
 
@@ -269,6 +351,64 @@ class DashboardPage extends StatelessWidget {
     this.adsHeight = 150,
     this.newsHeight = 120,
   });
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  late Future<List<PromotionsModel>> _allPromosFuture;
+  List<PromotionsModel> _allPromos = [];
+
+  late Future<List<CurrPromoModel>> _redeemedPromosFuture;
+  List<CurrPromoModel> _redeemedPromos = [];
+
+  late Future<List<ExpiredPromoModel>> _expiredPromosFuture;
+  List<ExpiredPromoModel> _expiredPromos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _allPromosFuture = PromotionsService().getPromotions();
+    _redeemedPromosFuture = GetCurrPromoService().getCurrPromotion();
+    _expiredPromosFuture = GetExpPromoService().getExpPromotions();
+    _loadPromotions();
+    _loadRedeemedPromotions();
+    _loadExpiredPromotions();
+  }
+
+  void _loadPromotions() async {
+    try {
+      final promos = await PromotionsService().getPromotions();
+      setState(() {
+        _allPromos = promos;
+      });
+    } catch (e) {
+      print("Error loading promotions: $e");
+    }
+  }
+
+  void _loadRedeemedPromotions() async {
+    try {
+      final redeemed = await GetCurrPromoService().getCurrPromotion();
+      setState(() {
+        _redeemedPromos = redeemed;
+      });
+    } catch (e) {
+      print("Error loading redeemed promotions: $e");
+    }
+  }
+
+  void _loadExpiredPromotions() async {
+    try {
+      final expired = await GetExpPromoService().getExpPromotions();
+      setState(() {
+        _expiredPromos = expired;
+      });
+    } catch (e) {
+      print("Error loading redeemed promotions: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -298,23 +438,14 @@ class DashboardPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            // Part 1 - Ads
             _buildAdsSection(),
-
             const SizedBox(height: 20),
-
-            // Part 2 - News
             _buildNewsSection(),
-
             const SizedBox(height: 20),
-
-            // Part 3 - Available Services
             _buildAvailableServices(),
-
-            // Part 4 - Latest Promotions
+            const SizedBox(height: 20),
             _buildLatestPromos(),
           ],
         ),
@@ -322,7 +453,6 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // PART 1: Ads Section
   Widget _buildAdsSection() {
     final List<String> ads = [
       'assets/images/logo.png',
@@ -331,10 +461,10 @@ class DashboardPage extends StatelessWidget {
       'assets/images/logo.png',
     ];
 
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
-        height: adsHeight,
+        height: widget.adsHeight,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: ads.length,
@@ -344,12 +474,8 @@ class DashboardPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: primaryColor, // Change to your desired border color
-                    width: 1.0, // Change to your desired border width
-                  ),
-                  borderRadius: BorderRadius.circular(
-                      10), // Match the ClipRRect border radius
+                  border: Border.all(color: primaryColor, width: 1.0),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Image.asset(
                   ads[index],
@@ -364,7 +490,6 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // PART 2: News Section
   Widget _buildNewsSection() {
     final List<String> newsList = [
       'Breaking News 1',
@@ -372,7 +497,7 @@ class DashboardPage extends StatelessWidget {
       'Important Update 3',
     ];
 
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,7 +508,7 @@ class DashboardPage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           SizedBox(
-            height: newsHeight,
+            height: widget.newsHeight,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemCount: newsList.length,
@@ -412,65 +537,17 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // PART 3: Available Services
-  // Widget _buildAvailableServices() {
-  //   final List<Map<String, dynamic>> services = [
-  //     {'icon': Icons.local_gas_station, 'title': 'Fuel'},
-  //     {'icon': Icons.local_car_wash, 'title': 'Car Wash'},
-  //     {'icon': Icons.store, 'title': 'Mini Market'},
-  //     {'icon': Icons.build, 'title': 'Maintenance'},
-  //     {'icon': Icons.ev_station, 'title': 'EV Charge'},
-  //   ];
-
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: 16),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         const Text(
-  //           'Available Services',
-  //           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-  //         ),
-  //         const SizedBox(height: 10),
-  //         SizedBox(
-  //           height: 120,
-  //           child: ListView.separated(
-  //             scrollDirection: Axis.horizontal,
-  //             itemCount: services.length,
-  //             separatorBuilder: (context, index) => const SizedBox(width: 20),
-  //             itemBuilder: (context, index) {
-  //               final service = services[index];
-  //               return Column(
-  //                 children: [
-  //                   CircleAvatar(
-  //                     radius: 30,
-  //                     backgroundColor: primaryColor,
-  //                     child: Icon(
-  //                       service['icon'],
-  //                       color: Colors.white,
-  //                       size: 30,
-  //                     ),
-  //                   ),
-  //                   const SizedBox(height: 8),
-  //                   Text(
-  //                     service['title'],
-  //                     style: const TextStyle(fontSize: 14),
-  //                   ),
-  //                 ],
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
   Widget _buildAvailableServices() {
     return FutureBuilder<List<ServiceModel>>(
       future: GetAllServicesService.fetchAllServices(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: LoadingScreen());
+          return Container(
+            height: 160,
+            padding: const EdgeInsets.all(16),
+            alignment: Alignment.center,
+            child: const LoadingScreen(),
+          );
         } else if (snapshot.hasError) {
           return Padding(
             padding: const EdgeInsets.all(16),
@@ -479,7 +556,6 @@ class DashboardPage extends StatelessWidget {
         }
 
         final services = snapshot.data!.where((s) => s.activeYN).toList();
-        // final services = snapshot.data!.toList();
 
         if (services.isEmpty) {
           return const Padding(
@@ -488,7 +564,7 @@ class DashboardPage extends StatelessWidget {
           );
         }
 
-        return Padding(
+        return Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -505,59 +581,37 @@ class DashboardPage extends StatelessWidget {
                   itemCount: services.length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 20),
-                      itemBuilder: (context, index) {
-  final service = services[index];
-  return InkWell(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => StationListScreen(service: service),
-        ),
-      );
-    },
-    child: Column(
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundColor: primaryColor,
-          child: const Icon(
-            Icons.miscellaneous_services,
-            color: Colors.white,
-            size: 30,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          service.serviceLatDescription,
-          style: const TextStyle(fontSize: 14),
-        ),
-      ],
-    ),
-  );
-},
-
-                  // itemBuilder: (context, index) {
-                  //   final service = services[index];
-                  //   return Column(
-                  //     children: [
-                  //       CircleAvatar(
-                  //         radius: 30,
-                  //         backgroundColor: primaryColor,
-                  //         child: const Icon(
-                  //           Icons.miscellaneous_services,
-                  //           color: Colors.white,
-                  //           size: 30,
-                  //         ),
-                  //       ),
-                  //       const SizedBox(height: 8),
-                  //       Text(
-                  //         service.serviceLatDescription,
-                  //         style: const TextStyle(fontSize: 14),
-                  //       ),
-                  //     ],
-                  //   );
-                  // },
+                  itemBuilder: (context, index) {
+                    final service = services[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => StationListScreen(service: service),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundColor: primaryColor,
+                            child: const Icon(
+                              Icons.miscellaneous_services,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            service.serviceLatDescription,
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -567,50 +621,80 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // PART 4: Latest Promotions
   Widget _buildLatestPromos() {
-    final List<String> promos = [
-      'Promo 1: 20% off fuel',
-      'Promo 2: Free coffee with car wash',
-      'Promo 3: Loyalty rewards',
-      'Promo 4: 20% off fuel',
-      'Promo 5: Free coffee with car wash',
-      'Promo 6: Loyalty rewards',
+    final int total = _allPromos.length;
+    final int expired = _expiredPromos.length;
+    final int redeemed = _redeemedPromos.length;
+    final int active = total - redeemed;
+
+    final List<Map<String, dynamic>> promoStats = [
+      {'title': 'Total Promos', 'value': '$total', 'icon': Icons.local_offer},
+      {'title': 'Active', 'value': '$active', 'icon': Icons.check_circle},
+      {'title': 'Expired', 'value': '$expired', 'icon': Icons.cancel},
+      {'title': 'Redeemed', 'value': '$redeemed', 'icon': Icons.redeem},
     ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+    return Container(
+      padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Latest Promotions',
+            'Promotions Analysis',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
-          ListView.builder(
+          GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: promos.length,
-            itemBuilder: (context, index) {
-              return Card(
-                color: Colors.lightBlue,
-                margin: const EdgeInsets.symmetric(vertical: 8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 1.4,
+            children: promoStats.map((promo) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      blurRadius: 6,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                child: ListTile(
-                  leading: const Icon(
-                    Icons.local_offer,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    promos[index],
-                    style: TextStyle(color: Colors.white),
-                  ),
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      promo['icon'],
+                      color: primaryColor,
+                      size: 28,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      promo['value'],
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      promo['title'],
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black54,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                 ),
               );
-            },
+            }).toList(),
           ),
         ],
       ),

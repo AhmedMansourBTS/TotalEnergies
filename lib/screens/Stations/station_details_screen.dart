@@ -14,9 +14,25 @@ class StationDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: backgroundColor,
-        title: LogoRow(),
-      ),
+          backgroundColor: backgroundColor,
+          title: Row(
+            children: [
+              LogoRow(),
+              Spacer(),
+              Text(
+                station.stationName,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              // Expanded(
+              //   child: Center(
+              //     child: Text(
+              //       station.stationName,
+              //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              //     ),
+              //   ),
+              // ),
+            ],
+          )),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(

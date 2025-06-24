@@ -4,6 +4,8 @@ class StationModel {
   final String stationName;
   final String stationArabicName;
   final int? classifficationCode;
+  final int? governorateId;
+  final int? cityId;
   final String? stationAdress;
   final String? stationGovernment;
   final String? btCode;
@@ -17,6 +19,8 @@ class StationModel {
       required this.stationName,
       required this.stationArabicName,
       this.classifficationCode,
+      this.governorateId,
+      this.cityId,
       this.stationAdress,
       this.stationGovernment,
       this.btCode,
@@ -31,6 +35,8 @@ class StationModel {
       stationName: json['stationName'],
       stationArabicName: json['stationArabicName'],
       classifficationCode: json['classifficationCode'],
+      governorateId: json['governorateId'],
+      cityId: json['cityId'],
       stationAdress: json['stationAdress'],
       stationGovernment: json['stationGovernment'],
       btCode: json['btCode'],
@@ -46,6 +52,8 @@ class StationModel {
       'stationName': stationName,
       'stationArabicName': stationArabicName,
       'classifficationCode': classifficationCode,
+      'governorateId': governorateId,
+      'cityId': cityId,
       'stationAdress': stationAdress,
       'stationGovernment': stationGovernment,
       'btCode': btCode,

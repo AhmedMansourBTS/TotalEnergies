@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:total_energies/core/constant/colors.dart';
 
 class Custtxtfield extends StatelessWidget {
@@ -10,6 +11,7 @@ class Custtxtfield extends StatelessWidget {
   final IconData? prefixIcon;
   final IconData? suffixIcon; // Optional suffix icon
   final bool showAsterisk;
+  final List<TextInputFormatter>? inputFormatters;
 
   const Custtxtfield({
     super.key,
@@ -21,6 +23,7 @@ class Custtxtfield extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon, // Optional validation function
     this.showAsterisk = false,
+    this.inputFormatters,
   });
 
   // Getter for formatted label with optional asterisk
@@ -49,6 +52,7 @@ class Custtxtfield extends StatelessWidget {
         controller: controller,
         keyboardType: keyboardType,
         style: TextStyle(color: inputTextColor),
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           // labelText: labelText,
           label: showAsterisk ? formattedLabel : Text(labelText),

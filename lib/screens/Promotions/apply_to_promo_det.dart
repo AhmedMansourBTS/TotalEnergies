@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/promotions_model.dart';
 import 'package:total_energies/services/register_to_promotion_service.dart';
@@ -151,7 +152,9 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        widget.promotion.startDate.toString().split(' ')[0],
+                        DateFormat('dd/MM/yyyy').format(
+                            widget.promotion.startDate.toString().split(' ')[0]
+                                as DateTime),
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       )
@@ -166,7 +169,9 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        widget.promotion.endDate.toString().split(' ')[0],
+                        DateFormat('dd/MM/yyyy').format(widget.promotion.endDate
+                            .toString()
+                            .split(' ')[0] as DateTime),
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       )

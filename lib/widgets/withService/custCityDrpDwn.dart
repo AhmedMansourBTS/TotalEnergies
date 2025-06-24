@@ -54,7 +54,7 @@ class _CustCityDropdownState extends State<CustCityDropdown> {
 
   Future<void> _fetchCities() async {
     try {
-      List<CityModel> cities = await _cityService.getUsers();
+      List<CityModel> cities = await _cityService.getCities();
       setState(() {
         _cities = cities;
         _isLoading = false;

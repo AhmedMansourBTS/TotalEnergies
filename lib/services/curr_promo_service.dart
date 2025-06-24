@@ -10,14 +10,27 @@ class GetCurrPromoService {
   Future<List<CurrPromoModel>> getCurrPromotion() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var customerSerial = prefs.getInt('serial');
+    var token = prefs.getString('token');
 
     if (customerSerial == null) {
       throw Exception('Customer serial not found in SharedPreferences');
     }
 
+    if (token == null) {
+      throw Exception('Token not found in SharedPreferences');
+    }
+
     final url = Uri.parse('$baseUrl?customerCode=$customerSerial');
 
-    final response = await http.get(url);
+    // final response = await http.get(url);
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+    );
 
     if (response.statusCode == 200) {
       final List<dynamic> jsonList = jsonDecode(response.body);
