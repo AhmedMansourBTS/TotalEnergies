@@ -328,6 +328,8 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/curr_promo_model.dart';
 import 'package:total_energies/models/exp_promo_model.dart';
@@ -366,6 +368,9 @@ class _DashboardPageState extends State<DashboardPage> {
   late Future<List<ExpiredPromoModel>> _expiredPromosFuture;
   List<ExpiredPromoModel> _expiredPromos = [];
 
+  // User's name retrieved from SharedPreferences
+  String name = "";
+
   @override
   void initState() {
     super.initState();
@@ -375,6 +380,15 @@ class _DashboardPageState extends State<DashboardPage> {
     _loadPromotions();
     _loadRedeemedPromotions();
     _loadExpiredPromotions();
+    loadUserData();
+  }
+
+  // Loads user data (username) from SharedPreferences
+  void loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('username') ?? "";
+    });
   }
 
   void _loadPromotions() async {
@@ -419,6 +433,35 @@ class _DashboardPageState extends State<DashboardPage> {
         title: Row(
           children: [
             LogoRow(),
+            const Spacer(),
+            ConstrainedBox(
+              constraints: const BoxConstraints(
+                  maxWidth: 100), // Limits width for long usernames
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Displays "Hi" greeting text
+                  // Text(
+                  //   'app_bar.hi_txt'.tr,
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //     color: primaryColor,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  // Displays the username, truncated with ellipses if too long
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis, // Truncates long usernames
+                  ),
+                ],
+              ),
+            ),
             const Spacer(),
             InkWell(
               onTap: () {

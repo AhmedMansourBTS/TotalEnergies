@@ -14,7 +14,7 @@ class LogoRow extends StatelessWidget {
             fit: BoxFit.contain,
           ),
         ),
-        const SizedBox(width: 10),
+        // const SizedBox(width: 10),
         // SizedBox(
         //   height: kToolbarHeight - 25,
         //   child: Image.asset(
