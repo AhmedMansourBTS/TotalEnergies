@@ -13,13 +13,8 @@ class CurrPromoModel {
   final int remainingUsage;
   final int usedTimes;
   final List<int> stations;
-  // final List<String>? stationAddresses;
   final List<PromotionDetail> promotionDetails;
-  // final String? fromTime;
-  // final String? toTime;
   final int? categoryId;
-  // final dynamic promoGroupsRels;
-  // final dynamic file;
 
   CurrPromoModel({
     required this.serial,
@@ -36,13 +31,8 @@ class CurrPromoModel {
     required this.remainingUsage,
     required this.usedTimes,
     required this.stations,
-    // required this.stationAddresses,
     required this.promotionDetails,
-    // this.fromTime,
-    // this.toTime,
     this.categoryId,
-    // this.promoGroupsRels,
-    // this.file,
   });
 
   factory CurrPromoModel.fromJson(Map<String, dynamic> json) {
@@ -61,17 +51,10 @@ class CurrPromoModel {
       remainingUsage: json['remainingUsage'],
       usedTimes: json['usedTimes'],
       stations: List<int>.from(json['stations']),
-      // stationAddresses: json['stationAddresses'] != null
-      //     ? List<String>.from(json['stationAddresses'])
-      //     : null,
       promotionDetails: (json['promotionDetails'] as List)
           .map((e) => PromotionDetail.fromJson(e))
           .toList(),
-      // fromTime: json['fromTime'],
-      // toTime: json['toTime'],
       categoryId: json['categoryId'],
-      // promoGroupsRels: json['promoGroupsRels'],
-      // file: json['file'],
     );
   }
 }

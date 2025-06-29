@@ -333,6 +333,172 @@
 // }
 
 // with filtering
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:total_energies/core/constant/colors.dart';
+// import 'package:total_energies/models/promotions_model.dart';
+// import 'package:total_energies/screens/Promotions/apply_to_promo_det.dart';
+// import 'package:total_energies/screens/loading_screen.dart';
+// import 'package:total_energies/services/get_curr_promo_service.dart';
+// import 'package:total_energies/services/get_exp_promo_service.dart';
+// import 'package:total_energies/services/promotions_service.dart';
+// import 'package:total_energies/widgets/Promotions/all_promo_card.dart';
+
+// class AllPromotionsPage extends StatefulWidget {
+//   const AllPromotionsPage({super.key});
+
+//   @override
+//   State<AllPromotionsPage> createState() => _AllPromotionsPageState();
+// }
+
+// class _AllPromotionsPageState extends State<AllPromotionsPage> {
+//   final PromotionsService _promotionsService = PromotionsService();
+//   late Future<void> _loadDataFuture;
+
+//   List<PromotionsModel> _promotions = [];
+//   List<PromotionsModel> _filteredPromotions = [];
+//   Set<int> _currPromoSerials = {};
+//   Set<int> _expPromoSerials = {};
+//   String _filter = 'All';
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _loadDataFuture = _loadData();
+//   }
+
+//   Future<void> _loadData() async {
+//     _promotions = await _promotionsService.getPromotions();
+
+//     final currPromos = await GetCurrPromoService().getCurrPromotions(context);
+//     _currPromoSerials = currPromos.map((e) => e.serial).toSet();
+
+//     final expPromos = await GetExpPromoService().getExpPromotions();
+//     _expPromoSerials = expPromos.map((e) => e.serial).toSet();
+
+//     _applyFilter();
+//     setState(() {});
+//   }
+
+//   void _applyFilter() {
+//     _filteredPromotions = _promotions.where((promo) {
+//       final isCurr = _currPromoSerials.contains(promo.serial);
+//       final isExp = _expPromoSerials.contains(promo.serial);
+//       final isAvailable = !isCurr && !isExp;
+
+//       switch (_filter) {
+//         case 'Available':
+//           return isAvailable;
+//         case 'Ongoing':
+//           return isCurr;
+//         case 'Expired':
+//           return isExp;
+//         default:
+//           return true;
+//       }
+//     }).toList();
+//   }
+
+//   void _onFilterChanged(String filter) {
+//     _filter = filter;
+//     _applyFilter();
+//     setState(() {});
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: backgroundColor,
+//       body: FutureBuilder<void>(
+//         future: _loadDataFuture,
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.waiting) {
+//             return const Center(child: LoadingScreen());
+//           } else if (snapshot.hasError) {
+//             return Center(child: Text('Error: ${snapshot.error}'));
+//           }
+
+//           return Column(
+//             children: [
+//               // Filter Chips (always visible)
+//               SingleChildScrollView(
+//                 scrollDirection: Axis.horizontal,
+//                 padding:
+//                     const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//                 child: Row(
+//                   children: ['All', 'Available', 'Ongoing', 'Expired']
+//                       .map((label) => Padding(
+//                             padding: const EdgeInsets.only(right: 8.0),
+//                             child: ChoiceChip(
+//                               label: Text(label),
+//                               selected: _filter == label,
+//                               onSelected: (_) => _onFilterChanged(label),
+//                               selectedColor: primaryColor,
+//                             ),
+//                           ))
+//                       .toList(),
+//                 ),
+//               ),
+
+//               // Promotions List or "No promotions" message
+//               Expanded(
+//                 child: _filteredPromotions.isEmpty
+//                     ? const Center(child: Text('No promotions found.'))
+//                     : ListView.builder(
+//                         itemCount: _filteredPromotions.length,
+//                         itemBuilder: (context, index) {
+//                           final promo = _filteredPromotions[index];
+//                           final isCurr =
+//                               _currPromoSerials.contains(promo.serial);
+//                           final isExp = _expPromoSerials.contains(promo.serial);
+//                           final isBlocked = isCurr || isExp;
+
+//                           String statusLabel = 'Available';
+//                           Color statusColor = Colors.green;
+//                           if (isCurr) {
+//                             statusLabel = 'Ongoing';
+//                             statusColor = Colors.orange;
+//                           } else if (isExp) {
+//                             statusLabel = 'Expired';
+//                             statusColor = Colors.grey;
+//                           }
+
+//                           return Padding(
+//                             padding: const EdgeInsets.symmetric(
+//                                 horizontal: 12, vertical: 6),
+//                             child: AllPromoCard(
+//                               serial: promo.serial,
+//                               imagepath: promo.imagePath ?? '',
+//                               title: promo.eventTopic ?? '',
+//                               description: promo.eventDescription ?? '',
+//                               startDate: promo.startDate,
+//                               endDate: promo.endDate,
+//                               total: promo.qrMaxUsage,
+//                               used: promo.usedTimes,
+//                               isBlocked: isBlocked,
+//                               statusLabel: statusLabel,
+//                               statusColor: statusColor,
+//                               onTap: () {
+//                                 if (!isBlocked) {
+//                                   Get.to(
+//                                       () => ApplyToPromoDet(promotion: promo));
+//                                 }
+//                               },
+//                             ),
+//                           );
+//                         },
+//                       ),
+//               ),
+//             ],
+//           );
+//         },
+//       ),
+//     );
+//   }
+
+// }
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:total_energies/core/constant/colors.dart';
@@ -368,16 +534,17 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
   }
 
   Future<void> _loadData() async {
-    _promotions = await _promotionsService.getPromotions();
-
-    final currPromos = await GetCurrPromoService().getCurrPromotions();
-    _currPromoSerials = currPromos.map((e) => e.serial).toSet();
-
-    final expPromos = await GetExpPromoService().getExpPromotions();
-    _expPromoSerials = expPromos.map((e) => e.serial).toSet();
-
-    _applyFilter();
-    setState(() {});
+    try {
+      _promotions = await _promotionsService.getPromotions(context);
+      final currPromos = await GetCurrPromoService().getCurrPromotions(context);
+      _currPromoSerials = currPromos.map((e) => e.serial).toSet();
+      final expPromos = await GetExpPromoService().getExpPromotions(context);
+      _expPromoSerials = expPromos.map((e) => e.serial).toSet();
+      _applyFilter();
+    } catch (e) {
+      print("Error loading data: $e");
+      rethrow; // Rethrow to let FutureBuilder handle the error
+    }
   }
 
   void _applyFilter() {
@@ -415,16 +582,40 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: LoadingScreen());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Error: ${snapshot.error}',
+                    style: const TextStyle(color: Colors.redAccent, fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _loadDataFuture = _loadData();
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                    ),
+                    child: const Text(
+                      "Retry",
+                      style: TextStyle(color: btntxtColors, fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            );
           }
 
           return Column(
             children: [
-              // Filter Chips (always visible)
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 child: Row(
                   children: ['All', 'Available', 'Ongoing', 'Expired']
                       .map((label) => Padding(
@@ -439,11 +630,14 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                       .toList(),
                 ),
               ),
-
-              // Promotions List or "No promotions" message
               Expanded(
                 child: _filteredPromotions.isEmpty
-                    ? const Center(child: Text('No promotions found.'))
+                    ? const Center(
+                        child: Text(
+                          'No promotions found.',
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        ),
+                      )
                     : ListView.builder(
                         itemCount: _filteredPromotions.length,
                         itemBuilder: (context, index) {
@@ -495,93 +689,4 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     backgroundColor: backgroundColor,
-  //     body: FutureBuilder<void>(
-  //       future: _loadDataFuture,
-  //       builder: (context, snapshot) {
-  //         if (snapshot.connectionState == ConnectionState.waiting) {
-  //           return const Center(child: LoadingScreen());
-  //         } else if (snapshot.hasError) {
-  //           return Center(child: Text('Error: ${snapshot.error}'));
-  //         } else if (_filteredPromotions.isEmpty) {
-  //           return const Center(child: Text('No promotions found.'));
-  //         }
-
-  //         return Column(
-  //           children: [
-  //             // Filter Chips (without search)
-  //             SingleChildScrollView(
-  //               scrollDirection: Axis.horizontal,
-  //               padding:
-  //                   const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-  //               child: Row(
-  //                 children: ['All', 'Available', 'Ongoing', 'Expired']
-  //                     .map((label) => Padding(
-  //                           padding: const EdgeInsets.only(right: 8.0),
-  //                           child: ChoiceChip(
-  //                             label: Text(label),
-  //                             selected: _filter == label,
-  //                             onSelected: (_) => _onFilterChanged(label),
-  //                             selectedColor: primaryColor,
-  //                           ),
-  //                         ))
-  //                     .toList(),
-  //               ),
-  //             ),
-
-  //             // Promotions List
-  //             Expanded(
-  //               child: ListView.builder(
-  //                 itemCount: _filteredPromotions.length,
-  //                 itemBuilder: (context, index) {
-  //                   final promo = _filteredPromotions[index];
-  //                   final isCurr = _currPromoSerials.contains(promo.serial);
-  //                   final isExp = _expPromoSerials.contains(promo.serial);
-  //                   final isBlocked = isCurr || isExp;
-
-  //                   String statusLabel = 'Available';
-  //                   Color statusColor = Colors.green;
-  //                   if (isCurr) {
-  //                     statusLabel = 'Ongoing';
-  //                     statusColor = Colors.orange;
-  //                   } else if (isExp) {
-  //                     statusLabel = 'Expired';
-  //                     statusColor = Colors.grey;
-  //                   }
-
-  //                   return Padding(
-  //                     padding: const EdgeInsets.symmetric(
-  //                         horizontal: 12, vertical: 6),
-  //                     child: AllPromoCard(
-  //                       serial: promo.serial,
-  //                       imagepath: promo.imagePath ?? '',
-  //                       title: promo.eventTopic ?? '',
-  //                       description: promo.eventDescription ?? '',
-  //                       startDate: promo.startDate,
-  //                       endDate: promo.endDate,
-  //                       total: promo.qrMaxUsage,
-  //                       used: promo.usedTimes,
-  //                       isBlocked: isBlocked,
-  //                       statusLabel: statusLabel,
-  //                       statusColor: statusColor,
-  //                       onTap: () {
-  //                         if (!isBlocked) {
-  //                           Get.to(() => ApplyToPromoDet(promotion: promo));
-  //                         }
-  //                       },
-  //                     ),
-  //                   );
-  //                 },
-  //               ),
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
 }

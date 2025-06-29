@@ -374,9 +374,9 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
-    _allPromosFuture = PromotionsService().getPromotions();
+    _allPromosFuture = PromotionsService().getPromotions(context);
     _redeemedPromosFuture = GetCurrPromoService().getCurrPromotion();
-    _expiredPromosFuture = GetExpPromoService().getExpPromotions();
+    _expiredPromosFuture = GetExpPromoService().getExpPromotions(context);
     _loadPromotions();
     _loadRedeemedPromotions();
     _loadExpiredPromotions();
@@ -393,7 +393,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void _loadPromotions() async {
     try {
-      final promos = await PromotionsService().getPromotions();
+      final promos = await PromotionsService().getPromotions(context);
       setState(() {
         _allPromos = promos;
       });
@@ -415,7 +415,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void _loadExpiredPromotions() async {
     try {
-      final expired = await GetExpPromoService().getExpPromotions();
+      final expired = await GetExpPromoService().getExpPromotions(context);
       setState(() {
         _expiredPromos = expired;
       });
@@ -450,15 +450,15 @@ class _DashboardPageState extends State<DashboardPage> {
                   //   ),
                   // ),
                   // Displays the username, truncated with ellipses if too long
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    overflow: TextOverflow.ellipsis, // Truncates long usernames
-                  ),
+                  // Text(
+                  //   name,
+                  //   style: TextStyle(
+                  //     fontSize: 20,
+                  //     color: primaryColor,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  //   overflow: TextOverflow.ellipsis, // Truncates long usernames
+                  // ),
                 ],
               ),
             ),
@@ -483,6 +483,8 @@ class _DashboardPageState extends State<DashboardPage> {
         child: Column(
           children: [
             const SizedBox(height: 20),
+            _buildWelcomeBanner(30), // or any height you prefer
+            const SizedBox(height: 20),
             _buildAdsSection(),
             const SizedBox(height: 20),
             _buildNewsSection(),
@@ -491,6 +493,33 @@ class _DashboardPageState extends State<DashboardPage> {
             const SizedBox(height: 20),
             _buildLatestPromos(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWelcomeBanner(double height) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      height: height, // You can pass a dynamic height
+      child: Center(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            // border: Border.all(color: primaryColor, width: 1.0),
+            // borderRadius: BorderRadius.circular(10),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            'Welcome  $name',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: primaryColor,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ),
     );

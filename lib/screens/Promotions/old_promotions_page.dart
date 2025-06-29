@@ -94,7 +94,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/exp_promo_model.dart';
@@ -118,7 +117,7 @@ class _OldPromotionsPageState extends State<OldPromotionsPage> {
   @override
   void initState() {
     super.initState();
-    _futurePromotions = _promotionsService.getExpPromotions();
+    _futurePromotions = _promotionsService.getExpPromotions(context);
   }
 
   @override

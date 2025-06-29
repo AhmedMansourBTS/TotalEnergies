@@ -20,7 +20,9 @@ class GetCurrPromoService {
       throw Exception('Token not found in SharedPreferences');
     }
 
-    final url = Uri.parse('$baseUrl?customerCode=$customerSerial');
+    // final url = Uri.parse('$baseUrl?customerCode=$customerSerial');
+
+    final url = Uri.parse('$baseUrl/$customerSerial');
 
     // final response = await http.get(url);
 
