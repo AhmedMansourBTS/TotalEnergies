@@ -23,14 +23,6 @@ class StationDetailsScreen extends StatelessWidget {
                 station.stationName,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              // Expanded(
-              //   child: Center(
-              //     child: Text(
-              //       station.stationName,
-              //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              //     ),
-              //   ),
-              // ),
             ],
           )),
       body: Padding(

@@ -1096,7 +1096,7 @@ class _StationListScreenState extends State<StationListScreen> {
   @override
   void initState() {
     super.initState();
-    _stationsFuture = _stationService.getStations();
+    _stationsFuture = _stationService.getStations(context);
     loadGovernorates();
     loadCities();
     loadUserData();
@@ -1105,7 +1105,7 @@ class _StationListScreenState extends State<StationListScreen> {
   // Fetches governorates from GovernorateService and updates state
   void loadGovernorates() async {
     try {
-      final result = await GovernorateService.getAllGovernorates();
+      final result = await GovernorateService.getAllGovernorates(context);
       setState(() {
         _governorates = result;
       });
@@ -1117,7 +1117,7 @@ class _StationListScreenState extends State<StationListScreen> {
   // Fetches cities from CityService and initializes filtered cities
   void loadCities() async {
     try {
-      final result = await _cityService.getCities();
+      final result = await _cityService.getCities(context);
       setState(() {
         _cities = result;
         _filteredCities = result;

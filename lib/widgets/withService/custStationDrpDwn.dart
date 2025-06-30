@@ -151,7 +151,7 @@ class _StationsDropdownState extends State<StationsDropdown> {
 
   Future<List<StationModel>> _loadFilteredStations() async {
     StationService service = StationService();
-    List<StationModel> allStations = await service.getStations();
+    List<StationModel> allStations = await service.getStations(context);
     final filtered = allStations
         .where((station) => widget.stationSerials.contains(station.serial))
         .toList();
