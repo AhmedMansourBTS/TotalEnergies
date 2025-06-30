@@ -311,14 +311,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   dateTo: DateTime.now(), // Example: Maximum date (today)
                   // validator: _validateDate,
                 ),
-                // Custtxtfield(
-                //   controller: _carModelController,
-                //   labelText: 'register_page.car_brand_label'.tr,
-                //   hintText: 'register_page.car_brand_hint'.tr,
-                //   keyboardType: TextInputType.text,
-                //   // validator: _validateName,
-                //   prefixIcon: Icons.directions_car,
-                // ),
+
                 CarBrandSearchField(
                   controller: _carBrandController,
                   labelText: "Car Brand",

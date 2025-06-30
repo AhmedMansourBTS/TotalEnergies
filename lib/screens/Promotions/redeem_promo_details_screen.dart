@@ -1339,7 +1339,8 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
           desiredAccuracy: LocationAccuracy.high);
 
       // Fetch all stations
-      List<StationModel> allStations = await _stationService.getStations(context);
+      List<StationModel> allStations =
+          await _stationService.getStations(context);
 
       // Filter by station serials in promotion
       List<StationModel> filtered = allStations
@@ -1391,8 +1392,8 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
 
   Future<void> loadFilters() async {
     try {
-      final governorates = await GovernorateService.getAllGovernorates(context);
-      final cities = await _cityService.getCities(context);
+      final governorates = await GovernorateService.getAllGovernorates();
+      final cities = await _cityService.getCities();
       setState(() {
         _governorates = governorates;
         _cities = cities;
@@ -1518,7 +1519,8 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                         child: widget.promotion.imagePath != null &&
                                 widget.promotion.imagePath!.isNotEmpty
                             ? Image.network(
-                                widget.promotion.imagePath!.replaceAll('\\', '/'),
+                                widget.promotion.imagePath!
+                                    .replaceAll('\\', '/'),
                                 errorBuilder: (context, error, stackTrace) =>
                                     Image.asset("assets/images/logo.png"),
                               )
@@ -1658,8 +1660,8 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                                   value: null,
                                   child: Text("Choose city".tr),
                                 ),
-                                ..._filteredCities.map(
-                                    (city) => DropdownMenuItem<CityModel>(
+                                ..._filteredCities
+                                    .map((city) => DropdownMenuItem<CityModel>(
                                           value: city,
                                           child: Text(isRTL
                                               ? city.cityName
@@ -1746,8 +1748,8 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                                   selectedStationAddressUrl == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content:
-                                        Text('You must choose a station first.'.tr),
+                                    content: Text(
+                                        'You must choose a station first.'.tr),
                                     backgroundColor: Colors.orange,
                                   ),
                                 );

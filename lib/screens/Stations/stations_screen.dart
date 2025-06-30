@@ -1105,7 +1105,7 @@ class _StationListScreenState extends State<StationListScreen> {
   // Fetches governorates from GovernorateService and updates state
   void loadGovernorates() async {
     try {
-      final result = await GovernorateService.getAllGovernorates(context);
+      final result = await GovernorateService.getAllGovernorates();
       setState(() {
         _governorates = result;
       });
@@ -1117,7 +1117,7 @@ class _StationListScreenState extends State<StationListScreen> {
   // Fetches cities from CityService and initializes filtered cities
   void loadCities() async {
     try {
-      final result = await _cityService.getCities(context);
+      final result = await _cityService.getCities();
       setState(() {
         _cities = result;
         _filteredCities = result;
