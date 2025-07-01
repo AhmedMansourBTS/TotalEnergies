@@ -1166,7 +1166,7 @@ class _StationListScreenState extends State<StationListScreen> {
 
   // Navigates to StationDetailsScreen with the selected station
   void _navigateToDetails(BuildContext context, StationModel station) {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => StationDetailsScreen(station: station),

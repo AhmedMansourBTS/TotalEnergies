@@ -130,13 +130,13 @@ class _CustDatePickerFieldState extends State<CustDatePickerField> {
   Future<void> _selectDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: widget.dateFrom,
+      initialDate: widget.dateTo,
       firstDate: widget.dateFrom,
       lastDate: widget.dateTo,
     );
 
     _updateDateInField(pickedDate!);
-    }
+  }
 
   void _updateDateInField(DateTime date) {
     final formattedDate = DateFormat('dd/MM/yyyy').format(date);
