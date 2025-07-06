@@ -143,18 +143,46 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: backgroundColor,
+      //   title: Directionality.of(context) != TextDirection.rtl
+      //       ? Container(
+      //           alignment: Alignment.centerRight,
+      //           child: TranslateButton(),
+      //         )
+      //       : Container(
+      //           alignment: Alignment.centerLeft,
+      //           child: TranslateButton(),
+      //         ),
+      // ),
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        title: Directionality.of(context) != TextDirection.rtl
-            ? Container(
-                alignment: Alignment.centerRight,
-                child: TranslateButton(),
-              )
-            : Container(
-                alignment: Alignment.centerLeft,
-                child: TranslateButton(),
+        title: Row(
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterScreen()),
+                );
+              },
+              child: Text(
+                'btn.login_page_reg_btn'.tr,
+                style: TextStyle(
+                  color: inputTextColor,
+                  fontSize: 18,
+                  decoration: TextDecoration.underline,
+                  decorationColor: inputTextColor,
+                  decorationThickness: 2.0,
+                ),
               ),
+            ),
+            Spacer(),
+            TranslateButton(),
+          ],
+        ),
       ),
+
       backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -210,51 +238,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(color: btntxtColors, fontSize: 20),
                 ),
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegisterScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  elevation: 0,
-                ),
-                child: Text(
-                  'btn.login_page_reg_btn'.tr,
-                  style: TextStyle(
-                    color: inputTextColor,
-                    fontSize: 20,
-                    decoration: TextDecoration.underline,
-                    decorationColor: inputTextColor,
-                    decorationThickness: 2.0,
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Testing()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  elevation: 0,
-                ),
-                child: Text(
-                  "Testing",
-                  style: TextStyle(
-                    color: Colors.transparent,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
+              // SizedBox(height: 20),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => RegisterScreen()),
+              //     );
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: Colors.transparent,
+              //     shadowColor: Colors.transparent,
+              //     elevation: 0,
+              //   ),
+              //   child: Text(
+              //     'btn.login_page_reg_btn'.tr,
+              //     style: TextStyle(
+              //       color: inputTextColor,
+              //       fontSize: 20,
+              //       decoration: TextDecoration.underline,
+              //       decorationColor: inputTextColor,
+              //       decorationThickness: 2.0,
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: 20),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => Testing()),
+              //     );
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: Colors.transparent,
+              //     shadowColor: Colors.transparent,
+              //     elevation: 0,
+              //   ),
+              //   child: Text(
+              //     "Testing",
+              //     style: TextStyle(
+              //       color: Colors.transparent,
+              //       fontSize: 15,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

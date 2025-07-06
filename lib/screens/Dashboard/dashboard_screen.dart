@@ -784,6 +784,7 @@ import 'package:total_energies/models/exp_promo_model.dart';
 import 'package:total_energies/models/promotions_model.dart';
 import 'package:total_energies/models/service_model.dart';
 import 'package:total_energies/screens/Dashboard/NotificationsPage.dart';
+import 'package:total_energies/screens/Dashboard/news_detail_page.dart';
 import 'package:total_energies/screens/Stations/stations_screen.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/NotificationService.dart';
@@ -1028,6 +1029,53 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
+  // Widget _buildNewsSection() {
+  //   final List<String> newsList = [
+  //     'Breaking News 1',
+  //     'Event Announcement 2',
+  //     'Important Update 3',
+  //   ];
+
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 16),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         const Text(
+  //           'Latest News',
+  //           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  //         ),
+  //         const SizedBox(height: 10),
+  //         SizedBox(
+  //           height: widget.newsHeight,
+  //           child: ListView.separated(
+  //             scrollDirection: Axis.horizontal,
+  //             itemCount: newsList.length,
+  //             separatorBuilder: (context, index) => const SizedBox(width: 12),
+  //             itemBuilder: (context, index) {
+  //               return Container(
+  //                 width: 250,
+  //                 padding: const EdgeInsets.all(12),
+  //                 decoration: BoxDecoration(
+  //                   color: Colors.lightBlue,
+  //                   borderRadius: BorderRadius.circular(10),
+  //                 ),
+  //                 child: Center(
+  //                   child: Text(
+  //                     newsList[index],
+  //                     style: const TextStyle(fontSize: 16, color: Colors.white),
+  //                     textAlign: TextAlign.center,
+  //                   ),
+  //                 ),
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget _buildNewsSection() {
     final List<String> newsList = [
       'Breaking News 1',
@@ -1052,18 +1100,30 @@ class _DashboardPageState extends State<DashboardPage> {
               itemCount: newsList.length,
               separatorBuilder: (context, index) => const SizedBox(width: 12),
               itemBuilder: (context, index) {
-                return Container(
-                  width: 250,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      newsList[index],
-                      style: const TextStyle(fontSize: 16, color: Colors.white),
-                      textAlign: TextAlign.center,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            NewsDetailPage(title: newsList[index]),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 250,
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.lightBlue,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        newsList[index],
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 );

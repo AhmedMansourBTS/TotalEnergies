@@ -1722,7 +1722,6 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                       const SizedBox(height: 20),
                       Center(
                         child: OpenMapLinkButton(
-                          label: 'Get station directions'.tr,
                           mapUrl: selectedStationAddressUrl ?? '',
                         ),
                       ),
@@ -1793,8 +1792,7 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                        'You are out of range by ${(distanceInMeters / 1000 - allowedRange / 1000).toStringAsFixed(2)} km.'
-                                            .tr),
+                                        "You should be in the station to use the promotion you are ${(distanceInMeters / 1000 - allowedRange / 1000).toStringAsFixed(2)} KM away"),
                                     backgroundColor: Colors.redAccent,
                                   ),
                                 );

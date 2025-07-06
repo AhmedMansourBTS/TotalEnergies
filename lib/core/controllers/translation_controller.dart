@@ -88,13 +88,13 @@ class TranslationController extends Translations {
           'edit_profile.phone_number': 'Phone Number',
           'edit_profile.email': 'Email',
           'profile_page.acc_info': 'Account Information',
-          'profile_page.acc_history': 'Previous Promotions',
+          'profile_page.acc_history': 'Your History',
           'profile_page.change_lang': 'Change language',
           // App Bar
           'app_bar.hi_txt': 'Hello',
           // Promotions page
           'promotion_page.flt_all': 'All',
-          'promotion_page.flt_curr': 'Current',
+          'promotion_page.flt_curr': 'Ongoing',
           'promotion_page.flt_old': 'Old',
           // Bottom bar
           'bottom_bar.promotions': 'Promotions',

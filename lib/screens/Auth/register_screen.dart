@@ -297,11 +297,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 //   // validator: _validateCity,
                 //   showAsterisk: true,
                 // ),
-                CitySearchField(
+                GovernorateSearchField(
                   controller: _cityCodeController,
                   labelText: "City",
                   hintText: "Select your city",
-                  showAsterisk: true, // Show * if required
+                  showAsterisk: true,
                 ),
                 CustDatePickerField(
                   controller: _birthDateController,
