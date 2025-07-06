@@ -62,7 +62,6 @@
 //   }
 // }
 
-
 // import 'package:flutter/material.dart';
 // import 'package:total_energies/core/constant/colors.dart';
 // import 'package:total_energies/models/categories_model.dart';
@@ -198,14 +197,16 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 children: [
                   Text(
                     'Error: ${snapshot.error}',
-                    style: const TextStyle(color: Colors.redAccent, fontSize: 16),
+                    style:
+                        const TextStyle(color: Colors.redAccent, fontSize: 16),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        _futureCategories = CategoryService.fetchCategories(context);
+                        _futureCategories =
+                            CategoryService.fetchCategories(context);
                       });
                     },
                     style: ElevatedButton.styleFrom(

@@ -1102,7 +1102,7 @@ class _DashboardPageState extends State<DashboardPage> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
@@ -1183,7 +1183,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     final service = services[index];
                     return InkWell(
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (_) => StationListScreen(service: service),

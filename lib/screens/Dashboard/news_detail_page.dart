@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class NewsDetailPage extends StatelessWidget {
   final String title;
@@ -12,7 +13,9 @@ class NewsDetailPage extends StatelessWidget {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        title: Text(title),
+        title: Row(
+          children: [LogoRow(), const Spacer(), Text(title)],
+        ),
       ),
       body: Container(
         padding: EdgeInsets.all(10),
