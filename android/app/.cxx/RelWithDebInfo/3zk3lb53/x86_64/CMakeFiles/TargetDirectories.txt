@@ -1,0 +1,2 @@
+D:/2025/Mob/Git/total_energies/android/app/.cxx/RelWithDebInfo/3zk3lb53/x86_64/CMakeFiles/edit_cache.dir
+D:/2025/Mob/Git/total_energies/android/app/.cxx/RelWithDebInfo/3zk3lb53/x86_64/CMakeFiles/rebuild_cache.dir
