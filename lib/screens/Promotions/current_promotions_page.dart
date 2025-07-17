@@ -39,15 +39,17 @@ class _CurrentPromotionsPageState extends State<CurrentPromotionsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Error: ${snapshot.error}",
-                    style: const TextStyle(color: Colors.redAccent, fontSize: 16),
+                    "Check internet connection",
+                    style:
+                        const TextStyle(color: Colors.redAccent, fontSize: 16),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        _futurePromos = GetCurrPromoService().getCurrPromotions(context);
+                        _futurePromos =
+                            GetCurrPromoService().getCurrPromotions(context);
                       });
                     },
                     style: ElevatedButton.styleFrom(

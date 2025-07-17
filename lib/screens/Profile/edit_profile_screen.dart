@@ -73,13 +73,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             SizedBox(
               height: 20,
             ),
-            TextField(
-                controller: _phoneController,
-                decoration:
-                    InputDecoration(labelText: 'edit_profile.phone_number'.tr)),
-            SizedBox(
-              height: 20,
-            ),
+            // TextField(
+            //     controller: _phoneController,
+            //     decoration:
+            //         InputDecoration(labelText: 'edit_profile.phone_number'.tr)),
+            // SizedBox(
+            //   height: 20,
+            // ),
             // TextField(
             //     controller: _genderController,
             //     decoration: InputDecoration(labelText: "Gender")),

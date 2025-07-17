@@ -1,40 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:total_energies/core/constant/colors.dart';
-// import 'package:total_energies/models/categories_promotion_model.dart';
-// import 'package:total_energies/widgets/global/app_bar_logos.dart';
-
-// class CategoryPromoDetailPage extends StatelessWidget {
-//   final CategoriesPromotionModel promotion;
-
-//   const CategoryPromoDetailPage({Key? key, required this.promotion})
-//       : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: backgroundColor,
-//       appBar: AppBar(backgroundColor: backgroundColor, title: LogoRow()),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               promotion.eventDescription,
-//               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//             ),
-//             const SizedBox(height: 12),
-//             Text("From: ${promotion.startDate.split('T').first}"),
-//             Text("To: ${promotion.endDate.split('T').first}"),
-//             const SizedBox(height: 12),
-//             Text("Used: ${promotion.usedTimes} / ${promotion.qrMaxUsage}"),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,6 +22,7 @@ class _CategoryPromoDetailPageState extends State<CategoryPromoDetailPage> {
   final RegisterToPromotionService _registerService =
       RegisterToPromotionService();
   bool _isLoading = false;
+  bool _isApplied = false;
   int custserial = 0;
 
   void loadUserData() async {
@@ -90,6 +54,12 @@ class _CategoryPromoDetailPageState extends State<CategoryPromoDetailPage> {
         final decoded = jsonDecode(response.body);
         final success = decoded['success'] == true;
         final message = decoded['message'] ?? 'No message provided';
+
+        if (success) {
+          setState(() {
+            _isApplied = true;
+          });
+        }
 
         Get.snackbar(
           success ? "Success" : "Failed",
@@ -224,18 +194,40 @@ class _CategoryPromoDetailPageState extends State<CategoryPromoDetailPage> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: _isLoading ? null : _registerToPromo,
-                  style: const ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(primaryColor),
+                  onPressed: _isLoading || _isApplied ? null : _registerToPromo,
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(
+                      _isApplied ? Colors.grey : primaryColor,
+                    ),
                   ),
                   child: _isLoading
-                      ? const LoadingScreen()
-                      : Text("all_card.apply_btn".tr,
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : Text(
+                          "all_card.apply_btn".tr,
                           style: const TextStyle(
-                              color: btntxtColors, fontSize: 20)),
+                            color: btntxtColors,
+                            fontSize: 20,
+                          ),
+                        ),
                 ),
               ),
             ),
+            // Center(
+            //   child: SizedBox(
+            //     width: double.infinity,
+            //     child: ElevatedButton(
+            //       onPressed: _isLoading ? null : _registerToPromo,
+            //       style: const ButtonStyle(
+            //         backgroundColor: WidgetStatePropertyAll(primaryColor),
+            //       ),
+            //       child: _isLoading
+            //           ? const LoadingScreen()
+            //           : Text("all_card.apply_btn".tr,
+            //               style: const TextStyle(
+            //                   color: btntxtColors, fontSize: 20)),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
