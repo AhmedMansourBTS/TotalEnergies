@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/NotificationModel.dart';
@@ -12,7 +11,7 @@ import 'package:total_energies/screens/Dashboard/news_detail_page.dart';
 import 'package:total_energies/screens/Stations/stations_screen.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/NotificationService.dart';
-import 'package:total_energies/services/curr_promo_service.dart';
+import 'package:total_energies/services/get_curr_promo_service.dart';
 import 'package:total_energies/services/get_exp_promo_service.dart';
 import 'package:total_energies/services/promotions_service.dart';
 import 'package:total_energies/services/service_service.dart';
@@ -52,7 +51,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     super.initState();
     _allPromosFuture = PromotionsService().getPromotions(context);
-    _redeemedPromosFuture = GetCurrPromoService().getCurrPromotion();
+    _redeemedPromosFuture = GetCurrPromoService().getCurrPromotions(context);
     _expiredPromosFuture = GetExpPromoService().getExpPromotions(context);
     _notificationsFuture = _notificationService.fetchNotifications(context);
     _loadPromotions();
@@ -82,7 +81,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   void _loadRedeemedPromotions() async {
     try {
-      final redeemed = await GetCurrPromoService().getCurrPromotion();
+      final redeemed = await GetCurrPromoService().getCurrPromotions(context);
       setState(() {
         _redeemedPromos = redeemed;
       });

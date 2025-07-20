@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/categories_promotion_model.dart';
-import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/register_to_promotion_service.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
 

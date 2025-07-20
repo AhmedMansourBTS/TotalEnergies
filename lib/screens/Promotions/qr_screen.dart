@@ -1,82 +1,9 @@
-// import 'package:flutter/material.dart';
-// import 'package:total_energies/core/constant/colors.dart';
-// import 'package:total_energies/models/get_qr_model.dart';
-// import 'package:total_energies/services/get_qr_service.dart';
-
-// class QRPage extends StatefulWidget {
-//   final int customerId;
-//   final int eventId;
-
-//   const QRPage({super.key, required this.customerId, required this.eventId});
-
-//   @override
-//   State<QRPage> createState() => _QRPageState();
-// }
-
-// class _QRPageState extends State<QRPage> {
-//   String? base64Image;
-//   String? fileName;
-//   bool isLoading = true;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     fetchQRCode();
-//   }
-
-//   void fetchQRCode() async {
-//     try {
-//       final service = QRService();
-//       final response = await service.generateQR(
-//         GenerateQRRequest(
-//             customerId: widget.customerId, eventId: widget.eventId),
-//       );
-
-//       setState(() {
-//         base64Image = response.image;
-//         fileName = response.fileName;
-//         isLoading = false;
-//       });
-//     } catch (e) {
-//       print('Error: $e');
-//       setState(() => isLoading = false);
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: backgroundColor,
-//       appBar:
-//           AppBar(backgroundColor: backgroundColor, title: Text("QR Generator")),
-//       body: Center(
-//         child: isLoading
-//             ? CircularProgressIndicator()
-//             : base64Image != null
-//                 ? Column(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       Image.memory(
-//                         Uri.parse(base64Image!).data!.contentAsBytes(),
-//                         width: 300,
-//                         height: 300,
-//                       ),
-//                       // SizedBox(height: 10),
-//                       // Text(fileName ?? '', style: TextStyle(fontSize: 16)),
-//                     ],
-//                   )
-//                 : Text('Failed to load QR'),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/get_qr_model.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_qr_service.dart';
-import 'dart:async'; // <-- Add this import for Timer
+import 'dart:async'; 
 
 class QRPage extends StatefulWidget {
   final int customerId;
