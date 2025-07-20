@@ -9,17 +9,27 @@ class StationServiceModel {
     required this.serviceCode,
     required this.serviceDescription,
     required this.serviceLatDescription,
-    required this.imagePath,
+    this.imagePath,
     required this.validYN,
   });
 
   factory StationServiceModel.fromJson(Map<String, dynamic> json) {
     return StationServiceModel(
-      serviceCode: json['serviceCode'],
-      serviceDescription: json['serviceDescription'],
-      serviceLatDescription: json['serviceLatDescription'],
-      imagePath: json['imagePath'],
-      validYN: json['validYN'],
+      serviceCode: json['serviceCode'] as int,
+      serviceDescription: json['serviceDescription'] as String? ?? '',
+      serviceLatDescription: json['serviceLatDescription'] as String? ?? '',
+      imagePath: json['imagePath'] as String?,
+      validYN: json['validYN'] as bool? ?? false,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'serviceCode': serviceCode,
+      'serviceDescription': serviceDescription,
+      'serviceLatDescription': serviceLatDescription,
+      'imagePath': imagePath,
+      'validYN': validYN,
+    };
   }
 }

@@ -473,11 +473,20 @@ class _DashboardPageState extends State<DashboardPage> {
     final int total = _allPromos.length;
     final int expired = _expiredPromos.length;
     final int redeemed = _redeemedPromos.length;
-    final int active = total - redeemed;
+    // final int active = total - redeemed;
+    final int activePromotions = _allPromos
+        .where((promo) =>
+            !_redeemedPromos.any((rp) => rp.serial == promo.serial) &&
+            !_expiredPromos.any((ep) => ep.serial == promo.serial))
+        .length;
 
     final List<Map<String, dynamic>> promoStats = [
       {'title': 'Active', 'value': '$total', 'icon': Icons.local_offer},
-      {'title': 'Not Applied', 'value': '$active', 'icon': Icons.check_circle},
+      {
+        'title': 'Not Applied',
+        'value': '$activePromotions',
+        'icon': Icons.check_circle
+      },
       {'title': 'Consumed', 'value': '$expired', 'icon': Icons.cancel},
       {'title': 'Ongoing', 'value': '$redeemed', 'icon': Icons.redeem},
     ];
