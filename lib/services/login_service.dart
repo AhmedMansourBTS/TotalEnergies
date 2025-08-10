@@ -7,7 +7,7 @@ class LoginService {
 
   Future<http.Response> loginuser(LoginModel user) async {
     final url = Uri.parse('$_baseUrl/CustomerLogin');
-    
+
     try {
       final response = await http.post(
         url,
@@ -16,7 +16,7 @@ class LoginService {
         },
         body: jsonEncode(user.toJson()),
       );
-      
+
       return response;
     } catch (e) {
       throw Exception('Failed to login: $e');
