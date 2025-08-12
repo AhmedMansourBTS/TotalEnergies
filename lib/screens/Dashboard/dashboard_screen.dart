@@ -599,7 +599,7 @@ class DashboardPage extends StatefulWidget {
 
   const DashboardPage({
     super.key,
-    this.adsHeight = 150,
+    this.adsHeight = 180,
     this.newsHeight = 120,
   });
 
@@ -716,7 +716,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 alignment: Alignment.topRight,
                 children: [
                   Icon(
-                    Icons.notifications,
+                    Icons.notifications_outlined,
                     size: 35,
                     color: primaryColor,
                   ),

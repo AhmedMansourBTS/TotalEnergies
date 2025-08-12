@@ -24,7 +24,7 @@ class WelcomeBanner extends StatelessWidget {
           ),
           alignment: Alignment.center,
           child: Text(
-            'Welcome $name',
+            'Hello $name',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

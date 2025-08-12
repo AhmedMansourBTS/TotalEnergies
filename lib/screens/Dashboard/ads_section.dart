@@ -6,7 +6,7 @@ class AdsSection extends StatelessWidget {
 
   const AdsSection({
     super.key,
-    this.adsHeight = 150,
+    this.adsHeight = 180,
   });
 
   @override
@@ -27,16 +27,21 @@ class AdsSection extends StatelessWidget {
           itemCount: ads.length,
           separatorBuilder: (context, index) => const SizedBox(width: 12),
           itemBuilder: (context, index) {
+            double screenWidth = MediaQuery.of(context).size.width;
+            double itemWidth = screenWidth - 32; // 16 padding on each side
+
             return ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
+                width: itemWidth, // full width inside the padding
                 decoration: BoxDecoration(
                   border: Border.all(color: primaryColor, width: 1.0),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Image.asset(
                   ads[index],
-                  width: 250,
+                  width: itemWidth,
+                  height: adsHeight,
                   fit: BoxFit.cover,
                 ),
               ),

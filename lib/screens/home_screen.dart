@@ -35,20 +35,22 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: secondColors,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_offer), label: 'bottom_bar.promotions'.tr),
+              icon: Icon(Icons.home_outlined), label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.local_offer_outlined),
+              label: 'bottom_bar.promotions'.tr),
           // BottomNavigationBarItem(
           //     icon: Icon(Icons.local_gas_station),
           //     label: 'bottom_bar.stations'.tr),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: 'bottom_bar.profile'.tr),
+              icon: Icon(Icons.person_outline), label: 'bottom_bar.profile'.tr),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: primaryColor,
+        selectedItemColor: const Color(0xFFED0000),
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
-        showUnselectedLabels: false,
+        // showUnselectedLabels: false,
         selectedFontSize: 16,
       ),
     );

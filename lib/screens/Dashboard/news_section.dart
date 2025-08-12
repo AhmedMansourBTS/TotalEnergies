@@ -9,7 +9,7 @@ class NewsSection extends StatelessWidget {
   const NewsSection({
     super.key,
     required this.newsFuture,
-    this.newsHeight = 120,
+    this.newsHeight = 140,
   });
 
   @override
@@ -46,6 +46,9 @@ class NewsSection extends StatelessWidget {
                       const SizedBox(width: 12),
                   itemBuilder: (context, index) {
                     final newsItem = newsList[index];
+                    double screenWidth = MediaQuery.of(context).size.width;
+                    double itemWidth =
+                        screenWidth * 0.75; // 75% of screen width
 
                     return GestureDetector(
                       onTap: () {
@@ -58,7 +61,7 @@ class NewsSection extends StatelessWidget {
                         );
                       },
                       child: Container(
-                        width: 250,
+                        width: itemWidth,
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: Colors.lightBlue,
