@@ -5,6 +5,7 @@ import 'package:total_energies/screens/Promotions/exp_promo_det.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_exp_promo_service.dart';
 import 'package:total_energies/widgets/Promotions/old_promo_card.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class OldPromotionsPage extends StatefulWidget {
   const OldPromotionsPage({super.key});
@@ -28,6 +29,23 @@ class _OldPromotionsPageState extends State<OldPromotionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            LogoRow(),
+            Text(
+              "Promotions history",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: backgroundColor,
+        automaticallyImplyLeading: true, // ensures back arrow
+      ),
       body: FutureBuilder<List<ExpiredPromoModel>>(
         future: _futurePromotions,
         builder: (context, snapshot) {

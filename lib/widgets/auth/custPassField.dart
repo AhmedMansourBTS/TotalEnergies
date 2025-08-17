@@ -70,7 +70,7 @@ class _CustPasswordFieldState extends State<CustPasswordField> {
               borderRadius: BorderRadius.all(Radius.circular(15)),
               borderSide: BorderSide(color: txtfieldborderColor, width: 1.0),
             ),
-            prefixIcon: IconButton(
+            suffixIcon: IconButton(
               icon: Icon(
                 _isObscured ? Icons.visibility_off : Icons.visibility,
                 color: primaryColor,

@@ -73,7 +73,7 @@ class _CustConfirmPasswordFieldState extends State<CustConfirmPasswordField> {
                 color: Colors.green, width: 2.0), // Change focus border color
             borderRadius: BorderRadius.all(Radius.circular(15)),
           ),
-          prefixIcon: IconButton(
+          suffixIcon: IconButton(
             icon: Icon(
               _isObscured ? Icons.visibility_off : Icons.visibility,
               color: primaryColor,

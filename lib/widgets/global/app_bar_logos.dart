@@ -17,9 +17,9 @@ class LogoRow extends StatelessWidget {
             );
           },
           child: SizedBox(
-            height: kToolbarHeight - 25,
+            height: kToolbarHeight, // Full AppBar height
             child: Image.asset(
-              "assets/images/logo1.1.png",
+              "assets/images/logo.png",
               fit: BoxFit.contain,
             ),
           ),

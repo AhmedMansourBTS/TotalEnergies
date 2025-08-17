@@ -81,12 +81,34 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
+
   @override
   void initState() {
     super.initState();
 
-    // Wait for 3 seconds before navigating
+    // Animation setup
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+
+    _scaleAnimation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.elasticOut, // bounce effect
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
+    );
+
+    _controller.forward();
+
+    // Wait before navigating
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
@@ -100,30 +122,27 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
+        child: FadeTransition(
+          opacity: _fadeAnimation,
+          child: ScaleTransition(
+            scale: _scaleAnimation,
+            child: Image.asset(
               'assets/images/logo.png',
-              width: MediaQuery.of(context).size.width *
-                  0.7, // 30% of screen width
-              height: MediaQuery.of(context).size.height *
-                  0.35, // 15% of screen height
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height * 0.35,
               fit: BoxFit.contain,
-            )
-            // const SizedBox(height: 20),
-            // const Text(
-            //   "Welcome to Total Energies",
-            //   style: TextStyle(
-            //       color: primaryColor,
-            //       fontSize: 22,
-            //       fontWeight: FontWeight.bold),
-            // ),
-          ],
+            ),
+          ),
         ),
       ),
     );

@@ -72,14 +72,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
           final categories = snapshot.data!;
           return Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(20.0),
             child: GridView.builder(
               itemCount: categories.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 3 / 4,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1, // one per row
+                mainAxisExtent: MediaQuery.of(context).size.height * 0.4,
+                // 👆 each card takes half screen height
               ),
               itemBuilder: (context, index) {
                 final category = categories[index];

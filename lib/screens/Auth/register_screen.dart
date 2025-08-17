@@ -279,6 +279,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   keyboardType: TextInputType.emailAddress,
                   // validator: _validateEmail,
                   prefixIcon: Icons.mail,
+                  showAsterisk: true,
+                ),
+                CustPasswordField(
+                  controller: _passwordController,
+                  labelText: 'register_page.password_label'.tr,
+                  hintText: 'register_page.password_hint'.tr,
+                  validator: _validatePassword,
+                  showAsterisk: true,
+                ),
+                CustConfirmPasswordField(
+                  controller: _confirmPasswordController,
+                  passwordController:
+                      _passwordController, //  Pass the original password
+                  labelText: 'register_page.confrim_password_label'.tr,
+                  hintText: 'register_page.confrim_password_hint'.tr,
+                  validator: _validateConfirmPassword,
+                  showAsterisk: true,
                 ),
                 Custrowrdiobtn(
                   controller: _genderController,
@@ -329,22 +346,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     LengthLimitingTextInputFormatter(4),
                     FilteringTextInputFormatter.digitsOnly,
                   ],
-                ),
-                CustPasswordField(
-                  controller: _passwordController,
-                  labelText: 'register_page.password_label'.tr,
-                  hintText: 'register_page.password_hint'.tr,
-                  validator: _validatePassword,
-                  showAsterisk: true,
-                ),
-                CustConfirmPasswordField(
-                  controller: _confirmPasswordController,
-                  passwordController:
-                      _passwordController, //  Pass the original password
-                  labelText: 'register_page.confrim_password_label'.tr,
-                  hintText: 'register_page.confrim_password_hint'.tr,
-                  validator: _validateConfirmPassword,
-                  showAsterisk: true,
                 ),
 
                 TextWithCheckbox(

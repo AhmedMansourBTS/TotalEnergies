@@ -42,20 +42,24 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
             children: [
               LogoRow(),
               const Spacer(),
-              Column(
+              Row(
                 children: [
-                  Text('app_bar.hi_txt'.tr,
-                      style: const TextStyle(
-                          fontSize: 18,
-                          color: primaryColor,
-                          fontWeight: FontWeight.bold)),
-                  Text(name,
-                      style: const TextStyle(
-                          fontSize: 18,
-                          color: primaryColor,
-                          fontWeight: FontWeight.bold))
+                  Icon(
+                    Icons.person_outline_outlined,
+                    color: primaryColor,
+                    size: 28,
+                  ),
+                  const SizedBox(width: 4), // space between icon and text
+                  Text(
+                    '${name.length > 4 ? name.substring(0, 4) : name}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
-              ),
+              )
             ],
           ),
           bottom: TabBar(
@@ -75,8 +79,8 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
         ),
         body: TabBarView(
           children: [
-            CategoriesPage(),
             const AllPromotionsPage(),
+            CategoriesPage(),
             const CurrentPromotionsPage(),
           ],
         ),

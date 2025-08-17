@@ -27,9 +27,10 @@ class AdsSection extends StatelessWidget {
           itemCount: ads.length,
           separatorBuilder: (context, index) => const SizedBox(width: 12),
           itemBuilder: (context, index) {
-            double screenWidth = MediaQuery.of(context).size.width;
-            double itemWidth = screenWidth - 32; // 16 padding on each side
-
+            // double screenWidth = MediaQuery.of(context).size.width;
+            // double itemWidth = screenWidth - 45; // 16 padding on each side
+            double itemWidth = MediaQuery.of(context).size.width *
+                0.8; // 16 padding on each side
             return ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(

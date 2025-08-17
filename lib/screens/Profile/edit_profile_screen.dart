@@ -54,7 +54,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         // iconTheme: IconThemeData(color: Colors.white),
-        title: LogoRow(),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            LogoRow(),
+            Text(
+              "Edit Profile",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        automaticallyImplyLeading: true, // ensures back arrow
       ),
       body: Padding(
         padding: EdgeInsets.all(20.0),

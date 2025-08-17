@@ -697,7 +697,10 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white, // Always white
+        elevation: 0, // Remove shadow if you want flat design
+        scrolledUnderElevation: 0, // Prevents darker color when scrolled
+        surfaceTintColor: Colors.white, // Prevents Material 3 tint
         title: Row(
           children: [
             LogoRow(),
@@ -706,45 +709,56 @@ class _DashboardPageState extends State<DashboardPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const NotificationsPage()),
+                  MaterialPageRoute(
+                    builder: (_) => const NotificationsPage(),
+                  ),
                 ).then((_) {
-                  // Refresh notifications when returning from NotificationsPage
                   _loadNotifications();
                 });
               },
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Icon(
-                    Icons.notifications_outlined,
-                    size: 35,
-                    color: primaryColor,
-                  ),
-                  if (_unreadNotificationCount > 0)
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 1),
+              child: SizedBox(
+                height: kToolbarHeight,
+                child: Center(
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.topRight,
+                    children: [
+                      Icon(
+                        Icons.notifications_outlined,
+                        size: 30,
+                        color: primaryColor,
                       ),
-                      constraints: const BoxConstraints(
-                        minWidth: 20,
-                        minHeight: 20,
-                      ),
-                      child: Text(
-                        _unreadNotificationCount > 9
-                            ? '9+'
-                            : '$_unreadNotificationCount',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                      if (_unreadNotificationCount > 0)
+                        Positioned(
+                          right: -4,
+                          top: -4,
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 1),
+                            ),
+                            constraints: const BoxConstraints(
+                              minWidth: 20,
+                              minHeight: 20,
+                            ),
+                            child: Text(
+                              _unreadNotificationCount > 9
+                                  ? '9+'
+                                  : '$_unreadNotificationCount',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                ],
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
@@ -758,9 +772,9 @@ class _DashboardPageState extends State<DashboardPage> {
             const SizedBox(height: 20),
             AdsSection(adsHeight: widget.adsHeight),
             const SizedBox(height: 20),
-            NewsSection(newsFuture: _newsFuture, newsHeight: widget.newsHeight),
-            const SizedBox(height: 20),
             const AvailableServices(),
+            const SizedBox(height: 20),
+            NewsSection(newsFuture: _newsFuture, newsHeight: widget.newsHeight),
             const SizedBox(height: 20),
             LatestPromos(
               allPromos: _allPromos,

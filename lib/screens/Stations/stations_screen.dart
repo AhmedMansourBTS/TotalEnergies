@@ -404,7 +404,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -668,17 +667,17 @@ class _StationListScreenState extends State<StationListScreen> {
                   Expanded(
                     child: DropdownButtonFormField<GovernorateModel>(
                       decoration: InputDecoration(
-                        labelText: "Select governorate".tr,
+                        labelText: "Select city".tr,
                         border: const OutlineInputBorder(),
                         prefixIcon: const Icon(Icons.filter_alt),
                       ),
                       isExpanded: true,
                       value: _selectedGovernorate,
-                      hint: Text("Choose governorate".tr),
+                      hint: Text("Select city".tr),
                       items: [
                         DropdownMenuItem<GovernorateModel>(
                           value: null,
-                          child: Text("Choose governorate".tr),
+                          child: Text("Select city".tr),
                         ),
                         ..._governorates
                             .map((gov) => DropdownMenuItem<GovernorateModel>(
@@ -698,17 +697,17 @@ class _StationListScreenState extends State<StationListScreen> {
                   Expanded(
                     child: DropdownButtonFormField<CityModel>(
                       decoration: InputDecoration(
-                        labelText: "Select city".tr,
+                        labelText: "Select area".tr,
                         border: const OutlineInputBorder(),
                         prefixIcon: const Icon(Icons.filter_alt),
                       ),
                       isExpanded: true,
                       value: _selectedCity,
-                      hint: Text("Choose city".tr),
+                      hint: Text("Select area".tr),
                       items: [
                         DropdownMenuItem<CityModel>(
                           value: null,
-                          child: Text("Choose city".tr),
+                          child: Text("Select area".tr),
                         ),
                         ..._filteredCities
                             .map((city) => DropdownMenuItem<CityModel>(
@@ -812,5 +811,3 @@ class _StationListScreenState extends State<StationListScreen> {
     );
   }
 }
-
-

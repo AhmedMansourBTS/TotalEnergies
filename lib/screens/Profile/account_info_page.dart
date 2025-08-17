@@ -7,6 +7,7 @@ import 'package:total_energies/screens/Auth/loginPage.dart';
 import 'package:total_energies/widgets/Buttons/editImg.dart';
 import 'package:total_energies/widgets/Buttons/trnslt_btn.dart';
 import 'package:total_energies/widgets/profile/acc_info.dart';
+import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class AccountInfoPage extends StatefulWidget {
   const AccountInfoPage({super.key});
@@ -53,17 +54,29 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            LogoRow(),
+            Text(
+              "Account info",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: backgroundColor,
+        automaticallyImplyLeading: true, // ensures back arrow
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RoundImageRow(
-                imageUrl: 'assets/images/logo.png',
-                text: 'profile_page.acc_inf'.tr,
-                icon: Icons.edit,
-              ),
               ProfileInfoTile(
                 labelText: 'profile_page.name'.tr,
                 valueText: name,
@@ -85,51 +98,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 icon: Icons.security,
               ),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      "profile_page.change_lang".tr,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Container(
-                    child: TranslateButton(),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                color: Colors.white,
-                height: 3,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 15),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EditProfileScreen()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      primaryColor, // Change this to your desired color
-                  foregroundColor: Colors.white, // Text color
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 12), // Button padding
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // Rounded corners
-                  ),
-                ),
-                child: Text('btn.edit_profile'.tr),
-              ),
-              SizedBox(height: 10),
             ],
           ),
         ),

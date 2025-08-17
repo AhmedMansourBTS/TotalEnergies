@@ -28,13 +28,13 @@ class LatestPromos extends StatelessWidget {
         .length;
 
     final List<Map<String, dynamic>> promoStats = [
-      {'title': 'Active', 'value': '$total', 'icon': Icons.local_offer},
+      // {'title': 'Active', 'value': '$total', 'icon': Icons.local_offer},
       {
         'title': 'Not Applied',
         'value': '$activePromotions',
         'icon': Icons.check_circle
       },
-      {'title': 'Consumed', 'value': '$expired', 'icon': Icons.cancel},
+      // {'title': 'Consumed', 'value': '$expired', 'icon': Icons.cancel},
       {'title': 'Ongoing', 'value': '$redeemed', 'icon': Icons.redeem},
     ];
 
@@ -100,7 +100,7 @@ class LatestPromos extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(padding *
                         0.8), // Slightly reduced padding inside container
-                    
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
