@@ -155,7 +155,7 @@ class _SplashScreenState extends State<SplashScreen>
             left: 0,
             right: 0,
             child: Text(
-              "Version 1.0.0", 
+              "Version 1.0.0",
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14,

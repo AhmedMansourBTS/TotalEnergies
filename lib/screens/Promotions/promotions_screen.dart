@@ -69,10 +69,10 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
             labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             unselectedLabelStyle: TextStyle(fontSize: 16),
             tabs: [
+              Tab(text: 'promotion_page.flt_all'.tr),
               Tab(
                 text: "Categories",
               ),
-              Tab(text: 'promotion_page.flt_all'.tr),
               Tab(text: 'promotion_page.flt_curr'.tr),
             ],
           ),
