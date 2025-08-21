@@ -781,7 +781,7 @@ class _StationListScreenState extends State<StationListScreen> {
                               station.distance != double.infinity
                           ? '${(station.distance! / 1000).toStringAsFixed(2)} km'
                           : 'Unknown distance';
-                      final subtitle = '$govName, $cityName ($distance)';
+                      // final subtitle = '$govName, $cityName ($distance)';
 
                       return GestureDetector(
                         onTap: () => _navigateToDetails(context, station),
@@ -793,10 +793,20 @@ class _StationListScreenState extends State<StationListScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: ListTile(
-                            leading: const Icon(Icons.location_on,
+                            leading: const Icon(
+                                Icons.local_gas_station_outlined,
                                 color: primaryColor),
                             title: Text(station.stationName),
-                            subtitle: Text(subtitle),
+                            subtitle: Row(
+                              children: [
+                                Text('$govName, $cityName'),
+                                const SizedBox(width: 6),
+                                const Icon(Icons.location_on_outlined,
+                                    size: 16, color: Colors.grey), // 🏃 icon
+                                const SizedBox(width: 4),
+                                Text('$distance'),
+                              ],
+                            ),
                           ),
                         ),
                       );

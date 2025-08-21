@@ -111,7 +111,7 @@ class OpenMapLinkButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
-        foregroundColor: Colors.transparent,
+        foregroundColor: primaryColor, // For text color
         side: BorderSide(
           color: primaryColor,
           width: 1,
@@ -120,14 +120,27 @@ class OpenMapLinkButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
         elevation: 3,
-        padding: const EdgeInsets.all(12), // Adjusted for icon-only button
-        minimumSize: Size(48, 48), // Ensure button is large enough for icon
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        minimumSize: const Size(48, 48),
       ),
       onPressed: () => _confirmAndLaunchMap(context),
-      child: Icon(
-        Icons.location_on_outlined,
-        color: primaryColor,
-        size: 24,
+      child: Row(
+        mainAxisSize: MainAxisSize.min, // Make button fit content
+        children: [
+          Icon(
+            Icons.location_on_outlined,
+            color: primaryColor,
+            size: 22,
+          ),
+          const SizedBox(width: 8), // Space between icon and text
+          Text(
+            "View on Map",
+            style: TextStyle(
+              fontSize: 16,
+              color: primaryColor,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -88,7 +88,7 @@ class ProfileInfoTile extends StatelessWidget {
               ],
             ),
           ),
-          Divider(color: Colors.grey.shade300, thickness: 3, height: 3),
+          Divider(color: Colors.grey.shade300, thickness: 1, height: 1),
         ],
       ),
     );

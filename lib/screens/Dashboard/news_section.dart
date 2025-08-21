@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:total_energies/models/news_model.dart';
 import 'package:total_energies/screens/Dashboard/news_detail_page.dart';
+import 'package:total_energies/screens/loading_screen.dart';
 
 class NewsSection extends StatelessWidget {
   final Future<List<NewsModel>> newsFuture;
@@ -30,7 +31,7 @@ class NewsSection extends StatelessWidget {
               future: newsFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: LoadingScreen());
                 } else if (snapshot.hasError) {
                   return const Center(child: Text('Failed to load news.'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {

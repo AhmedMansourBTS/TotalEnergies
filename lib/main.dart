@@ -131,19 +131,40 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: ScaleTransition(
-            scale: _scaleAnimation,
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: MediaQuery.of(context).size.width * 0.7,
-              height: MediaQuery.of(context).size.height * 0.35,
-              fit: BoxFit.contain,
+      body: Stack(
+        children: [
+          // Center logo animation
+          Center(
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: ScaleTransition(
+                scale: _scaleAnimation,
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
           ),
-        ),
+
+          // App version text at bottom
+          Positioned(
+            bottom: 20, // distance from bottom
+            left: 0,
+            right: 0,
+            child: Text(
+              "Version 1.0.0", 
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -906,17 +906,45 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
             ),
           ],
         ),
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
-          tabs: const [
-            Tab(text: 'Station Info'),
-            Tab(text: 'Services'),
-            Tab(text: 'Promotions'),
-          ],
-          labelColor: primaryColor,
-          unselectedLabelColor: Colors.grey,
-          indicatorColor: primaryColor,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(80), // increase height
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Icon(Icons.local_gas_station_outlined,
+                        size: 24, color: primaryColor), // 📍 Icon
+                    SizedBox(width: 6),
+                    Text(
+                      "${widget.station.stationName ?? 'N/A'}",
+                      style: const TextStyle(fontSize: 18),
+                    ),
+                  ],
+                ),
+              ),
+              TabBar(
+                controller: _tabController,
+                isScrollable: true,
+                tabs: const [
+                  Tab(text: 'Station Info'),
+                  Tab(text: 'Services'),
+                  Tab(text: 'Promotions'),
+                ],
+                labelColor: primaryColor,
+                unselectedLabelColor: Colors.grey,
+                indicatorColor: primaryColor,
+                labelStyle: const TextStyle(
+                  fontSize: 18, // active tab font size
+                  fontWeight: FontWeight.bold,
+                ),
+                unselectedLabelStyle: const TextStyle(
+                  fontSize: 16, // inactive tab font size
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: TabBarView(
@@ -936,21 +964,47 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Station Name: ${widget.station.stationName ?? 'N/A'}",
-            style: const TextStyle(fontSize: 18),
+          Column(
+            children: [
+              Row(
+                children: const [
+                  Icon(Icons.location_on_outlined,
+                      size: 20, color: primaryColor), // 📍 Icon
+                  SizedBox(width: 6), // space between icon and text
+                  Text(
+                    "Address",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text(
+                "${widget.station.stationAddress ?? 'N/A'}",
+                style: const TextStyle(fontSize: 18),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            "Address: ${widget.station.stationAddress ?? 'N/A'}",
-            style: const TextStyle(fontSize: 18),
+          // const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Divider(
+              height: 1,
+              thickness: 1,
+              color: Colors.grey,
+            ),
           ),
-          const SizedBox(height: 8),
           Text(
             "Government: ${widget.station.stationGovernment ?? 'N/A'}",
             style: const TextStyle(fontSize: 18),
           ),
-          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Divider(
+              height: 1,
+              thickness: 1,
+              color: Colors.grey,
+            ),
+          ),
           OpenMapLinkButton(
             mapUrl: widget.station.stationAddress ?? '',
           ),
@@ -959,95 +1013,214 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
     );
   }
 
+  // Widget _buildServicesTab() {
+  //   return SingleChildScrollView(
+  //     padding: const EdgeInsets.all(16.0),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         const Text(
+  //           'Available Services',
+  //           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  //         ),
+  //         const SizedBox(height: 10),
+  //         SizedBox(
+  //           height: 160,
+  //           child: FutureBuilder<List<StationServiceModel>>(
+  //             future: _servicesFuture,
+  //             builder: (context, snapshot) {
+  //               if (snapshot.connectionState == ConnectionState.waiting) {
+  //                 return const Center(child: LoadingScreen());
+  //               } else if (snapshot.hasError) {
+  //                 return Center(
+  //                   child: Column(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       Text(
+  //                         'Check Internet Connection',
+  //                         style: const TextStyle(
+  //                             color: Colors.redAccent, fontSize: 16),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       const SizedBox(height: 10),
+  //                       ElevatedButton(
+  //                         onPressed: () {
+  //                           setState(() {
+  //                             _servicesFuture =
+  //                                 GetServicesByStationSerialService
+  //                                     .fetchServicesByStationSerial(
+  //                                         widget.station.serial);
+  //                           });
+  //                         },
+  //                         style: ElevatedButton.styleFrom(
+  //                             backgroundColor: primaryColor),
+  //                         child: const Text(
+  //                           'Retry',
+  //                           style: TextStyle(color: btntxtColors, fontSize: 16),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+  //                 return Center(
+  //                   child: Column(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       Text(
+  //                         'No services found for this station',
+  //                         style: const TextStyle(
+  //                             color: Colors.redAccent, fontSize: 16),
+  //                         textAlign: TextAlign.center,
+  //                       ),
+  //                       const SizedBox(height: 10),
+  //                       ElevatedButton(
+  //                         onPressed: () {
+  //                           setState(() {
+  //                             _servicesFuture =
+  //                                 GetServicesByStationSerialService
+  //                                     .fetchServicesByStationSerial(
+  //                                         widget.station.serial);
+  //                           });
+  //                         },
+  //                         style: ElevatedButton.styleFrom(
+  //                             backgroundColor: primaryColor),
+  //                         child: const Text(
+  //                           'Retry',
+  //                           style: TextStyle(color: btntxtColors, fontSize: 16),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }
+
+  //               final services = snapshot.data!;
+
+  //               return ListView.separated(
+  //                 scrollDirection: Axis.horizontal,
+  //                 itemCount: services.length,
+  //                 separatorBuilder: (context, index) =>
+  //                     const SizedBox(width: 20),
+  //                 itemBuilder: (context, index) {
+  //                   final service = services[index];
+  //                   return InkWell(
+  //                     onTap: () {
+  //                       showDialog(
+  //                         context: context,
+  //                         builder: (context) => AlertDialog(
+  //                           title: Text(
+  //                             'Explore Service',
+  //                             style: TextStyle(
+  //                               fontSize: 20,
+  //                               fontWeight: FontWeight.bold,
+  //                               color: primaryColor,
+  //                             ),
+  //                           ),
+  //                           content: Text(
+  //                             'Explore service in other stations?',
+  //                             style: TextStyle(fontSize: 16),
+  //                           ),
+  //                           actions: [
+  //                             TextButton(
+  //                               onPressed: () {
+  //                                 Navigator.pop(context);
+  //                               },
+  //                               child: Text(
+  //                                 'No',
+  //                                 style: TextStyle(color: Colors.redAccent),
+  //                               ),
+  //                             ),
+  //                             TextButton(
+  //                               onPressed: () {
+  //                                 Navigator.pop(context);
+  //                                 Navigator.popUntil(
+  //                                   context,
+  //                                   (route) =>
+  //                                       route.isFirst ||
+  //                                       route.settings.name == '/dashboard',
+  //                                 );
+  //                                 Navigator.push(
+  //                                   context,
+  //                                   MaterialPageRoute(
+  //                                     builder: (context) => StationListScreen(
+  //                                       service: ServiceModel(
+  //                                         serviceCode: service.serviceCode,
+  //                                         serviceLatDescription:
+  //                                             service.serviceLatDescription,
+  //                                         activeYN: service.validYN,
+  //                                         serviceDescription: '',
+  //                                       ),
+  //                                     ),
+  //                                   ),
+  //                                 );
+  //                               },
+  //                               child: Text(
+  //                                 'Yes',
+  //                                 style: TextStyle(color: primaryColor),
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       );
+  //                     },
+  //                     child: Column(
+  //                       children: [
+  //                         CircleAvatar(
+  //                           radius: 30,
+  //                           backgroundColor: primaryColor,
+  //                           child: const Icon(
+  //                             Icons.miscellaneous_services,
+  //                             color: Colors.white,
+  //                             size: 30,
+  //                           ),
+  //                         ),
+  //                         const SizedBox(height: 8),
+  //                         Text(
+  //                           service.serviceLatDescription,
+  //                           style: const TextStyle(fontSize: 14),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   );
+  //                 },
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget _buildServicesTab() {
-    return SingleChildScrollView(
+    return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Available Services',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
-          SizedBox(
-            height: 160,
+          Expanded(
             child: FutureBuilder<List<StationServiceModel>>(
               future: _servicesFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: LoadingScreen());
                 } else if (snapshot.hasError) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Check Internet Connection',
-                          style: const TextStyle(
-                              color: Colors.redAccent, fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              _servicesFuture =
-                                  GetServicesByStationSerialService
-                                      .fetchServicesByStationSerial(
-                                          widget.station.serial);
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor),
-                          child: const Text(
-                            'Retry',
-                            style: TextStyle(color: btntxtColors, fontSize: 16),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  return _buildErrorRetry("Check Internet Connection");
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'No services found for this station',
-                          style: const TextStyle(
-                              color: Colors.redAccent, fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              _servicesFuture =
-                                  GetServicesByStationSerialService
-                                      .fetchServicesByStationSerial(
-                                          widget.station.serial);
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor),
-                          child: const Text(
-                            'Retry',
-                            style: TextStyle(color: btntxtColors, fontSize: 16),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  return _buildErrorRetry("No services found for this station");
                 }
 
                 final services = snapshot.data!;
 
-                return ListView.separated(
-                  scrollDirection: Axis.horizontal,
+                return GridView.builder(
                   itemCount: services.length,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 20),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4, // 2 items per row
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                    childAspectRatio: 3 / 3.5, // adjust card shape
+                  ),
                   itemBuilder: (context, index) {
                     final service = services[index];
                     return InkWell(
@@ -1063,16 +1236,14 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
                                 color: primaryColor,
                               ),
                             ),
-                            content: Text(
+                            content: const Text(
                               'Explore service in other stations?',
                               style: TextStyle(fontSize: 16),
                             ),
                             actions: [
                               TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text(
                                   'No',
                                   style: TextStyle(color: Colors.redAccent),
                                 ),
@@ -1111,20 +1282,27 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
                         );
                       },
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CircleAvatar(
-                            radius: 30,
+                            radius: 28,
                             backgroundColor: primaryColor,
                             child: const Icon(
                               Icons.miscellaneous_services,
                               color: Colors.white,
-                              size: 30,
+                              size: 26,
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            service.serviceLatDescription,
-                            style: const TextStyle(fontSize: 14),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(
+                              service.serviceLatDescription,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(fontSize: 14),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ],
                       ),
@@ -1139,17 +1317,39 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
     );
   }
 
+  /// Helper for error/retry UI
+  Widget _buildErrorRetry(String message) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            message,
+            style: const TextStyle(color: Colors.redAccent, fontSize: 16),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              // retry fetching services
+            },
+            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+            child: const Text(
+              'Retry',
+              style: TextStyle(color: btntxtColors, fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildPromotionsTab() {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Promotions at This Station',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
           FutureBuilder<void>(
             future: _loadDataFuture,
             builder: (context, snapshot) {

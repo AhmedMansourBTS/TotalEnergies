@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
-import 'package:total_energies/screens/Profile/edit_profile_screen.dart';
 import 'package:total_energies/screens/Auth/loginPage.dart';
-import 'package:total_energies/widgets/Buttons/editImg.dart';
-import 'package:total_energies/widgets/Buttons/trnslt_btn.dart';
 import 'package:total_energies/widgets/profile/acc_info.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
 

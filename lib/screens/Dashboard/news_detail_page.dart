@@ -134,13 +134,13 @@ class NewsDetailPage extends StatelessWidget {
             Text(
               news.newsTitle,
               style: const TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-                height: 1.3,
-              ),
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  height: 1.3,
+                  color: primaryColor),
             ),
 
-            const SizedBox(height: 6),
+            const SizedBox(height: 10),
 
             // Date
             Row(
@@ -178,29 +178,16 @@ class NewsDetailPage extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Description
-            Text(
-              "Description",
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-            const SizedBox(height: 10),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 6,
-                    offset: const Offset(0, 3),
-                  )
-                ],
-              ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
+                  )),
               child: Text(
                 news.newsDescription,
                 style: const TextStyle(
