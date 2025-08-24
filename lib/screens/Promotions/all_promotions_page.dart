@@ -615,6 +615,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                               selected: _filter == label,
                               onSelected: (_) => _onFilterChanged(label),
                               selectedColor: primaryColor,
+                              backgroundColor: Colors.white,
                             ),
                           ))
                       .toList(),
