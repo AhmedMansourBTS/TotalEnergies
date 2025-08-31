@@ -110,6 +110,7 @@ class NewsDetailPage extends StatelessWidget {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
+        scrolledUnderElevation: 0,
         elevation: 0,
         title: Row(
           children: [
@@ -117,7 +118,7 @@ class NewsDetailPage extends StatelessWidget {
             const Spacer(),
             Expanded(
               child: Text(
-                "News Detail",
+                news.newsTitle,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontWeight: FontWeight.w600),
               ),

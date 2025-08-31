@@ -42,7 +42,7 @@ import 'package:total_energies/core/controllers/translation_controller.dart';
 import 'package:total_energies/screens/home_screen.dart';
 import 'package:total_energies/screens/Auth/loginPage.dart';
 import 'package:total_energies/widgets/global/SessionManager.dart';
-import 'package:total_energies/core/constant/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,6 +67,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
+        textTheme: GoogleFonts.robotoTextTheme(),
       ),
       home: SplashScreen(isLoggedIn: isLoggedIn),
     );

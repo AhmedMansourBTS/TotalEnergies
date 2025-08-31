@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
+import 'package:total_energies/screens/Profile/account_info_page.dart';
 import 'package:total_energies/screens/Promotions/all_promotions_page.dart';
 import 'package:total_energies/screens/Promotions/categories_page.dart';
 import 'package:total_energies/screens/Promotions/current_promotions_page.dart';
@@ -44,10 +45,16 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
               const Spacer(),
               Row(
                 children: [
-                  Icon(
-                    Icons.person_outline_outlined,
-                    color: primaryColor,
-                    size: 28,
+                  IconButton(
+                    icon: Icon(Icons.person_outline_outlined,
+                        color: Colors.grey, size: 28),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AccountInfoPage()),
+                      );
+                    },
                   ),
                   const SizedBox(width: 4), // space between icon and text
                   Text(

@@ -65,7 +65,7 @@ class NewsSection extends StatelessWidget {
                         width: itemWidth,
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.lightBlue,
+                          color: const Color(0xFF285AFF),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(

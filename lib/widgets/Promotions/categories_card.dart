@@ -51,12 +51,12 @@ class CategoryCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               width: double.infinity,
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12.0),
               child: Center(
                 child: Text(
                   category.categoryName,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
             ),

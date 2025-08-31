@@ -60,6 +60,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         automaticallyImplyLeading: true, // shows back arrow if needed
+        scrolledUnderElevation: 0,
         title: Stack(
           alignment: Alignment.center,
           children: [
@@ -68,7 +69,7 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
               child: const LogoRow(),
             ),
             Align(
-              alignment: Alignment.center,
+              alignment: Alignment.topRight,
               child: Container(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 40), // prevents overlap
@@ -144,10 +145,8 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
                 imagepath: promo.imagePath.replaceAll('\\', '/'),
                 title: promo.eventTopic,
                 description: promo.eventDescription,
-                startDate:
-                    DateTime.tryParse(promo.startDate) ?? DateTime.now(),
-                endDate:
-                    DateTime.tryParse(promo.endDate) ?? DateTime.now(),
+                startDate: DateTime.tryParse(promo.startDate) ?? DateTime.now(),
+                endDate: DateTime.tryParse(promo.endDate) ?? DateTime.now(),
                 total: promo.qrMaxUsage,
                 used: promo.usedTimes,
                 isBlocked: isBlocked,

@@ -205,8 +205,10 @@ class _CategoriesPageState extends State<CategoriesPage> {
               child: GridView.builder(
                 itemCount: categories.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  mainAxisExtent: MediaQuery.of(context).size.height * 0.4,
+                  crossAxisCount: 1, // One card per row
+                  mainAxisExtent: MediaQuery.of(context).size.height * 0.3,
+                  mainAxisSpacing: 20.0, // ✅ Space between cards vertically
+                  crossAxisSpacing: 0, // No horizontal spacing since 1 column
                 ),
                 itemBuilder: (context, index) {
                   final category = categories[index];

@@ -113,6 +113,7 @@ class _CategoryPromoDetailPageState extends State<CategoryPromoDetailPage> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
+        scrolledUnderElevation: 0,
         title: LogoRow(),
       ),
       body: SingleChildScrollView(

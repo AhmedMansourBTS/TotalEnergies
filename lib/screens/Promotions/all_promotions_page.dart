@@ -611,11 +611,28 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                       .map((label) => Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: ChoiceChip(
-                              label: Text(label),
+                              label: Text(
+                                label,
+                                style: TextStyle(
+                                  color: _filter == label
+                                      ? Colors.white
+                                      : primaryColor, // Change color based on selection
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               selected: _filter == label,
                               onSelected: (_) => _onFilterChanged(label),
                               selectedColor: primaryColor,
                               backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: BorderSide(
+                                  color: _filter == label
+                                      ? primaryColor
+                                      : primaryColor,
+                                  width: 1,
+                                ),
+                              ),
                             ),
                           ))
                       .toList(),

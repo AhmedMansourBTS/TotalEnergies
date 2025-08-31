@@ -214,6 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
+        scrolledUnderElevation: 0,
         iconTheme: IconThemeData(color: appbariconColors),
         title: Row(
           children: [
