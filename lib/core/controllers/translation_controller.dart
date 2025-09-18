@@ -31,7 +31,7 @@ class TranslationController extends Translations {
           'register_page.car_brand_year_label': 'Car Brand Year',
           'register_page.password_label': 'Password',
           'register_page.confrim_password_label': 'Confrim Password',
-          'register_page.gender_label': 'Select Gender',
+          'register_page.gender_label': 'Gender',
           'register_page.gov_label': 'Select Governorate',
           // Register Page hints
           'register_page.username_hint': 'Enter your full name',

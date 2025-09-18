@@ -219,6 +219,9 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.white,
         title: const LogoRow(),
       ),
       body: isLoadingStations || isLoadingFilters
@@ -350,76 +353,292 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                       const SizedBox(height: 10),
                       Row(
                         children: [
+                          // Not a drop down this displays pop up menu in the middle of the page
                           Expanded(
-                            child: DropdownButtonFormField<GovernorateModel>(
-                              decoration: InputDecoration(
-                                labelText: "Select governorate".tr,
-                                border: const OutlineInputBorder(),
-                                prefixIcon:
-                                    isRTL ? null : const Icon(Icons.filter_alt),
-                                suffixIcon:
-                                    isRTL ? const Icon(Icons.filter_alt) : null,
-                              ),
-                              isExpanded: true,
-                              value: _selectedGovernorate,
-                              hint: Text("Choose governorate".tr),
-                              items: [
-                                DropdownMenuItem<GovernorateModel>(
-                                  value: null,
-                                  child: Text("Choose governorate".tr),
-                                ),
-                                ..._governorates.map(
-                                    (gov) => DropdownMenuItem<GovernorateModel>(
-                                          value: gov,
-                                          child: Text(isRTL
-                                              ? gov.governorateName
-                                              : gov.governorateLatName),
-                                        )),
-                              ],
-                              onChanged: (GovernorateModel? newValue) {
-                                setState(() {
-                                  _selectedGovernorate = newValue;
-                                  _filterCitiesByGovernorate(
-                                      newValue?.governorateId);
-                                });
+                            child: GestureDetector(
+                              onTap: () async {
+                                GovernorateModel? selected =
+                                    await showDialog<GovernorateModel>(
+                                  context: context,
+                                  builder: (context) {
+                                    TextEditingController searchController =
+                                        TextEditingController();
+                                    List<GovernorateModel>
+                                        filteredGovernorates =
+                                        List.from(_governorates);
+
+                                    return StatefulBuilder(
+                                      builder: (context, setState) {
+                                        return AlertDialog(
+                                          backgroundColor: Colors
+                                              .white, // 👈 change popup background color here
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                12), // optional: rounded corners
+                                          ),
+                                          title: Text("Select city".tr),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              // Search box
+                                              TextField(
+                                                controller: searchController,
+                                                decoration: InputDecoration(
+                                                  prefixIcon:
+                                                      Icon(Icons.search),
+                                                  hintText: "Search city...".tr,
+                                                  border: OutlineInputBorder(),
+                                                ),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    filteredGovernorates =
+                                                        _governorates
+                                                            .where((gov) => gov
+                                                                .governorateLatName
+                                                                .toLowerCase()
+                                                                .contains(value
+                                                                    .toLowerCase()))
+                                                            .toList();
+                                                  });
+                                                },
+                                              ),
+                                              SizedBox(height: 12),
+
+                                              // Governorates list
+                                              SizedBox(
+                                                width: double.maxFinite,
+                                                height: 300, // scrollable list
+                                                child: filteredGovernorates
+                                                        .isEmpty
+                                                    ? Center(
+                                                        child: Text(
+                                                            "No results".tr))
+                                                    : ListView.builder(
+                                                        itemCount:
+                                                            filteredGovernorates
+                                                                .length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          final gov =
+                                                              filteredGovernorates[
+                                                                  index];
+                                                          return ListTile(
+                                                            title: Text(gov
+                                                                .governorateLatName),
+                                                            onTap: () {
+                                                              Navigator.pop(
+                                                                  context, gov);
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+
+                                if (selected != null) {
+                                  setState(() {
+                                    _selectedGovernorate = selected;
+                                    _filterCitiesByGovernorate(
+                                        selected.governorateId);
+                                  });
+                                }
                               },
+                              child: InputDecorator(
+                                decoration: InputDecoration(
+                                  labelText: "Select city".tr,
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.filter_alt),
+                                ),
+                                child: Text(
+                                  _selectedGovernorate?.governorateLatName ??
+                                      "Select city".tr,
+                                  style: TextStyle(
+                                    color: _selectedGovernorate == null
+                                        ? Colors.grey
+                                        : Colors.black,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
+                          // Normal dropdown
+                          // Expanded(
+                          //   child: DropdownButtonFormField<GovernorateModel>(
+                          //     decoration: InputDecoration(
+                          //       labelText: "Select city".tr,
+                          //       border: const OutlineInputBorder(),
+                          //       prefixIcon: const Icon(Icons.filter_alt),
+                          //     ),
+                          //     isExpanded: true,
+                          //     value: _selectedGovernorate,
+                          //     hint: Text("Select city".tr),
+                          //     items: [
+                          //       DropdownMenuItem<GovernorateModel>(
+                          //         value: null,
+                          //         child: Text("Select city".tr),
+                          //       ),
+                          //       ..._governorates
+                          //           .map((gov) => DropdownMenuItem<GovernorateModel>(
+                          //                 value: gov,
+                          //                 child: Text(gov.governorateLatName),
+                          //               )),
+                          //     ],
+                          //     onChanged: (GovernorateModel? newValue) {
+                          //       setState(() {
+                          //         _selectedGovernorate = newValue;
+                          //         _filterCitiesByGovernorate(newValue?.governorateId);
+                          //       });
+                          //     },
+                          //   ),
+                          // ),
                           const SizedBox(width: 10),
+                          // Not a drop down this displays pop up menu in the middle of the page
                           Expanded(
-                            child: DropdownButtonFormField<CityModel>(
-                              decoration: InputDecoration(
-                                labelText: "Select city".tr,
-                                border: const OutlineInputBorder(),
-                                prefixIcon:
-                                    isRTL ? null : const Icon(Icons.filter_alt),
-                                suffixIcon:
-                                    isRTL ? const Icon(Icons.filter_alt) : null,
-                              ),
-                              isExpanded: true,
-                              value: _selectedCity,
-                              hint: Text("Choose city".tr),
-                              items: [
-                                DropdownMenuItem<CityModel>(
-                                  value: null,
-                                  child: Text("Choose city".tr),
-                                ),
-                                ..._filteredCities
-                                    .map((city) => DropdownMenuItem<CityModel>(
-                                          value: city,
-                                          child: Text(isRTL
-                                              ? city.cityName
-                                              : city.cityLatName),
-                                        )),
-                              ],
-                              onChanged: (CityModel? newValue) {
-                                setState(() {
-                                  _selectedCity = newValue;
-                                  _applyFilters();
-                                });
+                            child: GestureDetector(
+                              onTap: () async {
+                                CityModel? selected =
+                                    await showDialog<CityModel>(
+                                  context: context,
+                                  builder: (context) {
+                                    TextEditingController searchController =
+                                        TextEditingController();
+                                    List<CityModel> filteredCities =
+                                        List.from(_filteredCities);
+
+                                    return StatefulBuilder(
+                                      builder: (context, setState) {
+                                        return AlertDialog(
+                                          backgroundColor: Colors
+                                              .white, // 👈 change popup background color here
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                12), // optional: rounded corners
+                                          ),
+                                          title: Text("Select area".tr),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              // Search box
+                                              TextField(
+                                                controller: searchController,
+                                                decoration: InputDecoration(
+                                                  prefixIcon:
+                                                      Icon(Icons.search),
+                                                  hintText: "Search city...".tr,
+                                                  border: OutlineInputBorder(),
+                                                ),
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    filteredCities = _filteredCities
+                                                        .where((city) => city
+                                                            .cityLatName
+                                                            .toLowerCase()
+                                                            .contains(value
+                                                                .toLowerCase()))
+                                                        .toList();
+                                                  });
+                                                },
+                                              ),
+                                              SizedBox(height: 12),
+
+                                              // City list
+                                              SizedBox(
+                                                width: double.maxFinite,
+                                                height:
+                                                    300, // set height for scroll
+                                                child: filteredCities.isEmpty
+                                                    ? Center(
+                                                        child: Text(
+                                                            "No results".tr))
+                                                    : ListView.builder(
+                                                        itemCount:
+                                                            filteredCities
+                                                                .length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          final city =
+                                                              filteredCities[
+                                                                  index];
+                                                          return ListTile(
+                                                            title: Text(city
+                                                                .cityLatName),
+                                                            onTap: () {
+                                                              Navigator.pop(
+                                                                  context,
+                                                                  city);
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+
+                                if (selected != null) {
+                                  setState(() {
+                                    _selectedCity = selected;
+                                  });
+                                }
                               },
+                              child: InputDecorator(
+                                decoration: InputDecoration(
+                                  labelText: "Select area".tr,
+                                  border: const OutlineInputBorder(),
+                                  prefixIcon: const Icon(Icons.filter_alt),
+                                ),
+                                child: Text(
+                                  _selectedCity?.cityLatName ??
+                                      "Select area".tr,
+                                  style: TextStyle(
+                                    color: _selectedCity == null
+                                        ? Colors.grey
+                                        : Colors.black,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
+                          )
+
+                          // Normal dropdown
+                          // Expanded(
+                          //   child: DropdownButtonFormField<CityModel>(
+                          //     decoration: InputDecoration(
+                          //       labelText: "Select area".tr,
+                          //       border: const OutlineInputBorder(),
+                          //       prefixIcon: const Icon(Icons.filter_alt),
+                          //     ),
+                          //     isExpanded: true,
+                          //     value: _selectedCity,
+                          //     hint: Text("Select area".tr),
+                          //     items: [
+                          //       DropdownMenuItem<CityModel>(
+                          //         value: null,
+                          //         child: Text("Select area".tr),
+                          //       ),
+                          //       ..._filteredCities
+                          //           .map((city) => DropdownMenuItem<CityModel>(
+                          //                 value: city,
+                          //                 child: Text(city.cityLatName),
+                          //               )),
+                          //     ],
+                          //     onChanged: (CityModel? newValue) {
+                          //       setState(() {
+                          //         _selectedCity = newValue;
+                          //       });
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -429,31 +648,140 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 10),
-                      DropdownButtonFormField<StationModel>(
-                        isExpanded: true,
-                        value: selectedStation,
-                        hint: Text("Select nearest station".tr),
-                        items: filteredStations.map((station) {
-                          String subtitle = '';
-                          final govName = getGovernorateNameById(
-                              station.governorateId, isRTL);
-                          final cityName =
-                              getCityNameById(station.cityId, isRTL);
-                          subtitle = '$govName, $cityName';
-                          return DropdownMenuItem(
-                            value: station,
-                            child: Text(
-                              "${isRTL ? station.stationArabicName : station.stationName} ($subtitle, ${(station.distance! / 1000).toStringAsFixed(2)} km)",
-                            ),
+                      // DropdownButtonFormField<StationModel>(
+                      //   isExpanded: true,
+                      //   value: selectedStation,
+                      //   hint: Text("Select nearest station".tr),
+                      //   items: filteredStations.map((station) {
+                      //     String subtitle = '';
+                      //     final govName = getGovernorateNameById(
+                      //         station.governorateId, isRTL);
+                      //     final cityName =
+                      //         getCityNameById(station.cityId, isRTL);
+                      //     subtitle = '$govName, $cityName';
+                      //     return DropdownMenuItem(
+                      //       value: station,
+                      //       child: Text(
+                      //         "${isRTL ? station.stationArabicName : station.stationName} ($subtitle, ${(station.distance! / 1000).toStringAsFixed(2)} km)",
+                      //       ),
+                      //     );
+                      //   }).toList(),
+                      //   onChanged: (station) {
+                      //     setState(() {
+                      //       selectedStation = station;
+                      //       selectedStationAddressUrl = station?.stationAdress;
+                      //     });
+                      //   },
+                      // ),
+                      InkWell(
+                        onTap: () async {
+                          final selected = await showDialog<StationModel>(
+                            context: context,
+                            builder: (BuildContext context) {
+                              TextEditingController searchController =
+                                  TextEditingController();
+                              List<StationModel> filtered =
+                                  List.from(filteredStations);
+
+                              return StatefulBuilder(
+                                builder: (context, setState) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors
+                                        .white, // 👈 change background if needed
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    title: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Select nearest station".tr),
+                                        const SizedBox(height: 8),
+                                        TextField(
+                                          controller: searchController,
+                                          decoration: InputDecoration(
+                                            hintText: "Search station".tr,
+                                            prefixIcon:
+                                                const Icon(Icons.search),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          onChanged: (value) {
+                                            setState(() {
+                                              filtered = filteredStations
+                                                  .where((station) {
+                                                final name = isRTL
+                                                    ? station.stationArabicName
+                                                    : station.stationName;
+                                                return name
+                                                    .toLowerCase()
+                                                    .contains(
+                                                        value.toLowerCase());
+                                              }).toList();
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    content: SizedBox(
+                                      width: double.maxFinite,
+                                      height: 400,
+                                      child: ListView.builder(
+                                        itemCount: filtered.length,
+                                        itemBuilder: (context, index) {
+                                          final station = filtered[index];
+                                          final govName =
+                                              getGovernorateNameById(
+                                                  station.governorateId, isRTL);
+                                          final cityName = getCityNameById(
+                                              station.cityId, isRTL);
+                                          final subtitle =
+                                              '$govName, $cityName';
+
+                                          return ListTile(
+                                            title: Text(isRTL
+                                                ? station.stationArabicName
+                                                : station.stationName),
+                                            subtitle: Text(
+                                              "$subtitle, ${(station.distance! / 1000).toStringAsFixed(2)} km",
+                                            ),
+                                            onTap: () {
+                                              Navigator.pop(context, station);
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           );
-                        }).toList(),
-                        onChanged: (station) {
-                          setState(() {
-                            selectedStation = station;
-                            selectedStationAddressUrl = station?.stationAdress;
-                          });
+
+                          if (selected != null) {
+                            setState(() {
+                              selectedStation = selected;
+                              selectedStationAddressUrl =
+                                  selected.stationAdress;
+                            });
+                          }
                         },
+                        child: InputDecorator(
+                          decoration: InputDecoration(
+                            labelText: "Select nearest station".tr,
+                            border: const OutlineInputBorder(),
+                            prefixIcon: const Icon(Icons.local_gas_station),
+                          ),
+                          child: Text(
+                            selectedStation == null
+                                ? "Select nearest station".tr
+                                : "${isRTL ? selectedStation!.stationArabicName : selectedStation!.stationName}",
+                          ),
+                        ),
                       ),
+
                       if (filteredStations.isEmpty)
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),

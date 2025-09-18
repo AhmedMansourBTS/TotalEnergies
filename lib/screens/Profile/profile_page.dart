@@ -425,7 +425,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Version 1.0.0",
+              "Version 0.0.1",
               style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
             ),
           ),

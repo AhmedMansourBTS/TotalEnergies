@@ -44,6 +44,9 @@ class _OldPromotionsPageState extends State<OldPromotionsPage> {
           ],
         ),
         backgroundColor: backgroundColor,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.white,
         automaticallyImplyLeading: true, // ensures back arrow
       ),
       body: FutureBuilder<List<ExpiredPromoModel>>(

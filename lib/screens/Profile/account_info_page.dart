@@ -56,13 +56,29 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             LogoRow(),
-            Text(
-              "Account info",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+            const Spacer(),
+            Container(
+              width: 40, // same as 2 * radius
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white, // background white
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: primaryColor, // border color
+                  width: 1, // border thickness
+                ),
               ),
-            ),
+              child: Center(
+                child: Text(
+                  name.isNotEmpty ? name.substring(0, 2).toUpperCase() : "",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: primaryColor,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
         backgroundColor: backgroundColor,

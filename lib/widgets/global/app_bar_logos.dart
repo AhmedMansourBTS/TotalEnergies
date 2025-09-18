@@ -12,7 +12,7 @@ class LogoRow extends StatelessWidget {
           onTap: () {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(builder: (context) => HomeScreen()),
               (Route<dynamic> route) => false,
             );
           },

@@ -633,6 +633,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await prefs.setString('token', responseData['token'].toString());
         await prefs.setString(
             'expiresOn', responseData['expiresOn']?.toString() ?? '');
+        
 
         print('Saved token: ${prefs.getString('token')}');
         print('Saved token expiry: ${prefs.getString('expiresOn')}');
@@ -640,7 +641,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await requestLocationPermissionAndGetPosition();
 
         if (mounted) {
-          Get.offAll(() => const HomeScreen());
+          Get.offAll(() => HomeScreen());
         }
       } else {
         String errorMessage;

@@ -10,7 +10,7 @@ class SessionManager extends StatefulWidget {
   const SessionManager({
     super.key,
     required this.child,
-    this.timeoutDuration = const Duration(minutes: 20), // default 5 min
+    this.timeoutDuration = const Duration(minutes: 20), // default 20 min
   });
 
   @override

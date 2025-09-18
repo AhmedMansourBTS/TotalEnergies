@@ -36,6 +36,9 @@ class _ExpPromoDetState extends State<ExpPromoDet> {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.white,
         title: LogoRow(),
       ),
       body: SingleChildScrollView(

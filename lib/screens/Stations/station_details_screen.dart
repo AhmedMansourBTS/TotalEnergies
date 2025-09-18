@@ -1216,9 +1216,9 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
                 return GridView.builder(
                   itemCount: services.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4, // 2 items per row
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
+                    crossAxisCount: 3, // 2 items per row
+                    crossAxisSpacing: 30,
+                    mainAxisSpacing: 30,
                     childAspectRatio: 3 / 3.5, // adjust card shape
                   ),
                   itemBuilder: (context, index) {
@@ -1257,7 +1257,7 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
                                         route.isFirst ||
                                         route.settings.name == '/dashboard',
                                   );
-                                  Navigator.push(
+                                  Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => StationListScreen(
@@ -1285,12 +1285,12 @@ class _StationDetailsScreenState extends State<StationDetailsScreen>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CircleAvatar(
-                            radius: 28,
+                            radius: 30,
                             backgroundColor: primaryColor,
                             child: const Icon(
                               Icons.miscellaneous_services,
                               color: Colors.white,
-                              size: 26,
+                              size: 30,
                             ),
                           ),
                           const SizedBox(height: 8),
