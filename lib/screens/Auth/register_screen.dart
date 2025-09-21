@@ -220,37 +220,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         iconTheme: IconThemeData(color: appbariconColors),
         title: Row(
           children: [
-            // SizedBox(
-            //   height: kToolbarHeight - 25,
-            //   child: Image.asset(
-            //     "assets/images/logo1.1.png",
-            //     fit: BoxFit.contain,
-            //   ),
-            // ),
-            // SizedBox(
-            //   width: 10,
-            // ),
-            // SizedBox(
-            //   height: kToolbarHeight - 25,
-            //   child: Image.asset(
-            //     "assets/images/ADNOC logo1.1.png",
-            //     fit: BoxFit.contain,
-            //   ),
-            // ),
+            
             LogoRow(),
             const Spacer(),
             TranslateButton()
           ],
         ),
-        //title: Directionality.of(context) != TextDirection.rtl
-        //     ? Container(
-        //         alignment: Alignment.centerRight,
-        //         child: TranslateButton(),
-        //       )
-        //     : Container(
-        //         alignment: Alignment.centerLeft,
-        //         child: TranslateButton(),
-        //       ),
+      
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -310,13 +286,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // validator: _validateGender,
                   showAsterisk: true,
                 ),
-                // CustCityDropdown(
-                //   controller: _cityCodeController,
-                //   labelText: 'register_page.gov_label'.tr,
-                //   hintText: 'register_page.gov_hint'.tr,
-                //   // validator: _validateCity,
-                //   showAsterisk: true,
-                // ),
                 GovernorateSearchField(
                   controller: _cityCodeController,
                   labelText: "City",
