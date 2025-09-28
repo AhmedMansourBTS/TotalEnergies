@@ -95,7 +95,7 @@ class _AvailablePromotionsPageState extends State<AvailablePromotionsPage> {
         case 'Ongoing':
           passesStatusFilter = isCurr;
           break;
-        case 'Consumed':
+        case 'Used':
           passesStatusFilter = isExp;
           break;
         default:
@@ -502,7 +502,7 @@ class _AvailablePromotionsPageState extends State<AvailablePromotionsPage> {
                                 statusLabel = 'Ongoing';
                                 statusColor = Colors.orange;
                               } else if (isExp) {
-                                statusLabel = 'Consumed';
+                                statusLabel = 'Used';
                                 statusColor = Colors.grey;
                               }
 

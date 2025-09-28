@@ -219,14 +219,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         surfaceTintColor: Colors.white,
         iconTheme: IconThemeData(color: appbariconColors),
         title: Row(
-          children: [
-            
-            LogoRow(),
-            const Spacer(),
-            TranslateButton()
-          ],
+          children: [LogoRow(), const Spacer(), TranslateButton()],
         ),
-      
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -300,7 +294,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   dateTo: DateTime.now(), // Example: Maximum date (today)
                   // validator: _validateDate,
                 ),
-
                 CarBrandSearchField(
                   controller: _carBrandController,
                   labelText: "Car Brand",
@@ -319,7 +312,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     FilteringTextInputFormatter.digitsOnly,
                   ],
                 ),
-
                 TextWithCheckbox(
                   text: 'register_page.term&cond'.tr,
                   value: _agreeTerms,

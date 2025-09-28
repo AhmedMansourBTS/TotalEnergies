@@ -105,11 +105,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 valueText: email,
                 icon: Icons.email_outlined,
               ),
-              ProfileInfoTile(
-                labelText: "User Serial",
-                valueText: "$serial",
-                icon: Icons.security,
-              ),
+              // ProfileInfoTile(
+              //   labelText: "User Serial",
+              //   valueText: "$serial",
+              //   icon: Icons.security,
+              // ),
               SizedBox(height: 20),
             ],
           ),

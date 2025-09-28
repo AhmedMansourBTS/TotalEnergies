@@ -104,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         builder: (_) => const EditProfileScreen()),
                   );
                 }),
-                buildMenuItem("History", Icons.history, () {
+                buildMenuItem("Promotion History", Icons.history, () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(

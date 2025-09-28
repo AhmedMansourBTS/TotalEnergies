@@ -94,7 +94,7 @@ class _AllPromoPageState extends State<AllPromoPage> {
         case 'Ongoing':
           passesStatusFilter = isCurr;
           break;
-        case 'Consumed':
+        case 'Used':
           passesStatusFilter = isExp;
           break;
         default:
@@ -498,7 +498,7 @@ class _AllPromoPageState extends State<AllPromoPage> {
                                 statusLabel = 'Ongoing';
                                 statusColor = Colors.orange;
                               } else if (isExp) {
-                                statusLabel = 'Consumed';
+                                statusLabel = 'Used';
                                 statusColor = Colors.grey;
                               }
       

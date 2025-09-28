@@ -33,7 +33,7 @@ class _ConsumedPromotionsPageState extends State<ConsumedPromotionsPage> {
   List<PromotionsModel> _filteredPromotions = [];
   Set<int> _currPromoSerials = {};
   Set<int> _expPromoSerials = {};
-  String _filter = 'Consumed';
+  String _filter = 'Used';
   List<GovernorateModel> _governorates = [];
   List<CityModel> _cities = [];
   List<CityModel> _filteredCities = [];
@@ -92,7 +92,7 @@ class _ConsumedPromotionsPageState extends State<ConsumedPromotionsPage> {
         case 'Ongoing':
           passesStatusFilter = isCurr;
           break;
-        case 'Consumed':
+        case 'Used':
           passesStatusFilter = isExp;
           break;
         default:
@@ -215,7 +215,7 @@ class _ConsumedPromotionsPageState extends State<ConsumedPromotionsPage> {
                               statusLabel = 'Ongoing';
                               statusColor = Colors.orange;
                             } else if (isExp) {
-                              statusLabel = 'Consumed';
+                              statusLabel = 'Used';
                               statusColor = Colors.grey;
                             }
 

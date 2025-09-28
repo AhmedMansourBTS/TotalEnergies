@@ -34,7 +34,7 @@ class LatestPromoProfile extends StatelessWidget {
         'value': '$activePromotions',
         'icon': Icons.check_circle
       },
-      {'title': 'Consumed', 'value': '$expired', 'icon': Icons.cancel},
+      {'title': 'Used', 'value': '$expired', 'icon': Icons.cancel},
       {'title': 'Ongoing', 'value': '$redeemed', 'icon': Icons.redeem},
     ];
 

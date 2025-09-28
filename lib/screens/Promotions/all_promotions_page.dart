@@ -486,7 +486,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
         case 'Ongoing':
           passesStatusFilter = isCurr;
           break;
-        case 'Consumed':
+        case 'Used':
           passesStatusFilter = isExp;
           break;
         default:
@@ -607,7 +607,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 child: Row(
-                  children: ['All', 'Available', 'Ongoing', 'Consumed']
+                  children: ['All', 'Available', 'Ongoing', 'Used']
                       .map((label) => Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: ChoiceChip(
@@ -933,7 +933,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                               statusLabel = 'Ongoing';
                               statusColor = Colors.orange;
                             } else if (isExp) {
-                              statusLabel = 'Consumed';
+                              statusLabel = 'Used';
                               statusColor = Colors.grey;
                             }
 

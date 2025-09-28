@@ -119,7 +119,7 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
               Tab(text: 'promotion_page.flt_curr'.tr),
               Tab(text: "Available"),
               Tab(text: "Categories"),
-              Tab(text: "Consumed"), // 👈 you can add more now
+              Tab(text: "Used"), // 👈 you can add more now
             ],
           ),
         ),

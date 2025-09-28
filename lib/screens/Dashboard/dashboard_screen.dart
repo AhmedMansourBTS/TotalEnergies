@@ -226,6 +226,7 @@ class _DashboardPageState extends State<DashboardPage> {
               WelcomeBanner(name: name, height: 30),
               const SizedBox(height: 20),
               AdsSection(adsHeight: widget.adsHeight),
+              // AdsPage(),
               const SizedBox(height: 20),
               const AvailableServices(),
               const SizedBox(height: 20),
