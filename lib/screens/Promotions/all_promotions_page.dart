@@ -821,7 +821,7 @@ class _AllPromotionsPageState extends State<AllPromotionsPage> {
                                             controller: searchController,
                                             decoration: InputDecoration(
                                               prefixIcon: Icon(Icons.search),
-                                              hintText: "Search city...".tr,
+                                              hintText: "Search area...".tr,
                                               border: OutlineInputBorder(),
                                             ),
                                             onChanged: (value) {

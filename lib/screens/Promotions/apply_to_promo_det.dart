@@ -642,7 +642,7 @@ class _ApplyToPromoDetState extends State<ApplyToPromoDet> {
                                                 decoration: InputDecoration(
                                                   prefixIcon:
                                                       Icon(Icons.search),
-                                                  hintText: "Search city...".tr,
+                                                  hintText: "Search area...".tr,
                                                   border: OutlineInputBorder(),
                                                 ),
                                                 onChanged: (value) {
