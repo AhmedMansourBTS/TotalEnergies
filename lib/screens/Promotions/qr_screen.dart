@@ -3,7 +3,8 @@ import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/models/get_qr_model.dart';
 import 'package:total_energies/screens/loading_screen.dart';
 import 'package:total_energies/services/get_qr_service.dart';
-import 'dart:async'; 
+import 'package:total_energies/widgets/global/TimerWidget.dart';
+import 'dart:async';
 
 class QRPage extends StatefulWidget {
   final int customerId;
@@ -27,16 +28,16 @@ class _QRPageState extends State<QRPage> {
     super.initState();
     fetchQRCode();
     // Start the countdown timer
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (remainingTime > 0) {
-        setState(() {
-          remainingTime--;
-        });
-      } else {
-        _timer.cancel(); // Stop the timer once countdown reaches 0
-        Navigator.pop(context); // Navigate back to the Redeem page
-      }
-    });
+    // _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    //   if (remainingTime > 0) {
+    //     setState(() {
+    //       remainingTime--;
+    //     });
+    //   } else {
+    //     _timer.cancel(); // Stop the timer once countdown reaches 0
+    //     Navigator.pop(context); // Navigate back to the Redeem page
+    //   }
+    // });
   }
 
   void fetchQRCode() async {
@@ -58,11 +59,11 @@ class _QRPageState extends State<QRPage> {
     }
   }
 
-  @override
-  void dispose() {
-    _timer.cancel(); // Cancel the timer when the page is disposed
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   //_timer.cancel(); // Cancel the timer when the page is disposed
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,17 +74,18 @@ class _QRPageState extends State<QRPage> {
       body: Column(
         children: [
           // Timer display at the top
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'QR Code expires in $remainingTime seconds',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.red, // You can customize the color here
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(16.0),
+          //   child: Text(
+          //     'QR Code expires in $remainingTime seconds',
+          //     style: TextStyle(
+          //       fontSize: 18,
+          //       fontWeight: FontWeight.bold,
+          //       color: Colors.red, // You can customize the color here
+          //     ),
+          //   ),
+          // ),
+          TimerWideget(),
           // Main content
           Expanded(
             child: Center(
@@ -110,3 +112,7 @@ class _QRPageState extends State<QRPage> {
     );
   }
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//stateful timer widget

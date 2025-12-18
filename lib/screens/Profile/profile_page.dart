@@ -111,8 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         builder: (_) => const OldPromotionsPage()),
                   );
                 }),
-                buildMenuItem("Promotions Analysis", Icons.analytics_outlined,
-                    () {
+                buildMenuItem("Promotions Analysis", Icons.analytics_outlined,() {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const PromoAnalysis()),

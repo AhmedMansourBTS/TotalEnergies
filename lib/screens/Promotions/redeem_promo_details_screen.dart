@@ -22,12 +22,11 @@ class RedeemPromoDetailsScreen extends StatefulWidget {
   const RedeemPromoDetailsScreen({super.key, required this.promotion});
 
   @override
-  State<RedeemPromoDetailsScreen> createState() =>
-      _RedeemPromoDetailsScreenState();
+  State<RedeemPromoDetailsScreen> createState() => _RedeemPromoDetailsScreenState();
 }
 
 class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
-  int custserial = 0;
+  int custSerial = 0;
   StationModel? selectedStation;
   String? selectedStationAddressUrl;
 
@@ -115,7 +114,7 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
           .compareTo(b.distance ?? double.infinity));
 
       setState(() {
-        custserial = userSerial;
+        custSerial = userSerial;
         nearbyStations = filtered;
         filteredStations = filtered;
         isLoadingStations = false;
@@ -858,7 +857,7 @@ class _RedeemPromoDetailsScreenState extends State<RedeemPromoDetailsScreen> {
                               const allowedRange = 20000; // meters
                               if (distanceInMeters <= allowedRange) {
                                 Get.to(() => QRPage(
-                                    customerId: custserial,
+                                    customerId: custSerial,
                                     eventId: widget.promotion.serial));
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(

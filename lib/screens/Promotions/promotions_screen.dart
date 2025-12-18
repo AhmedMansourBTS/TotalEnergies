@@ -4,12 +4,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:total_energies/core/constant/colors.dart';
 import 'package:total_energies/screens/Profile/account_info_page.dart';
 import 'package:total_energies/screens/Promotions/all_promo_page.dart';
-import 'package:total_energies/screens/Promotions/all_promotions_page.dart';
+//import 'package:total_energies/screens/Promotions/all_promotions_page.dart';
 import 'package:total_energies/screens/Promotions/available_promo_page.dart';
 import 'package:total_energies/screens/Promotions/categories_page.dart';
 import 'package:total_energies/screens/Promotions/consumed_promo_page.dart';
 import 'package:total_energies/screens/Promotions/current_promotions_page.dart';
-import 'package:total_energies/screens/Promotions/old_promotions_page.dart';
+//import 'package:total_energies/screens/Promotions/old_promotions_page.dart';
 import 'package:total_energies/widgets/global/app_bar_logos.dart';
 
 class PromotionsScreen extends StatefulWidget {

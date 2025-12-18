@@ -217,7 +217,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => CategoryDetailsPage(
+                          builder: (context) => CategoryDetailsPage(
                             categoryId: category.categoryId,
                             categoryTitle: category.categoryLatName,
                           ),
