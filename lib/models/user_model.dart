@@ -8,7 +8,7 @@ class UserModel {
   final String gender;
   final int cityCode;
   final int carModelYear;
-  final String password;
+  String? password;
 
   UserModel({
     this.serial,
@@ -52,5 +52,22 @@ class UserModel {
       'carModelYear': carModelYear,
       'password': password,
     };
+  }
+
+  factory UserModel.from(UserModel user) {
+    return UserModel(
+        name: user.name,
+        phoneNumber: user.phoneNumber,
+        email: user.email,
+        birthDate: user.birthDate,
+        carModel: user.carModel,
+        gender: user.gender,
+        cityCode: user.cityCode,
+        carModelYear: user.carModelYear,
+        password: user.password);
+  }
+
+  void setPass(String pass){
+    this.password = pass;
   }
 }

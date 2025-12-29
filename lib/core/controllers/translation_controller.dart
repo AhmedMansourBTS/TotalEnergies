@@ -51,6 +51,8 @@ class TranslationController extends Translations {
               'I agree to send and store my data with Total Energies Marketing Egypt to receive messages and offers by e-mail, SMS, and commercial phone calls for promotions that fit my profile',
           // Register Page Verifications
           'register_page.empty_verification': 'This Field required',
+          'register_page.unmatched_conf_pass':
+              'Password Confirmaction doesn\'t match',
           'register_page.terms_verification':
               'You must agree to the terms to register.',
           'register_page.success_verification': 'Registration successful',
@@ -81,6 +83,7 @@ class TranslationController extends Translations {
           'btn.login_page_reg_btn': 'Register Now',
           'btn.forget_btn': 'Forget Password ?',
           'btn.forget_page_forget_btn': 'Send OTP',
+          'btn.submit_otp_btn': 'Verify OTP',
           'btn.promotions_det_pag_redeem': 'Redeem Promotion',
           'btn.profile_page_history_btn': 'Previous Promotions',
           // Profile page
@@ -167,6 +170,8 @@ class TranslationController extends Translations {
               'انا أوافق على إرسال  بياناتي وتخزينها عند شركة توتال إنرجيز للتسويق إيجيبت لتلقي رسائل وعروض عن طريق البريد الإلكتروني و الرسائل القصيرة والاتصالات التجارية التي تناسب ملف التعريف الخاص بي',
           // verifications
           'register_page.empty_verification': 'هذا الحقل مطلوب',
+          'register_page.unmatched_conf_pass': 'كلمة المرور غير متطابقة',
+
           'register_page.terms_verification':
               'يجب عليك الموافقة على شروط التسجيل.',
           'register_page.success_verification': 'تم التسجيل بنجاح',
@@ -197,6 +202,7 @@ class TranslationController extends Translations {
           'btn.login_page_reg_btn': 'تسجيل دخول',
           'btn.forget_btn': 'نسيت كلمة المرور ؟',
           'btn.forget_page_forget_btn': 'ارسال OTP',
+          'btn.submit_otp_btn': 'تحقق من رمز OTP',
           'btn.promotions_det_pag_redeem': 'تفعيل العرض',
           'btn.profile_page_history_btn': 'العروض السابقة',
           // Profile page

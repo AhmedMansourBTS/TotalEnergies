@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "467778835730",
+    "project_id": "total-bts",
+    "storage_bucket": "total-bts.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467778835730:android:ae212e8379550e3c37cfcb",
+        "android_client_info": {
+          "package_name": "com.example.total_energies"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbilVUqhwRnN5t73XcmCtL5i8M-eTTJpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
